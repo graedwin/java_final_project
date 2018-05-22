@@ -1,0 +1,17 @@
+*{
+  text-align: center;
+}
+
+span{
+	color:red;
+}
+
+header > * {
+	display: inline-block;
+	margin: auto 10%;
+	
+}
+
+table{
+	margin: auto auto;
+}
