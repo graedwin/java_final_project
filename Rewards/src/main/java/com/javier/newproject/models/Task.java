@@ -18,6 +18,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="tasks")
 public class Task {
@@ -29,7 +31,6 @@ public class Task {
 	@NotEmpty
 	private String name;
 	
-	@NotEmpty
 	private String status;
 	
 	@Min(0)
@@ -45,6 +46,7 @@ public class Task {
 	private int worth;
 	
 	@Future
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dueDate;
 	
 	@Column(updatable=false)
@@ -55,10 +57,9 @@ public class Task {
 	public Task() {
 	}
 
-	public Task(String name, String status, int rating, String description, int worth, Date dueDate) {
+	public Task(String name, String status, String description, int worth, Date dueDate) {
 		this.name = name;
 		this.status = status;
-		this.rating = rating;
 		this.description = description;
 		this.worth = worth;
 		this.dueDate = dueDate;

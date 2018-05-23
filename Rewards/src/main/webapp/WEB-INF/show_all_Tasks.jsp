@@ -44,8 +44,8 @@
         Tasks
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Add</a>
-        <a class="dropdown-item" href="#">Available Tasks</a>
+        <a class="dropdown-item" href="/tasks/add">Add</a>
+        <a class="dropdown-item" href="/tasks">Available Tasks</a>
       </div>
     </li>
   
@@ -85,15 +85,21 @@
 			        <tr>
 			          <th>Name</th>
 			          <th>Description</th>
+			          <th>Worth</th>
+			          <th>Status</th>
 			          <th>Show</th>
 			        </tr>
 			      </thead>
 			      <tbody>
-			        <tr>
-			          <td>name of the project goes here</td>
-			          <td>description of the project goes here</td>
-			          <td>Show button goes here</td>
-			        </tr>
+					<c:forEach items="${ tasks }" var="task">
+						<tr>
+						<td>${ task.name }</td>
+						<td>${ task.description }</td>
+						<td>${ task.worth }</td>
+						<td>${ task.status }</td>
+						<td><a href="/tasks/${task.id}/show"><button>View Task</button></a></td>
+						</tr>
+					</c:forEach>
 			      </tbody>
 				</table>
 			</div>
