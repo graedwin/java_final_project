@@ -57,35 +57,19 @@
     <li class="nav-item">
       <a class="nav-link" href="#">Cart</a>
     </li>
+    <li class="nav-item">
+	  <a class="nav-link" href="#">Add Product</a>
+	</li>
   </ul>
 </nav>
 <!-- END OF NAVIGATION BAR -->
 <!-- BODY -->
 <div class="row">
-	<div class="col-sm-3">
-		<div class="container">
-		  <h2>Filters</h2>
-		  <ul class="nav flex-column">
-		    <li class="nav-item">
-		      <a class="nav-link" href="#">Order A to Z</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link" href="#">Order Z to A</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link" href="#">Points Ascending Order</a>
-		    </li>
-   		    <li class="nav-item">
-		      <a class="nav-link" href="#">Points Descending Order</a>
-		    </li>
-		  </ul>
-		</div>
-	</div>
   	<div class="container-fluid">
 		<form:form action="#" method="post" modelAttribute="new_Product">
 			<div class="form-group">
 			  	<form:label for="name">name</form:label>
-			  	<form:input type="email" path="name" class="form-control" id="email"/>
+			  	<form:input type="text" path="name" class="form-control" id="name"/>
 			  	<form:errors path="name"/>
 			</div>
 			<div class="form-group">
@@ -112,8 +96,9 @@
 			  	<br>
 			</div>
 			<div class="form-group">
-			 	<label for="pwd">Password:</label>
-				<input type="password" class="form-control" id="pwd">
+			  	<form:label for="image">image</form:label>
+			  	<form:input type="text" path="image" class="form-control" id="image"/>
+			  	<br>
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form:form>
