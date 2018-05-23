@@ -16,7 +16,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<title>Add a Product</title>
+<title>Add a Task</title>
 </head>
 <body>
 <!-- NAVIGATION BAR -->
@@ -45,8 +45,8 @@
         Tasks
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Add</a>
-        <a class="dropdown-item" href="#">Available Tasks</a>
+        <a class="dropdown-item" href="/tasks/add">Add</a>
+        <a class="dropdown-item" href="/tasks">Available Tasks</a>
       </div>
     </li>
   
@@ -66,43 +66,31 @@
 <!-- BODY -->
 <div class="row">
   	<div class="container-fluid">
-		<form:form action="#" method="post" modelAttribute="new_Task">
+		<form:form action="/tasks/add" method="post" modelAttribute="new_Task">
 			<div class="form-group">
-			  	<form:label for="name">name</form:label>
+			  	<form:label path="name">name</form:label>
 			  	<form:input type="text" path="name" class="form-control" id="email"/>
 			  	<form:errors path="name"/>
 			</div>
 			<div class="form-group">
-			  	<form:label for="status">status</form:label>
-			  	<form:input type="text" path="status" class="form-control" id="status"/>
-			  	<form:errors path="price"/>
-			  	<br>
-			</div>
-			<div class="form-group">
-			  	<form:label for="rating">rating</form:label>
-			  	<form:input type="number" path="rating" class="form-control" id="rating"/>
-			  	<form:errors path="stock"/>
-			  	<br>
-			</div>
-			<div class="form-group">
-			  	<form:label for="description">description</form:label>
-			  	<form:input type="text" path="description" class="form-control" id="description"/>
+			  	<form:label path="description">description</form:label>
+				<form:textarea rows="7" cols="70" type="text" path="description" class="form-control" id="description"/>
 			  	<form:errors path="description"/>
 			  	<br>
 			</div>
 			<div class="form-group">
-			  	<form:label for="image">image</form:label>
+			  	<form:label path="image">image</form:label>
 			  	<form:input type="text" path="image" class="form-control" id="image"/>
 			  	<br>
 			</div>
 			<div class="form-group">
-			 	<form:label for="worth">worth:</form:label>
-				<form:input type="number" class="form-control" id="worth"/>
+			 	<form:label path="worth">worth:</form:label>
+				<form:input path="worth" type="number" class="form-control" id="worth"/>
 			  	<form:errors path="worth"/>				
 			</div>
 			<div class="form-group">
-			 	<form:label for="dueDate">dueDate:</form:label>
-				<form:input type="date" class="form-control" id="dueDate"/>
+			 	<form:label path="dueDate">dueDate:</form:label>
+				<form:input path="dueDate" type="date" class="form-control" id="dueDate"/>
 			  	<form:errors path="dueDate"/>				
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
