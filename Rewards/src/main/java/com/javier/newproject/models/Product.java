@@ -31,9 +31,9 @@ public class Product {
 	private String name;
 	
 	@Min(0)
-	private double price;
+	private int price;
 	
-	@Min(0)
+	@Min(1)
 	private int stock;
 	
 	@NotEmpty
@@ -49,7 +49,7 @@ public class Product {
     public Product () {
     }
 
-	public Product(String name, double price, int stock, String description) {
+	public Product(String name, int price, int stock, String description) {
 		this.name = name;
 		this.price = price;
 		this.stock = stock;
@@ -96,11 +96,11 @@ public class Product {
 		this.name = name;
 	}
 
-	public double getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 

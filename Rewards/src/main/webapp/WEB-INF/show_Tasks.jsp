@@ -56,6 +56,9 @@
     <li class="nav-item">
       <a class="nav-link" href="#">Cart</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/product/add">Add Product</a>
+    </li>
   </ul>
 </nav>
 <div class="row">

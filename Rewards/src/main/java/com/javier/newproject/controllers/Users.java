@@ -86,7 +86,7 @@ public class Users {
     public String home(Principal principal, Model model) {
         String email = principal.getName();
         model.addAttribute("currentUser", userService.findByUsername(email));
-        return "show_Product.jsp";
+        return "redirect:/products";
     }
     
 }
