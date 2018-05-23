@@ -1,5 +1,11 @@
 package com.javier.newproject.validators;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -24,7 +30,7 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object object, Errors errors) {
         User user = (User) object;
-        
+       
         if (!user.getPasswordConfirmation().equals(user.getPassword())) {
             // 3
             errors.rejectValue("passwordConfirmation", "Match");

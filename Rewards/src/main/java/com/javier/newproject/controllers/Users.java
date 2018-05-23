@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javier.newproject.models.User;
+import com.javier.newproject.services.TaskService;
 import com.javier.newproject.services.UserService;
 import com.javier.newproject.validators.UserValidator;
 
@@ -24,11 +25,13 @@ import com.javier.newproject.validators.UserValidator;
 @Controller
 public class Users {
     private UserService userService;
+    private TaskService taskService;
     private UserValidator userValidator;
 
-    public Users(UserService userService, UserValidator userValidator) {
+    public Users(UserService userService, UserValidator userValidator, TaskService taskService) {
         this.userService = userService;
         this.userValidator = userValidator;
+        this.taskService=taskService;
     }
     
     @PostMapping("/registration")
@@ -79,6 +82,7 @@ public class Users {
         if(logout != null) {
             model.addAttribute("logoutMessage", "Logout Successful!");
         }
+        
         return "login.jsp";
     }
     
@@ -86,7 +90,8 @@ public class Users {
     public String home(Principal principal, Model model) {
         String email = principal.getName();
         model.addAttribute("currentUser", userService.findByUsername(email));
-        return "show_Product.jsp";
+        model.addAttribute("tasks", taskService.findAll());
+        return "dashboard.jsp";
     }
     
 }
