@@ -53,6 +53,22 @@
   </ul>
 </nav>
 <!-- END OF NAVIGATION BAR -->
-	<p>${ task.name }</p>
+<!-- BODY -->
+<table>
+  <tbody>
+    <tr>
+      <td colspan="2"><h3>Description</h3></td>
+    </tr>
+    <tr>
+      <td colspan="2">${ task.description }</td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td>
+        <c:
+      </td>
+    </tr>
+  </tbody>
+</table>
 </body>
 </html>
