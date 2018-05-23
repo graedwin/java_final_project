@@ -29,7 +29,7 @@ public class UserValidator implements Validator {
             // 3
             errors.rejectValue("passwordConfirmation", "Match");
         }
-        User user2 = userRepo.findByEmail(user.getEmail());
+        User user2 = userRepo.findByLogin(user.getLogin());
         if (user2 != null) {
         	errors.rejectValue("email", "Unique");
         }

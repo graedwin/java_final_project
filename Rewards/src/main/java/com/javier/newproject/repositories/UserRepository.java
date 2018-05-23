@@ -10,6 +10,6 @@ import com.javier.newproject.models.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 	
-	User findByEmail(String email);
-	User findOneByEmail(String username);
+	User findByLogin(String login);
+	User findOneByLogin(String login);
 }

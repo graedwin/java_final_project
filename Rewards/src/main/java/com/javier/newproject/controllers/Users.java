@@ -44,7 +44,7 @@ public class Users {
         	userService.saveWithUserRole(user);
         	}
         try {
-			request.login(user.getEmail(), user.getPasswordConfirmation());
+			request.login(user.getLogin(), user.getPasswordConfirmation());
 		} catch (ServletException e) {
 			return "redirect:/login"; 
 		}

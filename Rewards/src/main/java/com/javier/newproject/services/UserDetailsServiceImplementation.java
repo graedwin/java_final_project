@@ -24,15 +24,14 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
     }
     // 1
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username);
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        User user = userRepository.findByLogin(login);
         
         if(user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-    	user.setLastSignIn(new Date());
     	userRepository.save(user);
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthorities(user));
+        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), getAuthorities(user));
     }
     
     // 2

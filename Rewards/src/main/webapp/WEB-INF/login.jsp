@@ -27,11 +27,8 @@
 	
 	<h1>Registration</h1>
 	<form:form action="/registration" method="post" modelAttribute="new_user">
-		Name:<form:input type="text" path="name"/>
-		 <form:errors path="name"/>
-		<br>
-		Email:<form:input type="text" path="email"/>
-		 <form:errors path="email"/>
+		Login:<form:input type="text" path="login"/>
+		 <form:errors path="login"/>
 		<br>
 		Password:<form:password path="password"/>
 		 <form:errors path="password"/>.

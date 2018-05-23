@@ -66,11 +66,11 @@ public class Task {
 	
 //	Relations
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="user_id_resolver")
 	private User taskResolver;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="user_id_creator")
 	private User taskCreator;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -16,9 +16,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<title>Display of the Products</title>
+<title>Add a Product</title>
 </head>
 <body>
+<!-- NAVIGATION BAR -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <!-- Brand -->
   <a class="navbar-brand" href="/">Trading Hub</a>
@@ -44,7 +45,7 @@
         Tasks
       </a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="/product/add">Add</a>
+        <a class="dropdown-item" href="#">Add</a>
         <a class="dropdown-item" href="#">Available Tasks</a>
       </div>
     </li>
@@ -58,6 +59,8 @@
     </li>
   </ul>
 </nav>
+<!-- END OF NAVIGATION BAR -->
+<!-- BODY -->
 <div class="row">
 	<div class="col-sm-3">
 		<div class="container">
@@ -78,31 +81,42 @@
 		  </ul>
 		</div>
 	</div>
-  	<div class="col-sm-9">
-		<div class="container table-tasks">
-		<h2>Products Available</h2>
-		<br>
-			<div class="table-responsive">
-				<table class="table">
-			    	<thead>
-			        	<tr>
-			          		<th>Name</th>
-			          		<th>Description</th>
-			          		<th>Points</th>
-			          		<th>In Stock</th>
-			        	</tr>
-			      	</thead>
-			      	<tbody>
-						<tr>
-			          		<td>name of the project goes here</td>
-			          		<td>description of the project goes here</td>
-			          		<td>Price of the product</td>
-			          		<td>Amount of products in stock</td>
-			        	</tr>
-			      	</tbody>
-				</table>
+  	<div class="container-fluid">
+		<form:form action="#" method="post" modelAttribute="new_Product">
+			<div class="form-group">
+			  	<form:label for="name">name</form:label>
+			  	<form:input type="email" path="name" class="form-control" id="email"/>
+			  	<form:errors path="name"/>
 			</div>
-		  </div>	
+			<div class="form-group">
+			  	<form:label for="price">price</form:label>
+			  	<form:input type="number" path="price" class="form-control" id="price"/>
+			  	<form:errors path="price"/>
+			  	<br>
+			</div>
+			<div class="form-group">
+			  	<form:label for="stock">stock</form:label>
+			  	<form:input type="number" path="stock" class="form-control" id="stock"/>
+			  	<form:errors path="stock"/>
+			  	<br>
+			</div>
+			<div class="form-group">
+			  	<form:label for="description">description</form:label>
+			  	<form:input type="text" path="description" class="form-control" id="description"/>
+			  	<form:errors path="description"/>
+			  	<br>
+			</div>
+			<div class="form-group">
+			  	<form:label for="image">image</form:label>
+			  	<form:input type="text" path="image" class="form-control" id="image"/>
+			  	<br>
+			</div>
+			<div class="form-group">
+			 	<label for="pwd">Password:</label>
+				<input type="password" class="form-control" id="pwd">
+			</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form:form>
 	</div>
 </div>
 </body>
