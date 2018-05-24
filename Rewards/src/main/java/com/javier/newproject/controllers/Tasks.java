@@ -17,15 +17,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;
-=======
->>>>>>> 89b7c6807107b44844b64ed6942f88dcd9b066c8
+
 
 import com.javier.newproject.models.Task;
 import com.javier.newproject.services.RewardService;

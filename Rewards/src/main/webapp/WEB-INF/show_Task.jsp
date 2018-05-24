@@ -63,6 +63,7 @@
 <!-- END OF NAVIGATION BAR -->
 	<p>${ task.name }</p>
   <p> <a href="/file/download/${task.image }"> ${task.image } </a>  </p>
+  <img alt="" src="/taskImages/${task.image}">
   
 <!-- BODY -->
 <img src="http://via.placeholder.com/350x150">
