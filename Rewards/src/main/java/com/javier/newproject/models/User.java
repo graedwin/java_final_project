@@ -35,6 +35,7 @@ public class User {
     private String lastName;
     private int level;
     private String image;
+    private int points;
     
     @Size(min=8)
     private String password;
@@ -141,6 +142,14 @@ public class User {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 
 	public String getImage() {

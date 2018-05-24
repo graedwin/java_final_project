@@ -33,14 +33,28 @@
 	    		</form>
 			</div>
 		</li>
+		<c:choose>
+   			<c:when test = "${currentUser.level == 3}">
+				<li class="nav-item">
+	      		<a class="nav-link" href="/tasks">Tasks</a>
+	      		</li>
+			</c:when>
+			<c:otherwise>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+	        		Tasks
+	      			</a>
+	      			<div class="dropdown-menu">
+	        			<a class="dropdown-item" href="#">Create a new Task</a>
+	    				<a class="dropdown-item" href="#">Available Tasks</a>
+	      			</div>	
+      			</li>
+			</c:otherwise>
+   		</c:choose>
+   		<li class="nav-item">
+      		<a class="nav-link" href="/products">Products</a>
+    	</li>
     	<li class="nav-item dropdown">
-      		<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        		Tasks
-      		</a>
-      		<div class="dropdown-menu">
-        		<a class="dropdown-item" href="/tasks/add">Add</a>
-    			<a class="dropdown-item" href="/tasks">Available Tasks</a>
-      		</div>
       	<c:choose>
    			<c:when test = "${currentUser.level<3}">
    				<li class="nav-item">
@@ -49,13 +63,6 @@
 			</c:when>
    		</c:choose>
    		</li>
-  		<!-- Links -->
-   		<li class="nav-item">
-      		<a class="nav-link" href="#">Shop</a>
-    	</li>
-    	<li class="nav-item">
-      		<a class="nav-link" href="#">Cart</a>
-    	</li>
   	</ul>
 </nav>
 <!-- END OF NAV -->

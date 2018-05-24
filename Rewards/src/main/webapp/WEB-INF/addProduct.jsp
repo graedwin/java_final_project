@@ -33,14 +33,28 @@
 	    		</form>
 			</div>
 		</li>
+		<c:choose>
+   			<c:when test = "${currentUser.level == 3}">
+				<li class="nav-item">
+	      		<a class="nav-link" href="/tasks">Tasks</a>
+	      		</li>
+			</c:when>
+			<c:otherwise>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+	        		Tasks
+	      			</a>
+	      			<div class="dropdown-menu">
+	        			<a class="dropdown-item" href="#">Create a new Task</a>
+	    				<a class="dropdown-item" href="#">Available Tasks</a>
+	      			</div>	
+      			</li>
+			</c:otherwise>
+   		</c:choose>
+   		<li class="nav-item">
+      		<a class="nav-link" href="/products">Products</a>
+    	</li>
     	<li class="nav-item dropdown">
-      		<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        		Tasks
-      		</a>
-      		<div class="dropdown-menu">
-        		<a class="dropdown-item" href="#">Add</a>
-    			<a class="dropdown-item" href="#">Available Tasks</a>
-      		</div>
       	<c:choose>
    			<c:when test = "${currentUser.level<3}">
    				<li class="nav-item">
@@ -49,13 +63,6 @@
 			</c:when>
    		</c:choose>
    		</li>
-  		<!-- Links -->
-   		<li class="nav-item">
-      		<a class="nav-link" href="#">Shop</a>
-    	</li>
-    	<li class="nav-item">
-      		<a class="nav-link" href="#">Cart</a>
-    	</li>
   	</ul>
 </nav>
 <!-- END OF NAV -->
@@ -64,7 +71,7 @@
 	<div class="row justify-content-md-center">
   		<div class="col-3">
   			<h3 style="padding-top: 30px;">Add a new product</h3>
-			<form:form action="#" method="post" modelAttribute="new_Product">
+			<form:form action="#" method="post" modelAttribute="new_Product" enctype="multipart/form-data">
 				<div class="form-group">
 				  	<form:label path="name" >Name</form:label>
 				  	<form:input type="text" path="name" class="form-control" id="name"/>
@@ -89,8 +96,8 @@
 				  	<br>
 				</div>
 				<div class="form-group">
-				  	<form:label path="image">Image</form:label>
-				  	<form:input type="text" path="image" class="form-control" id="image"/>
+				  	<label>Image</label>
+				  	<input type="file" name="file" class="form-control"/>
 				  	<br>
 				</div>
 				<button type="submit" class="btn btn-primary">Submit</button>
