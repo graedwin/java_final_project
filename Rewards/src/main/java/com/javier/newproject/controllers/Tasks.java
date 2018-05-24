@@ -1,13 +1,21 @@
 package com.javier.newproject.controllers;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import com.javier.newproject.models.Task;
 import com.javier.newproject.services.RewardService;
 import com.javier.newproject.services.TaskService;
@@ -34,6 +39,7 @@ public class Tasks {
 	@Autowired
 	private TaskService taskService;
 	private UserService userService;
+	
 	List<String> files = new ArrayList<String>();
 	private RewardService rewardService;
 	
@@ -41,12 +47,22 @@ public class Tasks {
 		this.taskService = taskService;
 		this.userService = userService;
 		this.rewardService = rewardService;
+		
 	}
 	
 	@RequestMapping ("/tasks")
 	public String showTasks (Model model, Principal principal) {
 		model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
 		model.addAttribute("tasks", taskService.findAll());
+		return "redirect:/tasks/pages/1";
+	}
+
+	@RequestMapping("/tasks/pages/{id}")
+	public String tasksPages(Principal principal, Model model, @PathVariable(name="id") int pageNumber) {
+		model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
+        Page<Task> tasks = taskService.tasksPerPage(pageNumber-1);
+        model.addAttribute("totalPages", tasks.getTotalPages());
+        model.addAttribute("tasks", tasks);
 		return "show_all_Tasks.jsp";
 	}
 	
@@ -58,7 +74,7 @@ public class Tasks {
 	
 	@PostMapping ("/tasks/add")
 	public String createTasks (@Valid @ModelAttribute ("new_Task") Task task, BindingResult result, Principal principal,
-			@RequestParam("file") MultipartFile file, @RequestParam("rewardId") Long rewardId, Model model) {
+			@RequestParam("file") MultipartFile file, @RequestParam("taskReward") Long rewardId, Model model) {
 		if(result.hasErrors()) {
 			return "add_Task.jsp";
 		} else {
@@ -121,5 +137,14 @@ public class Tasks {
 		} else {
 			return "redirect:/tasks";
 		}
+	}
+	
+	@RequestMapping("/dashboard/pages/{id}")
+	public String dashboard(Principal principal, Model model, @PathVariable(name="id") int pageNumber) {
+		model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
+        Page<Task> tasks = taskService.tasksPerPage(pageNumber-1);
+        model.addAttribute("totalPages", tasks.getTotalPages());
+        model.addAttribute("tasks", tasks);
+		return "dashboard.jsp";
 	}
 }

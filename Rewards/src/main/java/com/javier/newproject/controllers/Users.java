@@ -1,12 +1,14 @@
 package com.javier.newproject.controllers;
 
 import java.security.Principal;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.javier.newproject.models.Task;
 import com.javier.newproject.models.User;
 import com.javier.newproject.services.TaskService;
 import com.javier.newproject.services.UserService;
@@ -87,11 +90,9 @@ public class Users {
     }
     
     @RequestMapping(value = {"/", "/home"})
-    public String home(Principal principal, Model model) {
-        String email = principal.getName();
-        model.addAttribute("currentUser", userService.findByUsername(email));
-        model.addAttribute("tasks", taskService.findAll());
-        return "dashboard.jsp";
+    public String home() {
+        return "redirect:/dashboard/pages/1";
+        
     }
     
 }

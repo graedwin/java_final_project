@@ -52,6 +52,7 @@
     </li>
   </ul>
 </nav>
+<br>
 <div class="row">
 	<div class="col-sm-3">
 		<div class="container">
@@ -69,10 +70,17 @@
 		  </ul>
 		</div>
 	</div>
+	
   	<div class="col-sm-9">
   		<div class="container table-tasks">
-		<h2>Tasks Available</h2>
-		<br>
+		<h2 style="display:inline-block">Tasks Available</h2>
+		<nav aria-label="Page navigation example" style="float:right;">
+		  <ul class="pagination">
+			<c:forEach var="i" begin="1" end="${totalPages }">
+           		<li class="page-item"><a class="page-link" href="/tasks/pages/${ i }"> ${ i } </a></li>
+        		</c:forEach>
+		  </ul>
+		</nav>
 			<div class="table-responsive">
 			    <table class="table">
 			      <thead>
@@ -85,11 +93,11 @@
 			        </tr>
 			      </thead>
 			      <tbody>
-					<c:forEach items="${ tasks }" var="task">
+					<c:forEach items="${ tasks.content }" var="task">
 						<tr>
 						<td>${ task.name }</td>
 						<td>${ task.description }</td>
-						<td>${ task.worth }</td>
+						<td>${ task.taskReward.points }</td>
 						<td>${ task.status }</td>
 						<td><a href="/tasks/${task.id}/show"><button>View Task</button></a></td>
 						</tr>
