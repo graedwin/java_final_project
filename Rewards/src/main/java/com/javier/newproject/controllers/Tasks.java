@@ -23,7 +23,6 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import com.javier.newproject.models.Task;
 import com.javier.newproject.services.RewardService;
 import com.javier.newproject.services.TaskService;
