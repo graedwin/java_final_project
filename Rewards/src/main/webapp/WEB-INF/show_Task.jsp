@@ -54,6 +54,24 @@
 </nav>
 <!-- END OF NAVIGATION BAR -->
 	<p>${ task.name }</p>
-	<p> <a href="/file/download/${task.image }"> ${task.image } </a>  </p>
+  <p> <a href="/file/download/${task.image }"> ${task.image } </a>  </p>
+  
+<!-- BODY -->
+<table>
+  <tbody>
+    <tr>
+      <td colspan="2"><h3>Description</h3></td>
+    </tr>
+    <tr>
+      <td colspan="2">${ task.description }</td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td>
+        
+      </td>
+    </tr>
+  </tbody>
+</table>
 </body>
 </html>

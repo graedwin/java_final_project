@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %> 
-        
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,8 +10,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>            
-<title>Show your Product</title>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>    
+<title>Display of the Products</title>
 </head>
 <body>
 <!-- NAV -->
@@ -61,35 +60,54 @@
 </nav>
 <!-- END OF NAV -->
 <!-- BODY -->
-	<div class="container-fluid">
-		<div class="row justify-content-md-center">
-	  		<div class="col-3 text-center">
-	  			<h1 style="padding-top: 30px;"><c:out value = '${ product.name }'/></h1>
-	  			<c:choose>
-		   			<c:when test = "${currentUser.level<3}">
-		   				<div class="dropdown">
-						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    Admin Options
-						  </button>
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						    <a class="dropdown-item" href="/products/<c:out value = '${ product.id }'/>/edit">Edit</a>
-						    <a class="dropdown-item" href="/products/<c:out value = '${ product.id }'/>/delete">Delete</a>
-						  </div>
-						</div>
-						<br>
-					</c:when>
-		   		</c:choose>
-				<h5>Description:</h5>
-				<p><c:out value = '${ product.description }'/></p>
-				<h5>Price:</h5>
-				<p><c:out value = '${ product.price }'/></p>
-				<h5>Stock:</h5>
-				<p><c:out value = '${ product.stock }'/></p>
-				<h5>Image:</h5>
-				<p><c:out value = '${ product.image }'/></p>
-				<a><button>Purchase</button></a>
-			</div>
+<div class="row">
+	<div class="col-sm-3">
+		<div class="container text-center">
+		<br>
+			<h2>Filters</h2>
+		  	<ul class="nav flex-column">
+		    	<li class="nav-item">
+		      		<a class="nav-link" href="#">Order A to Z</a>
+		    	</li>
+		    	<li class="nav-item">
+		      		<a class="nav-link" href="#">Order Z to A</a>
+		    	</li>
+		    	<li class="nav-item">
+		      		<a class="nav-link" href="#">Points Ascending Order</a>
+		    	</li>
+ 		    	<li class="nav-item">
+		      		<a class="nav-link" href="#">Points Descending Order</a>
+		    	</li>
+		  	</ul>
 		</div>
 	</div>
+  	<div class="col-sm-9">
+		<div class="container float-left text-center">
+		<br>
+		<h2>Products Available</h2>
+		<br>
+			<div class="table-responsive">
+				<table class="table">
+			    	<thead>
+			        	<tr>
+			          		<th>Name</th>
+			          		<th>Points</th>
+			          		<th>In Stock</th>
+			        	</tr>
+			      	</thead>
+			      	<tbody>
+			      		<c:forEach items = "${ all_Products }" var = "product">
+						<tr onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');">
+			          		<td>${ product.name }</td>
+			          		<td>${ product.price }</td>
+			          		<td>${ product.stock }</td>
+			        	</tr>
+			        	</c:forEach>
+			      	</tbody>
+				</table>
+			</div>
+		  </div>	
+	</div>
+</div>
 </body>
 </html>

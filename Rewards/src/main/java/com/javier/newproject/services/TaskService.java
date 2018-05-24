@@ -44,7 +44,7 @@ public class TaskService {
 	}
 
 	public void cancelTask(Task task) {
-		taskRepository.delete(task);
+		taskRepository.delete(task);		
 	}
 	
 	//Helps to storage images
