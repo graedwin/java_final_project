@@ -6,6 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -54,8 +58,28 @@
 </nav>
 <!-- END OF NAVIGATION BAR -->
 <!-- BODY -->
+<img src="http://via.placeholder.com/350x150">
 <table>
-  <tbody>
+    <tbody>
+    <tr>
+      <c:choose>
+        <c:when test="${(user.roles[0].id < 3) or (task.taskCreator == currentUser)}">
+          <td><h3>${ task.name }</h3></td>
+          <td>
+              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                  Admin Tools
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="/tasks/${task.id}/edit">Edit</a>
+                  <a class="dropdown-item" href="/tasks/${task.id}/cancel">Cancel</a>
+                </div>
+          </td>
+        </c:when>
+        <c:otherwise>
+          <td colspan="2"><h1>${task.name}</h1></td>
+        </c:otherwise>
+      </c:choose>
+    </tr>
     <tr>
       <td colspan="2"><h3>Description</h3></td>
     </tr>
@@ -64,9 +88,11 @@
     </tr>
     <tr>
       <td>Status</td>
-      <td>
-        <c:
-      </td>
+      <td>${ task.status }</td>
+    </tr>
+    <tr>
+      <td>Worth</td>
+      <td>${ task.worth }</td>
     </tr>
   </tbody>
 </table>

@@ -6,13 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap-grid.css">
-<link rel="stylesheet" href="css/bootstrap-grid.min.css">
-<link rel="stylesheet" href="css/bootstrap-reboot.css">
-<link rel="stylesheet" href="css/bootstrap-reboot.min.css">
-<link rel="stylesheet" href="css/Modify.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
@@ -68,28 +62,32 @@
   	<div class="container-fluid">
 		<form:form action="/tasks/add" method="post" modelAttribute="new_Task">
 			<div class="form-group">
-			  	<form:label path="name">name</form:label>
+			  	<form:label path="name">Name</form:label>
 			  	<form:input type="text" path="name" class="form-control" id="email"/>
 			  	<form:errors path="name"/>
 			</div>
 			<div class="form-group">
-			  	<form:label path="description">description</form:label>
+			  	<form:label path="description">Description</form:label>
 				<form:textarea rows="7" cols="70" type="text" path="description" class="form-control" id="description"/>
 			  	<form:errors path="description"/>
 			  	<br>
 			</div>
 			<div class="form-group">
-			  	<form:label path="image">image</form:label>
+			  	<form:label path="image">Image</form:label>
 			  	<form:input type="text" path="image" class="form-control" id="image"/>
 			  	<br>
 			</div>
 			<div class="form-group">
-			 	<form:label path="worth">worth:</form:label>
-				<form:input path="worth" type="number" class="form-control" id="worth"/>
-			  	<form:errors path="worth"/>				
+			 	<form:label path="taskReward">Reward:</form:label>
+				<form:select path="taskReward" class="form-control" id="taskReward">
+          <form:option value="1" label="10 - Easy Task"/>
+          <form:option value="2" label="20 - Medium Task"/>
+          <form:option value="3" label="30 - Hard Task"/>
+        </form:select>
+			  <form:errors path="taskReward"/>				
 			</div>
 			<div class="form-group">
-			 	<form:label path="dueDate">dueDate:</form:label>
+			 	<form:label path="dueDate">Due Date:</form:label>
 				<form:input path="dueDate" type="date" class="form-control" id="dueDate"/>
 			  	<form:errors path="dueDate"/>				
 			</div>

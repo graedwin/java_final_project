@@ -42,9 +42,6 @@ public class Task {
 	
 	private String image;
 	
-	@Min(0)
-	private int worth;
-	
 	@Future
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date dueDate;
@@ -57,11 +54,10 @@ public class Task {
 	public Task() {
 	}
 
-	public Task(String name, String status, String description, int worth, Date dueDate) {
+	public Task(String name, String status, String description, Date dueDate) {
 		this.name = name;
 		this.status = status;
 		this.description = description;
-		this.worth = worth;
 		this.dueDate = dueDate;
 	}
 	
@@ -137,14 +133,6 @@ public class Task {
 
 	public void setImage(String image) {
 		this.image = image;
-	}
-
-	public int getWorth() {
-		return worth;
-	}
-
-	public void setWorth(int worth) {
-		this.worth = worth;
 	}
 
 	public Date getDueDate() {
