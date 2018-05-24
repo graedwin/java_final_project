@@ -6,37 +6,56 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<style type="text/css"><%@include file="css/Style.css" %></style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Welcome</title>
 </head>
 <body>
-	<h1>Login</h1>
-	<c:if test="${logoutMessage != null}">
-        <span><c:out value="${logoutMessage}"></c:out></span>
-    </c:if>
-    <c:if test="${errorMessage != null}">
-        <span><c:out value="${errorMessage}"></c:out></span>
-    </c:if>
-	<form action="/login" method="post">
-		Email: <input type="text" name="username">
-		Password: <input type="password" name="password">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	<div class="wrapper">
+		<h1>Login</h1>
+		<c:if test="${logoutMessage != null}">
+	        <span><c:out value="${logoutMessage}"></c:out></span>
+	    </c:if>
+	    <c:if test="${errorMessage != null}">
+	        <span><c:out value="${errorMessage}"></c:out></span>
+	    </c:if>
+		<form action="/login" method="post" class="form-group">
 		
-		<input type="Submit" value="Login">
-	</form>
-	
-	
-	<h1>Registration</h1>
-	<form:form action="/registration" method="post" modelAttribute="new_user">
-		Login:<form:input type="text" path="login"/>
-		 <form:errors path="login"/>
-		<br>
-		Password:<form:password path="password"/>
-		 <form:errors path="password"/>.
-		<br>
-		Confirm Password:<form:password path="passwordConfirmation"/>
-		 <form:errors path="passwordConfirmation"/>
-		<br>
-		<input type="Submit" value="Register">
-	</form:form>
+			<div class="input-group mb-3">
+			  <input type="text" name="username" class="form-control" placeholder="Login">
+			  <div class="input-group-append">
+			    <span class="input-group-text" id="basic-addon2">@amazon.com</span>
+			  </div>
+			</div>
+			<input type="password" name="password" class="form-control" placeholder="Password">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			
+			<input type="Submit" value="Login" class="btn btn-dark">
+		</form>
+		
+		
+		<h1>Registration</h1>
+		<form:form action="/registration" method="post" modelAttribute="new_user" class="form-group">
+			
+			<form:input type="text" path="firstName" class="form-control" placeholder="First Name"/>
+			 <form:errors path="firstName"/>
+			 <br>
+			 <form:input type="text" path="lastName" class="form-control" placeholder="Last Name"/>
+			 <form:errors path="lastName"/>
+			<br>
+			<form:input type="text" path="login" class="form-control" placeholder="Login"/>
+			 <form:errors path="login"/>
+			<br>
+			<form:password path="password" class="form-control" placeholder="Password"/>
+			 <form:errors path="password"/>
+			<br>
+			<form:password path="passwordConfirmation" class="form-control" placeholder="Confirm Password"/>
+			 <form:errors path="passwordConfirmation"/>
+			<br>
+			<input type="Submit" value="Register" class="btn btn-dark">
+		</form:form>
+	</div>
 </body>
 </html>

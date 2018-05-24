@@ -69,9 +69,9 @@
 
 <!-- BODY -->
 <p> <a href="/tasks/${task.id}/showImage"> <img alt="${task.image}" src="/taskImages/${task.image}" width="300"></a></p>
-<table>
+<table class=""> 
     <tbody>
-    <tr>
+    <tr class="">
       <td><h1>${ task.name }</h1></td>
       <c:choose>
         <c:when test="${(user.roles[0].id < 3) or (task.taskCreator == currentUser)}">
