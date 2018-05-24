@@ -1,5 +1,7 @@
 package com.javier.newproject.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.javier.newproject.models.Reward;
@@ -16,6 +18,10 @@ public class RewardService {
 
 	public Reward findById(Long rewardId) {
 		return rewardRepository.findById(rewardId).get();
+	}
+
+	public List<Reward> findAll() {
+		return rewardRepository.findAll();
 	}
 	
 	

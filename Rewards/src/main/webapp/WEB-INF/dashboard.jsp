@@ -108,15 +108,17 @@
 			      </thead>
 			      <tbody>
 					<c:forEach items="${ tasks.content }" var="task">
-						<tr>
-						<td>${ task.name }</td>
-						<td>${ task.dueDate }</td>
-						<td>${ task.taskReward.points }</td>
-						<td>${ task.status }</td>
-						<td><a href="/tasks/${task.id}/show"><button>View Task</button></a></td>
-						</tr>
+						<c:if test="${task.status == 'Available'}">
+							<tr>
+								<td>${ task.name }</td>
+								<td>${ task.dueDate }</td>
+								<td>${ task.taskReward.points }</td>
+								<td>${ task.status }</td>
+								<td><a href="/tasks/${task.id}/show"><button>View Task</button></a></td>
+							</tr>
+						</c:if>
 					</c:forEach>
-			      </tbody>
+						</tbody>
 				</table>
 			</div>
 		  </div>	
