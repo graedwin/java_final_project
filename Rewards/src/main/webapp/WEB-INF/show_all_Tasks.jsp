@@ -89,7 +89,7 @@
 						<tr>
 						<td>${ task.name }</td>
 						<td>${ task.description }</td>
-						<td>${ task.worth }</td>
+						<td>${ task.taskReward.points }</td>
 						<td>${ task.status }</td>
 						<td><a href="/tasks/${task.id}/show"><button>View Task</button></a></td>
 						</tr>

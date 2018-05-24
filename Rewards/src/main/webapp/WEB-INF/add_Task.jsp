@@ -74,11 +74,6 @@
 			</div>
 			<input type="file" class="form-control" name="file"/>
 			<div class="form-group">
-			  	<form:label path="image">Image</form:label>
-			  	<form:input type="text" path="image" class="form-control" id="image"/>
-			  	<br>
-			</div>
-			<div class="form-group">
 			 	<form:label path="taskReward">Reward:</form:label>
 				<form:select path="taskReward" class="form-control" id="taskReward">
           <form:option value="1" label="10 - Easy Task"/>

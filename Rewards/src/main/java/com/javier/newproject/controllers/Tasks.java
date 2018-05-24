@@ -3,11 +3,12 @@ package com.javier.newproject.controllers;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import com.javier.newproject.models.Task;
+import com.javier.newproject.models.User;
 import com.javier.newproject.services.RewardService;
 import com.javier.newproject.services.TaskService;
 import com.javier.newproject.services.UserService;
@@ -57,8 +56,7 @@ public class Tasks {
 	}
 	
 	@PostMapping ("/tasks/add")
-	public String createTasks (@Valid @ModelAttribute ("new_Task") Task task, BindingResult result, Principal principal,
-			@RequestParam("file") MultipartFile file, @RequestParam("rewardId") Long rewardId, Model model) {
+	public String createTasks (@Valid @ModelAttribute ("new_Task") Task task, BindingResult result, Principal principal, @RequestParam("file") MultipartFile file, @RequestParam("taskReward") Long rewardId, Model model) {
 		if(result.hasErrors()) {
 			return "add_Task.jsp";
 		} else {
@@ -80,6 +78,12 @@ public class Tasks {
 		model.addAttribute("task", taskService.findById(id));
 		System.out.println(taskService.findById(id).getTaskCreator());
 		return "show_Task.jsp";
+	}
+	
+	@RequestMapping ("/tasks/{id}/showImage")
+	public String viewImage (@PathVariable ("id") Long id, Model model) {
+		model.addAttribute("task", taskService.findById(id));
+		return "show_Task_Image.jsp";
 	}
 	
 	@RequestMapping("/file/download/{filename}")
@@ -121,5 +125,26 @@ public class Tasks {
 		} else {
 			return "redirect:/tasks";
 		}
+	}
+	
+	@RequestMapping ("/tasks/{id}/request")
+	public String claimTask (@PathVariable ("id") Long id, Principal principal) {
+		Task task = taskService.findById(id);
+		User currentUser = userService.findByUsername(principal.getName());
+		task.setTaskResolver(currentUser);
+		task.setStatus("Claimed - Work in Progress");
+		taskService.updateTask(task);
+		return "redirect:/tasks";
+	}
+	
+	@RequestMapping ("/tasks/{id}/complete")
+	public String completeTask (@PathVariable ("id") Long id, Principal principal) {
+		if (userService.findByUsername(principal.getName()) == taskService.findById(id).getTaskResolver() || userService.findByUsername(principal.getName()).getLevel() < 3) {
+			Task task = taskService.findById(id);
+			task.setStatus("Completed");
+			taskService.updateTask(task);
+			
+		}
+		
 	}
 }
