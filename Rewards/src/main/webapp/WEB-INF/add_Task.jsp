@@ -66,34 +66,33 @@
 <!-- BODY -->
 <div class="row">
   	<div class="container-fluid">
-		<form:form action="/tasks/add" method="post" modelAttribute="new_Task">
+		<form:form action="/tasks/add" method="post" modelAttribute="new_Task" enctype="multipart/form-data"	>
 			<div class="form-group">
-			  	<form:label path="name">name</form:label>
+			  	<form:label path="name">Name</form:label>
 			  	<form:input type="text" path="name" class="form-control" id="email"/>
 			  	<form:errors path="name"/>
 			</div>
 			<div class="form-group">
-			  	<form:label path="description">description</form:label>
+			  	<form:label path="description">Description</form:label>
 				<form:textarea rows="7" cols="70" type="text" path="description" class="form-control" id="description"/>
 			  	<form:errors path="description"/>
 			  	<br>
 			</div>
 			<div class="form-group">
-			  	<form:label path="image">image</form:label>
-			  	<form:input type="text" path="image" class="form-control" id="image"/>
+			  	<input type="file" class="form-control" name="file"/>
 			  	<br>
 			</div>
 			<div class="form-group">
-			 	<form:label path="worth">worth:</form:label>
+			 	<form:label path="worth">Worth:</form:label>
 				<form:input path="worth" type="number" class="form-control" id="worth"/>
 			  	<form:errors path="worth"/>				
 			</div>
 			<div class="form-group">
-			 	<form:label path="dueDate">dueDate:</form:label>
+			 	<form:label path="dueDate">Due Date:</form:label>
 				<form:input path="dueDate" type="date" class="form-control" id="dueDate"/>
 			  	<form:errors path="dueDate"/>				
 			</div>
-			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="submit" class="btn btn-primary">Create task</button>
 		</form:form>
 	</div>
 </div>

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Show task</title>
 </head>
 <body>
 <!-- NAVIGATION BAR -->
@@ -54,5 +54,6 @@
 </nav>
 <!-- END OF NAVIGATION BAR -->
 	<p>${ task.name }</p>
+	<p> <a href="/file/download/${task.image }"> ${task.image } </a>  </p>
 </body>
 </html>
