@@ -30,10 +30,11 @@ public class User {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     
-    @NotEmpty
+    @NotEmpty(message="You must add your login")
     private String login;
-    
+    @NotEmpty(message="You must add your First Name")
     private String firstName;
+    @NotEmpty(message="You must add your Last Name")
     private String lastName;
     private int level;
     private String image;
