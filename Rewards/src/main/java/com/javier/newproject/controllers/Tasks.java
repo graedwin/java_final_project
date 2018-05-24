@@ -82,7 +82,7 @@ public class Tasks {
 			@RequestParam("file") MultipartFile file, @RequestParam("taskReward") Long rewardId, Model model) {
 		if(result.hasErrors()) {
 			return "add_Task.jsp";
-		} else {
+		}else {
 			try {
 				taskService.store(file);
 			} catch (Exception e) {

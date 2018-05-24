@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %> 
+        
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="css/Modify.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<title>Show task</title>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>   
+<title>Profile</title>
 </head>
 <body>
 <!-- NAV -->
@@ -65,58 +67,80 @@
   	</ul>
 </nav>
 <!-- END OF NAV -->
-
-<p> <a href="/tasks/${task.id}/showImage"> <img alt="${task.image}" src="/taskImages/${task.image}" width="300"></a></p>
-<table>
-    <tbody>
-    <tr>
-      <td><h1>${ task.name }</h1></td>
-      <c:choose>
-        <c:when test="${(user.roles[0].id < 3) or (task.taskCreator == currentUser)}">
-          <td>
-            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-              Admin Options
-            </a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="/tasks/${task.id}/edit">Edit</a>
-              <a class="dropdown-item" href="/tasks/${task.id}/cancel">Cancel</a>
-            </div>
-          </td>
-        </c:when>
-        <c:when test="${task.status == 'Claimed - Work in Progress'}">
-          <td><a href="/tasks/${task.id}/complete">Mark as Completed</a></td>
-        </c:when>
-        <c:when test="${task.status == 'Completed'}">
-          <td></td>
-        </c:when>
-        <c:otherwise>
-          <td><a href="/tasks/${task.id}/request">Claim task</a></td>
-        </c:otherwise>
-      </c:choose>
-    </tr>
-    <tr>
-      <td colspan="2"><h3>Description</h3></td>
-    </tr>
-    <tr>
-      <td colspan="2">${ task.description }</td>
-    </tr>
-    <tr>
-      <td><h5>Status</h5></td>
-      <td>${task.status}</td>
-    </tr>
-    <tr>
-      <td><h5>Type of Task</h5></td>
-      <td>${task.taskReward.description}</td>
-    </tr>
-    <tr>
-      <td><h5>Value</h5></td>
-      <td>${task.taskReward.points}</td>
-    </tr>
-    <tr>
-      <td><h5>Due Date</h5></td>
-      <td>${task.dueDate}</td>
-    </tr>
-  </tbody>
-</table>
+<br>
+<div class="row">
+	<div class="col-sm-3">
+		<div class="container">
+		<div class="card border-dark mb-3" style="max-width: 18rem;">
+		  <div class="card-header"><h2> ${currentUser.firstName } ${currentUser.lastName } </h2></div>
+		  <br>
+			<img alt="Badge photo" src="https://internal-cdn.amazon.com/badgephotos.amazon.com/?uid=${ currentUser.login}" style="margin:auto auto;">
+		  <div class="card-body">
+		    <h5 class="card-title "> ${currentUser.login }</h5>
+		    <p class="card-text">Ponts available ${currentUser.points}</p>
+		  </div>
+		</div>
+		  <ul class="nav flex-column">
+		  </ul>
+		</div>
+	</div>
+  	<div class="col-sm-9">
+  		<div class="container table-tasks">
+			<nav aria-label="Page navigation example" style="float:right;">
+			  <ul class="pagination">
+				<c:forEach var="i" begin="1" end="${totalPages }">
+	           		<li class="page-item"><a class="page-link" href="/dashboard/pages/${ i }"> ${ i } </a></li>
+	        		</c:forEach>
+			  </ul>
+			</nav>
+			<!-- TASKS -->
+			<h2>Tasks</h2>
+			<br>
+			<div class="table-responsive">
+			    <table class="table">
+			      <thead>
+			        <tr>
+			          <th>Name</th>
+			          <th>Status</th>
+			          <th>Show</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+					<c:forEach items="${ userTasks }" var="task">
+						<tr>
+						<td>${ task.name }</td>
+						<td>${ task.status }</td>
+						<td><a href="/tasks/${task.id}/show"><button>View Task</button></a></td>
+						</tr>
+					</c:forEach>
+			      </tbody>
+				</table>
+			</div>
+			<!-- END OF TASKS -->
+			<!-- PURCHASES -->
+			<h2>Purchases</h2>
+			<br>
+			<div class="table-responsive">
+			    <table class="table">
+			      <thead>
+			        <tr>
+			          <th>Product Name</th>
+			          <th>Status</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+					<c:forEach items="${ userProducts }" var="product">
+						<tr>
+						<td>${ product.getProduct().name }</td>
+						<td>${ product.status }</td>
+						</tr>
+					</c:forEach>
+			      </tbody>
+				</table>
+			</div>
+			<!-- END OF PURCHASES -->
+	  </div>	
+	</div>
+</div>
 </body>
 </html>

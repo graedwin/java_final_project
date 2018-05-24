@@ -32,7 +32,7 @@ public class UserValidator implements Validator {
         }
         User user2 = userRepo.findByLogin(user.getLogin());
         if (user2 != null) {
-        	errors.rejectValue("email", "Unique");
+        	errors.rejectValue("login", "Unique");
         }
     }
 }

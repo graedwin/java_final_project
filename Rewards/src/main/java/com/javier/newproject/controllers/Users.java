@@ -66,9 +66,23 @@ public class Users {
     	return "redirect:/admin";
     }
     
-    @RequestMapping("/user/makeadmin/{id}")
-    public String makeAdmin(@PathVariable("id") Long id){
-    	userService.makeAdmin(userService.findById(id));
+    @RequestMapping("/user/{role}/{id}")
+    public String makeAdmin(@PathVariable("id") Long id, @PathVariable("role") String role,Principal principal, Model model){
+    	if(role=="ROLE_ADMIN") {
+    		userService.makeAdmin(userService.findById(id));
+    	}else if(role=="ROLE_USER"){
+    		userService.makeUser(userService.findById(id));
+    	}else if(role=="ROLE_SUPERUSER"){
+    		userService.makeSuperUser(userService.findById(id));
+    	}else if(role=="ROLE_SUPERVISOR"){
+    		userService.makeSupervisor(userService.findById(id));
+    	}else if(role=="ROLE_MANAGER"){
+    		userService.makeManager(userService.findById(id));
+    	}
+    	String email = principal.getName();
+        model.addAttribute("currentUser", userService.findByUsername(email));
+        model.addAttribute("users", userService.findAll());
+        model.addAttribute("roles", userService.findAllRoles());
     	return "redirect:/admin";
     }
     
@@ -77,6 +91,7 @@ public class Users {
         String email = principal.getName();
         model.addAttribute("currentUser", userService.findByUsername(email));
         model.addAttribute("users", userService.findAll());
+        model.addAttribute("roles", userService.findAllRoles());
         return "adminPage.jsp";
     }
     
@@ -96,6 +111,14 @@ public class Users {
     public String home() {
         return "redirect:/dashboard/pages/1";
         
+    }
+    @RequestMapping("/users/{id}/profile")
+    public String profile(@PathVariable("id") Long id,Principal principal, Model model){
+    	String email = principal.getName();
+        model.addAttribute("currentUser", userService.findByUsername(email));
+        model.addAttribute("userTasks", userService.findByUsername(email).getResolvedTasks());
+        model.addAttribute("userProducts", userService.findByUsername(email).getPurchases());
+        return "Profile.jsp";
     }
     
 }
