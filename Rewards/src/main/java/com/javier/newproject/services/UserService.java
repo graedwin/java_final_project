@@ -90,5 +90,8 @@ public class UserService {
 			return roleRepository.findByName(name).get(0);
 		}
 	}
+	public void save(User user) {
+		userRepository.save(user);
+	}
     
 }

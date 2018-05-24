@@ -20,6 +20,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="users")
 public class User {
@@ -81,6 +83,10 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"), 
             inverseJoinColumns = @JoinColumn(name = "reward_id"))
         private List<Reward> rewardsLog;
+    
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Purchase> purchases;
     
 //    Constructors
     public User() {
@@ -239,5 +245,14 @@ public class User {
 	public void setRewardsLog(List<Reward> rewardsLog) {
 		this.rewardsLog = rewardsLog;
 	}
+
+	public List<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(List<Purchase> purchases) {
+		this.purchases = purchases;
+	}
+	
     
 }

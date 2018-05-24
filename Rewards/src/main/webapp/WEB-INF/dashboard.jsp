@@ -6,12 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap-grid.css">
-<link rel="stylesheet" href="css/bootstrap-grid.min.css">
-<link rel="stylesheet" href="css/bootstrap-reboot.css">
-<link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 <link rel="stylesheet" href="css/Modify.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -90,6 +85,14 @@
 	</div>
   	<div class="col-sm-9">
   		<div class="container table-tasks">
+		<h2 style="display:inline-block">News</h2>
+		<nav aria-label="Page navigation example" style="float:right;">
+		  <ul class="pagination">
+			<c:forEach var="i" begin="1" end="${totalPages }">
+           		<li class="page-item"><a class="page-link" href="/dashboard/pages/${ i }"> ${ i } </a></li>
+        		</c:forEach>
+		  </ul>
+		</nav>
 		<h2>Urgent Tasks</h2>
 		<br>
 			<div class="table-responsive">
@@ -104,7 +107,7 @@
 			        </tr>
 			      </thead>
 			      <tbody>
-					<c:forEach items="${ tasks }" var="task">
+					<c:forEach items="${ tasks.content }" var="task">
 						<tr>
 						<td>${ task.name }</td>
 						<td>${ task.dueDate }</td>

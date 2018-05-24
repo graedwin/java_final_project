@@ -13,11 +13,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="products")
@@ -67,6 +70,11 @@ public class Product {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User productCreator;
+	
+	@OneToMany(mappedBy="product", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Purchase> purchases;
+
 	
 //	 Auto created/updated at
 	@PrePersist
@@ -159,6 +167,15 @@ public class Product {
 	public void setProductCreator(User productCreator) {
 		this.productCreator = productCreator;
 	}
+
+	public List<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(List<Purchase> purchases) {
+		this.purchases = purchases;
+	}
+	
 	
 	
 }

@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javier.newproject.models.Product;
+import com.javier.newproject.models.Purchase;
 import com.javier.newproject.models.User;
 import com.javier.newproject.services.ProductService;
+import com.javier.newproject.services.PurchaseService;
 import com.javier.newproject.services.UserService;
 import com.javier.newproject.validators.UserValidator;
 
@@ -28,11 +30,13 @@ public class Products {
 	private UserService userService;
     private UserValidator userValidator;
     private ProductService productService;
+    private PurchaseService purchaseService;
 
-    public Products(UserService userService, UserValidator userValidator, ProductService productService) {
+    public Products(UserService userService, UserValidator userValidator, ProductService productService,PurchaseService purchaseService) {
         this.userService = userService;
         this.userValidator = userValidator;
         this.productService = productService;
+        this.purchaseService = purchaseService;
     }
     
     @RequestMapping("/products")
@@ -116,13 +120,36 @@ public class Products {
             model.addAttribute("currentUser", currentUser);
         	model.addAttribute("product", product);
     		model.addAttribute("errorMessage", "You do not have enough points to purchase this product");
+    		try {
+        		
+    			//sleep 5 seconds
+    			Thread.sleep(5000);
+    			return "show_Product.jsp";
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}
     		return "show_Product.jsp";
     	}
     	List<Product> productsPurchased = currentUser.getProducts();
     	productsPurchased.add(product);
     	currentUser.setProducts(productsPurchased);
+    	currentUser.setPoints(currentUser.getPoints()-product.getPrice());
+    	userService.save(currentUser);
+    	product.setStock(product.getStock()-1);
+    	Purchase currentPurchase = new Purchase();
+    	currentPurchase.setProduct(product);
+    	currentPurchase.setUser(currentUser);
+    	purchaseService.savePurchase(currentPurchase);
+    	productService.saveProduct(product);
+    	try {
+    		
+			//sleep 5 seconds
+			Thread.sleep(5000);
+			return "redirect:/";
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
     	return "redirect:/";
-    }
-    
+    } 
 
 }
