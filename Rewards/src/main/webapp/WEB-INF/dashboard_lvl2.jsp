@@ -11,8 +11,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>             
-<title>Show your Product</title>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>      
+<title>Level 2 Dashboard</title>
 </head>
 <body>
 <!-- NAV -->
@@ -68,65 +68,51 @@
 </nav>
 <!-- END OF NAV -->
 <!-- BODY -->
-	<div class="container-fluid">
-		<div class="row justify-content-md-center">
-	  		<div class="col-3 text-center">
-	  			<h1 style="padding-top: 30px;"><c:out value = '${ product.name }'/></h1>
-	  			<c:choose>
-		   			<c:when test = "${currentUser.level<3}">
-		   				<div class="dropdown">
-						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    Admin Options
-						  </button>
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						    <a class="dropdown-item" href="/products/<c:out value = '${ product.id }'/>/edit">Edit</a>
-						    <a class="dropdown-item" href="/products/<c:out value = '${ product.id }'/>/delete">Delete</a>
-						  </div>
-						</div>
-						<br>
-					</c:when>
-		   		</c:choose>
-		   		<img alt="product image" src="/productImages/${product.image}" width="350px">
-				<h5>Description:</h5>
-				<p><c:out value = '${ product.description }'/></p>
-				<h5>Price:</h5>
-				<p><c:out value = '${ product.price }'/></p>
-				<h5>Stock:</h5>
-				<p><c:out value = '${ product.stock }'/></p>
-				<a href="/products/<c:out value = '${ product.id }'/>/purchase"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">Purchase</button></a>
-			    
-			    <!-- The Modal -->
-				<div class="modal" id="myModal">
-					<div class="modal-dialog">
-				    	<div class="modal-content">
-				      
-					        <!-- Modal Header -->
-					        <div class="modal-header">
-					        	<h4 class="modal-title">Your Purchase</h4>
-					          	<button type="button" class="close" data-dismiss="modal">&times;</button>
-					        </div>
-					        
-					        <!-- Modal body -->
-					        <div class="modal-body">
-					        	<c:choose>
-						          	<c:when test="${errorMessage != null}">
-							        	<c:out value="${errorMessage}"></c:out>
-								    </c:when>
-								    <c:otherwise>
-								    	Your purchase has been successful
-								    </c:otherwise>
-							    </c:choose>
-					        </div>
-				        
-				        	<!-- Modal footer -->
-				        	<div class="modal-footer">
-				          		<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				        	</div>
-				    	</div>
-					</div>
-				</div>
+<br>
+<div class="row">
+	<div class="col-sm-3">
+		<div class="container">
+			<div class="card border-dark mb-3" style="max-width: 18rem;">
+		  		<div class="card-header"><h2> ${currentUser.firstName } ${currentUser.lastName } </h2></div>
+			  	<br>
+				<img alt="Badge photo" src="https://internal-cdn.amazon.com/badgephotos.amazon.com/?uid=${ currentUser.login}" style="margin:auto auto;">
+			  	<div class="card-body">
+		    		<h5 class="card-title "> ${currentUser.login }</h5>
+		    		<p class="card-text"></p>
+			  	</div>
 			</div>
+			<ul class="nav flex-column">
+			</ul>
 		</div>
 	</div>
+	<div class="col-sm-9">
+  		<div class="container table-tasks">
+		<h2>Pending Purchases</h2>
+		<br>
+			<div class="table-responsive">
+				<table class="table">
+			    	<thead>
+			        	<tr>
+			          		<th>Login</th>
+			          		<th>Product</th>
+			          		<th>Contact</th>
+			          		<th>Action</th>
+			        	</tr>
+			      	</thead>
+			      	<tbody>
+					<c:forEach items="${ pendingPurchases }" var="purchase">
+						<tr>
+							<td>${ purchase.getUser().login }</td>
+							<td>${ purchase.getProduct().name }</td>
+							<td>${ purchase.getUser().login }@amazon.com</td>
+							<td><a href="/purchases/${purchase.id}/delivered"><button>Delivered</button></a></td>
+						</tr>
+					</c:forEach>
+			      	</tbody>
+				</table>
+			</div>
+	  	</div>	
+	</div>
+</div>
 </body>
 </html>

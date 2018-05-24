@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javier.newproject.models.User;
+import com.javier.newproject.services.PurchaseService;
 import com.javier.newproject.services.TaskService;
 import com.javier.newproject.services.UserService;
 import com.javier.newproject.validators.UserValidator;
@@ -27,11 +28,13 @@ public class Users {
     private UserService userService;
     private TaskService taskService;
     private UserValidator userValidator;
+    private PurchaseService purchaseService;
 
-    public Users(UserService userService, UserValidator userValidator, TaskService taskService) {
+    public Users(UserService userService, UserValidator userValidator, TaskService taskService,PurchaseService purchaseService) {
         this.userService = userService;
         this.userValidator = userValidator;
         this.taskService=taskService;
+        this.purchaseService = purchaseService;
     }
     
     @PostMapping("/registration")
@@ -91,8 +94,11 @@ public class Users {
         String email = principal.getName();
         model.addAttribute("currentUser", userService.findByUsername(email));
         model.addAttribute("tasks", taskService.findAll());
+        if(userService.findByUsername(email).getLevel()==2) {
+        	model.addAttribute("pendingPurchases", purchaseService.pendingPurchases());
+        	return "dashboard_lvl2.jsp";
+        }
         return "dashboard.jsp";
-    }
-    
+    }   
 }
 
