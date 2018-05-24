@@ -23,8 +23,6 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;
-
-
 import com.javier.newproject.models.Task;
 import com.javier.newproject.services.RewardService;
 import com.javier.newproject.services.TaskService;
@@ -60,7 +58,7 @@ public class Tasks {
 	
 	@PostMapping ("/tasks/add")
 	public String createTasks (@Valid @ModelAttribute ("new_Task") Task task, BindingResult result, Principal principal,
-			@RequestParam("file") MultipartFile file, Model model) {
+			@RequestParam("file") MultipartFile file, @RequestParam("rewardId") Long rewardId, Model model) {
 		if(result.hasErrors()) {
 			return "add_Task.jsp";
 		} else {

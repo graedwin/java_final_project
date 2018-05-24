@@ -6,15 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<<<<<<< HEAD
-<title>Show task</title>
-=======
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
->>>>>>> 89b7c6807107b44844b64ed6942f88dcd9b066c8
+<title>Show task</title>
 </head>
 <body>
 <!-- NAVIGATION BAR -->
@@ -96,17 +92,9 @@
     </tr>
     <tr>
       <td>Status</td>
-<<<<<<< HEAD
       <td>
         
       </td>
-=======
-      <td>${ task.status }</td>
-    </tr>
-    <tr>
-      <td>Worth</td>
-      <td>${ task.worth }</td>
->>>>>>> 89b7c6807107b44844b64ed6942f88dcd9b066c8
     </tr>
   </tbody>
 </table>
