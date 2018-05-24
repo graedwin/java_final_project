@@ -12,7 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>            
-<title>Show your Product</title>
+<title>Edit your product</title>
 </head>
 <body>
 <!-- NAV -->
@@ -61,35 +61,43 @@
 </nav>
 <!-- END OF NAV -->
 <!-- BODY -->
-	<div class="container-fluid">
-		<div class="row justify-content-md-center">
-	  		<div class="col-3 text-center">
-	  			<h1 style="padding-top: 30px;"><c:out value = '${ product.name }'/></h1>
-	  			<c:choose>
-		   			<c:when test = "${currentUser.level<3}">
-		   				<div class="dropdown">
-						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						    Admin Options
-						  </button>
-						  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						    <a class="dropdown-item" href="/products/<c:out value = '${ product.id }'/>/edit">Edit</a>
-						    <a class="dropdown-item" href="/products/<c:out value = '${ product.id }'/>/delete">Delete</a>
-						  </div>
-						</div>
-						<br>
-					</c:when>
-		   		</c:choose>
-				<h5>Description:</h5>
-				<p><c:out value = '${ product.description }'/></p>
-				<h5>Price:</h5>
-				<p><c:out value = '${ product.price }'/></p>
-				<h5>Stock:</h5>
-				<p><c:out value = '${ product.stock }'/></p>
-				<h5>Image:</h5>
-				<p><c:out value = '${ product.image }'/></p>
-				<a><button>Purchase</button></a>
-			</div>
+<div class="container-fluid">
+	<div class="row justify-content-md-center">
+  		<div class="col-3">
+  			<h3 style="padding-top: 30px;">Add a new product</h3>
+			<form:form action="#" method="post" modelAttribute="new_Product">
+				<div class="form-group">
+				  	<form:label path="name" >Name</form:label>
+				  	<form:input type="text" path="name" value="${ product.name }" class="form-control" id="name"/>
+				  	<form:errors path="name"/>
+				</div>
+				<div class="form-group">
+				  	<form:label path="price">Price</form:label>
+				  	<form:input type="number" path="price" value="${ product.price }" class="form-control" id="price"/>
+				  	<form:errors path="price"/>
+				  	<br>
+				</div>
+				<div class="form-group">
+				  	<form:label path="stock">Stock</form:label>
+				  	<form:input type="number" path="stock" value="${ product.stock }" class="form-control" id="stock"/>
+				  	<form:errors path="stock"/>
+				  	<br>
+				</div>
+				<div class="form-group">
+				  	<form:label path="description">Description</form:label>
+				  	<form:textarea rows="7" cols="70" type="text" path="description" placeholder="${ product.description }" class="form-control" id="description"/>
+				  	<form:errors path="description"/>
+				  	<br>
+				</div>
+				<div class="form-group">
+				  	<form:label path="image">Image</form:label>
+				  	<form:input type="text" path="image" value="${ product.image }" class="form-control" id="image"/>
+				  	<br>
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form:form>
 		</div>
 	</div>
+</div>
 </body>
 </html>

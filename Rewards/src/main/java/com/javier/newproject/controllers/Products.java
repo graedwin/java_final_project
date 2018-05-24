@@ -57,9 +57,46 @@ public class Products {
         }
     }
     
-
-
-  
+    @PostMapping("/products/add")
+    public String processAddProduct(@Valid @ModelAttribute("new_Product") Product product, BindingResult result, Model model, HttpSession session, HttpServletRequest request) {
+        if (result.hasErrors()) {
+            return "addProduct.jsp";
+        }else {
+        	productService.saveProduct(product);
+        	return "redirect:/";
+        }
+    }
+    @RequestMapping("/products/{id}/edit")
+    public String editProduct(@ModelAttribute("new_Product") Product product, BindingResult result, @PathVariable("id") Long id, Principal principal, Model model) {
+    	String email = principal.getName();
+        model.addAttribute("currentUser", userService.findByUsername(email));
+    	if (userService.findByUsername(principal.getName()).getLevel() < 3) {
+    		model.addAttribute("product", productService.findProduct(id));
+    		return "edit_Product.jsp";
+    	}else {
+            return "redirect:/products";
+        }
+    }
+    @PostMapping("/products/{id}/edit")
+    public String processEditProduct(@Valid @ModelAttribute("new_Product") Product product, BindingResult result, Model model, HttpSession session, HttpServletRequest request) {
+        if (result.hasErrors()) {
+            return "edit_Product.jsp";
+        }else {
+        	productService.saveProduct(product);
+        	return "redirect:/";
+        }
+    }
+    @RequestMapping("/products/{id}/delete")
+    public String deleteProduct(@PathVariable("id") Long id, Principal principal, Model model) {
+    	String email = principal.getName();
+        model.addAttribute("currentUser", userService.findByUsername(email));
+    	if (userService.findByUsername(principal.getName()).getLevel() < 3) {
+    		productService.deleteProduct(id);
+    		return "redirect:/products";
+    	}else {
+            return "redirect:/products";
+        }
+    }
     
 
 }
