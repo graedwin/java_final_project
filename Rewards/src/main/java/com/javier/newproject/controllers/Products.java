@@ -1,6 +1,7 @@
 package com.javier.newproject.controllers;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.javier.newproject.models.Product;
+import com.javier.newproject.models.User;
 import com.javier.newproject.services.ProductService;
 import com.javier.newproject.services.UserService;
 import com.javier.newproject.validators.UserValidator;
@@ -58,10 +62,16 @@ public class Products {
     }
     
     @PostMapping("/products/add")
-    public String processAddProduct(@Valid @ModelAttribute("new_Product") Product product, BindingResult result, Model model, HttpSession session, HttpServletRequest request) {
+    public String processAddProduct(@Valid @ModelAttribute("new_Product") Product product, BindingResult result, Model model, HttpSession session, HttpServletRequest request, @RequestParam("file") MultipartFile file) {
         if (result.hasErrors()) {
             return "addProduct.jsp";
         }else {
+        	try {
+				productService.store(file);
+			} catch (Exception e) {
+				model.addAttribute("message", "FAIL to upload " + file.getOriginalFilename() + "!");
+			}
+			product.setImage(file.getOriginalFilename());
         	productService.saveProduct(product);
         	return "redirect:/";
         }
@@ -96,6 +106,22 @@ public class Products {
     	}else {
             return "redirect:/products";
         }
+    }
+    @RequestMapping("/products/{id}/purchase")
+    public String purchaseProduct(@PathVariable("id") Long id, Principal principal, Model model) {
+    	String email = principal.getName();
+    	User currentUser = userService.findByUsername(email);
+    	Product product = productService.findProduct(id);
+    	if (currentUser.getPoints()<product.getPrice()) {
+            model.addAttribute("currentUser", currentUser);
+        	model.addAttribute("product", product);
+    		model.addAttribute("errorMessage", "You do not have enough points to purchase this product");
+    		return "show_Product.jsp";
+    	}
+    	List<Product> productsPurchased = currentUser.getProducts();
+    	productsPurchased.add(product);
+    	currentUser.setProducts(productsPurchased);
+    	return "redirect:/";
     }
     
 
