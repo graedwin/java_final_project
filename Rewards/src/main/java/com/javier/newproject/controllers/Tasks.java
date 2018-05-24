@@ -59,7 +59,7 @@ public class Tasks {
 	
 	@PostMapping ("/tasks/add")
 	public String createTasks (@Valid @ModelAttribute ("new_Task") Task task, BindingResult result, Principal principal,
-			@RequestParam("file") MultipartFile file, Model model) {
+			@RequestParam("file") MultipartFile file, @RequestParam("rewardId") Long rewardId, Model model) {
 		if(result.hasErrors()) {
 			return "add_Task.jsp";
 		} else {
