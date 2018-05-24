@@ -34,14 +34,28 @@
 	    		</form>
 			</div>
 		</li>
+		<c:choose>
+   			<c:when test = "${currentUser.level == 3}">
+				<li class="nav-item">
+	      		<a class="nav-link" href="/tasks">Tasks</a>
+	      		</li>
+			</c:when>
+			<c:otherwise>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+	        		Tasks
+	      			</a>
+	      			<div class="dropdown-menu">
+	        			<a class="dropdown-item" href="#">Create a new Task</a>
+	    				<a class="dropdown-item" href="#">Available Tasks</a>
+	      			</div>	
+      			</li>
+			</c:otherwise>
+   		</c:choose>
+   		<li class="nav-item">
+      		<a class="nav-link" href="/products">Products</a>
+    	</li>
     	<li class="nav-item dropdown">
-      		<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        		Tasks
-      		</a>
-      		<div class="dropdown-menu">
-        		<a class="dropdown-item" href="#">Add</a>
-    			<a class="dropdown-item" href="#">Available Tasks</a>
-      		</div>
       	<c:choose>
    			<c:when test = "${currentUser.level<3}">
    				<li class="nav-item">
@@ -50,13 +64,6 @@
 			</c:when>
    		</c:choose>
    		</li>
-  		<!-- Links -->
-   		<li class="nav-item">
-      		<a class="nav-link" href="#">Shop</a>
-    	</li>
-    	<li class="nav-item">
-      		<a class="nav-link" href="#">Cart</a>
-    	</li>
   	</ul>
 </nav>
 <!-- END OF NAV -->
@@ -79,15 +86,17 @@
 						<br>
 					</c:when>
 		   		</c:choose>
+		   		<img alt="product image" src="/productImages/${product.image}" width="350px">
 				<h5>Description:</h5>
 				<p><c:out value = '${ product.description }'/></p>
 				<h5>Price:</h5>
 				<p><c:out value = '${ product.price }'/></p>
 				<h5>Stock:</h5>
 				<p><c:out value = '${ product.stock }'/></p>
-				<h5>Image:</h5>
-				<p><c:out value = '${ product.image }'/></p>
-				<a><button>Purchase</button></a>
+				<a href="products/<c:out value = '${ product.id }'/>/purchase"><button class="btn btn-secondary">Purchase</button></a>
+				<c:if test="${errorMessage != null}">
+		        	<c:out value="${errorMessage}"></c:out>
+			    </c:if>
 			</div>
 		</div>
 	</div>

@@ -14,7 +14,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javier.newproject.models.Task;
+import com.javier.newproject.models.User;
 import com.javier.newproject.services.RewardService;
 import com.javier.newproject.services.TaskService;
 import com.javier.newproject.services.UserService;
@@ -98,6 +98,12 @@ public class Tasks {
 		return "show_Task.jsp";
 	}
 	
+	@RequestMapping ("/tasks/{id}/showImage")
+	public String viewImage (@PathVariable ("id") Long id, Model model) {
+		model.addAttribute("task", taskService.findById(id));
+		return "show_Task_Image.jsp";
+	}
+	
 	@RequestMapping("/file/download/{filename}")
 	@ResponseBody
 	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
@@ -146,5 +152,27 @@ public class Tasks {
         model.addAttribute("totalPages", tasks.getTotalPages());
         model.addAttribute("tasks", tasks);
 		return "dashboard.jsp";
+
+	}
+	
+	@RequestMapping ("/tasks/{id}/request")
+	public String claimTask (@PathVariable ("id") Long id, Principal principal) {
+		Task task = taskService.findById(id);
+		User currentUser = userService.findByUsername(principal.getName());
+		task.setTaskResolver(currentUser);
+		task.setStatus("Claimed - Work in Progress");
+		taskService.updateTask(task);
+		return "redirect:/tasks";
+	}
+	
+	@RequestMapping ("/tasks/{id}/complete")
+	public String completeTask (@PathVariable ("id") Long id, Principal principal) {
+		if (userService.findByUsername(principal.getName()) == taskService.findById(id).getTaskResolver() || userService.findByUsername(principal.getName()).getLevel() < 3) {
+			Task task = taskService.findById(id);
+			task.setStatus("Completed");
+			taskService.updateTask(task);
+			
+		}
+		
 	}
 }

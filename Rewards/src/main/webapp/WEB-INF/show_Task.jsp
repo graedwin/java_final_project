@@ -13,74 +13,80 @@
 <title>Show task</title>
 </head>
 <body>
-<!-- NAVIGATION BAR -->
+<!-- NAV -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <!-- Brand -->
-  <a class="navbar-brand" href="/">Trading Hub</a>
-  <ul class="navbar-nav">
-    <!-- Dropdown -->
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        Name
-      </a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Settings</a>
-        <a class="dropdown-item" href="#">Profile</a>
-        <form id="logoutForm" method="POST" action="/logout">
-	        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-	        <input class="dropdown-item" type="submit" value="Logout!" />
-	    </form>
-     
-      </div>
-    </li>
-    
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        Tasks
-      </a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="/tasks/add">Add</a>
-        <a class="dropdown-item" href="/tasks">Available Tasks</a>
-      </div>
-    </li>
-  
-  <!-- Links -->
-    <li class="nav-item">
-      <a class="nav-link" href="#">Shop</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Cart</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Add Product</a>
-    </li>
-  </ul>
+  	<!-- Brand -->
+  	<a class="navbar-brand" href="/">Trading Hub</a>
+  	<ul class="navbar-nav">
+    	<!-- Dropdown -->
+    	<li class="nav-item dropdown">
+      		<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        		<c:out value = '${ currentUser.firstName }'/>
+      		</a>
+      		<div class="dropdown-menu">
+        		<a class="dropdown-item" href="#">Settings</a>
+        		<a class="dropdown-item" href="#">Profile</a>
+        		<form id="logoutForm" method="POST" action="/logout">
+	        		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	        		<input class="dropdown-item" type="submit" value="Logout!" />
+	    		</form>
+			</div>
+		</li>
+		<c:choose>
+   			<c:when test = "${currentUser.level == 3}">
+				<li class="nav-item">
+	      		<a class="nav-link" href="/tasks">Tasks</a>
+	      		</li>
+			</c:when>
+			<c:otherwise>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+	        		Tasks
+	      			</a>
+	      			<div class="dropdown-menu">
+	        			<a class="dropdown-item" href="#">Create a new Task</a>
+	    				<a class="dropdown-item" href="#">Available Tasks</a>
+	      			</div>	
+      			</li>
+			</c:otherwise>
+   		</c:choose>
+   		<li class="nav-item">
+      		<a class="nav-link" href="/products">Products</a>
+    	</li>
+    	<li class="nav-item dropdown">
+      	<c:choose>
+   			<c:when test = "${currentUser.level<3}">
+   				<li class="nav-item">
+	      			<a class="nav-link" href="/products/add">Add Product</a>
+		    	</li>
+			</c:when>
+   		</c:choose>
+   		</li>
+  	</ul>
 </nav>
 <!-- END OF NAVIGATION BAR -->
-	<p>${ task.name }</p>
-  <p> <a href="/file/download/${task.image }"> ${task.image } </a>  </p>
-  <img alt="" src="/taskImages/${task.image}">
-  
+
+
 <!-- BODY -->
-<img src="http://via.placeholder.com/350x150">
+<p> <a href="/tasks/${task.id}/showImage"> <img alt="${task.image}" src="/taskImages/${task.image}" width="300"></a></p>
 <table>
     <tbody>
     <tr>
+      <td><h1>${ task.name }</h1></td>
       <c:choose>
         <c:when test="${(user.roles[0].id < 3) or (task.taskCreator == currentUser)}">
-          <td><h3>${ task.name }</h3></td>
           <td>
-              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                  Admin Tools
-                </a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="/tasks/${task.id}/edit">Edit</a>
-                  <a class="dropdown-item" href="/tasks/${task.id}/cancel">Cancel</a>
-                </div>
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+              Admin Tools
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/tasks/${task.id}/edit">Edit</a>
+              <a class="dropdown-item" href="/tasks/${task.id}/cancel">Cancel</a>
+            </div>
           </td>
         </c:when>
         <c:otherwise>
-          <td colspan="2"><h1>${task.name}</h1></td>
+          <td><a href="/tasks/${task.id}/request">Claim task</a></td>
         </c:otherwise>
       </c:choose>
     </tr>
@@ -91,10 +97,16 @@
       <td colspan="2">${ task.description }</td>
     </tr>
     <tr>
-      <td>Status</td>
-      <td>
-        
-      </td>
+      <td><h5>Status</h5></td>
+      <td>${task.status}</td>
+    </tr>
+    <tr>
+      <td><h5>Type of Task</h5></td>
+      <td>${task.taskReward.description}</td>
+    </tr>
+    <tr>
+      <td><h5>Value</h5></td>
+      <td>${task.taskReward.points}</td>
     </tr>
   </tbody>
 </table>
