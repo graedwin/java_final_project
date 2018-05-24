@@ -26,7 +26,7 @@
       		</a>
       		<div class="dropdown-menu">
         		<a class="dropdown-item" href="#">Settings</a>
-        		<a class="dropdown-item" href="#">Profile</a>
+        		<a class="dropdown-item" href="/users/${ currentUser.id }/profile">Profile</a>
         		<form id="logoutForm" method="POST" action="/logout">
 	        		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	        		<input class="dropdown-item" type="submit" value="Logout!" />
@@ -41,12 +41,12 @@
 			</c:when>
 			<c:otherwise>
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
 	        		Tasks
 	      			</a>
 	      			<div class="dropdown-menu">
-	        			<a class="dropdown-item" href="#">Create a new Task</a>
-	    				<a class="dropdown-item" href="#">Available Tasks</a>
+	        			<a class="dropdown-item" href="/tasks/add">Create a new Task</a>
+	    				<a class="dropdown-item" href="/tasks">Available Tasks</a>
 	      			</div>	
       			</li>
 			</c:otherwise>

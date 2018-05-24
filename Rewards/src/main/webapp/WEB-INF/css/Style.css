@@ -1,0 +1,9 @@
+.wrapper{
+	max-width:30%;
+	margin: 10% auto;
+	text-align:center;
+}
+
+form > span{
+	color:red;
+}

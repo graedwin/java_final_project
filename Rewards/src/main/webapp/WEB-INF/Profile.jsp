@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %> 
+        
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="css/Modify.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<title>Display of the Tasks</title>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>   
+<title>Profile</title>
 </head>
 <body>
 <!-- NAV -->
@@ -69,48 +71,44 @@
 <div class="row">
 	<div class="col-sm-3">
 		<div class="container">
-		  <h2>Filters</h2>
+		<div class="card border-dark mb-3" style="max-width: 18rem;">
+		  <div class="card-header"><h2> ${currentUser.firstName } ${currentUser.lastName } </h2></div>
+		  <br>
+			<img alt="Badge photo" src="https://internal-cdn.amazon.com/badgephotos.amazon.com/?uid=${ currentUser.login}" style="margin:auto auto;">
+		  <div class="card-body">
+		    <h5 class="card-title "> ${currentUser.login }</h5>
+		    <p class="card-text">Ponts available ${currentUser.points}</p>
+		  </div>
+		</div>
 		  <ul class="nav flex-column">
-		    <li class="nav-item">
-		      <a class="nav-link" href="#">All</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link" href="#">Level 3</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link" href="#">Level 4</a>
-		    </li>
 		  </ul>
 		</div>
 	</div>
-	
   	<div class="col-sm-9">
   		<div class="container table-tasks">
-		<h2 style="display:inline-block">Tasks Available</h2>
-		<nav aria-label="Page navigation example" style="float:right;">
-		  <ul class="pagination">
-			<c:forEach var="i" begin="1" end="${totalPages }">
-           		<li class="page-item"><a class="page-link" href="/tasks/pages/${ i }"> ${ i } </a></li>
-        		</c:forEach>
-		  </ul>
-		</nav>
+			<nav aria-label="Page navigation example" style="float:right;">
+			  <ul class="pagination">
+				<c:forEach var="i" begin="1" end="${totalPages }">
+	           		<li class="page-item"><a class="page-link" href="/dashboard/pages/${ i }"> ${ i } </a></li>
+	        		</c:forEach>
+			  </ul>
+			</nav>
+			<!-- TASKS -->
+			<h2>Tasks</h2>
+			<br>
 			<div class="table-responsive">
 			    <table class="table">
 			      <thead>
 			        <tr>
 			          <th>Name</th>
-			          <th>Description</th>
-			          <th>Worth</th>
 			          <th>Status</th>
 			          <th>Show</th>
 			        </tr>
 			      </thead>
 			      <tbody>
-					<c:forEach items="${ tasks.content }" var="task">
+					<c:forEach items="${ userTasks }" var="task">
 						<tr>
 						<td>${ task.name }</td>
-						<td>${ task.description }</td>
-						<td>${ task.taskReward.points }</td>
 						<td>${ task.status }</td>
 						<td><a href="/tasks/${task.id}/show"><button>View Task</button></a></td>
 						</tr>
@@ -118,7 +116,30 @@
 			      </tbody>
 				</table>
 			</div>
-		  </div>	
+			<!-- END OF TASKS -->
+			<!-- PURCHASES -->
+			<h2>Purchases</h2>
+			<br>
+			<div class="table-responsive">
+			    <table class="table">
+			      <thead>
+			        <tr>
+			          <th>Product Name</th>
+			          <th>Status</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+					<c:forEach items="${ userProducts }" var="product">
+						<tr>
+						<td>${ product.getProduct().name }</td>
+						<td>${ product.status }</td>
+						</tr>
+					</c:forEach>
+			      </tbody>
+				</table>
+			</div>
+			<!-- END OF PURCHASES -->
+	  </div>	
 	</div>
 </div>
 </body>

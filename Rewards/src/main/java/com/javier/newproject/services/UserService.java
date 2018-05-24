@@ -27,6 +27,11 @@ public class UserService {
     	return (List<User>) userRepository.findAll();
     }
     
+    public List <Role> findAllRoles(){
+    	return (List<Role>) roleRepository.findAll();
+    }
+    
+    
     // 1
     public void saveWithUserRole(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -52,6 +57,12 @@ public class UserService {
     public void makeSuperUser(User user) {
     	user.setRoles(roleRepository.findByName("ROLE_SUPERUSER"));
     	user.setLevel(2);
+    	userRepository.save(user);
+    }
+    
+    public void makeUser(User user) {
+    	user.setRoles(roleRepository.findByName("ROLE_USER"));
+    	user.setLevel(3);
     	userRepository.save(user);
     }
     
