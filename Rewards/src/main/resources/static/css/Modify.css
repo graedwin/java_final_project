@@ -1,20 +1,5 @@
 @charset "ISO-8859-1";
 
-.nav-text{
-	color:gray;
-}
-a:hover{
-	color:orange;
-}
-ul{
-	list-style-type:none;
-}
-
 .table-tasks{
-	margin-left: 10px;
-}
-
-#lForm{
-    padding-top: 30px;
-
+	text-align : left;
 }
