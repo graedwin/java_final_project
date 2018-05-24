@@ -44,8 +44,8 @@
 	        		Tasks
 	      			</a>
 	      			<div class="dropdown-menu">
-	        			<a class="dropdown-item" href="#">Create a new Task</a>
-	    				<a class="dropdown-item" href="#">Available Tasks</a>
+	        			<a class="dropdown-item" href="/tasks/add">Create a new Task</a>
+	    				<a class="dropdown-item" href="/tasks">Available Tasks</a>
 	      			</div>	
       			</li>
 			</c:otherwise>

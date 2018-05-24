@@ -77,13 +77,19 @@
         <c:when test="${(user.roles[0].id < 3) or (task.taskCreator == currentUser)}">
           <td>
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-              Admin Tools
+              Admin Options
             </a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="/tasks/${task.id}/edit">Edit</a>
               <a class="dropdown-item" href="/tasks/${task.id}/cancel">Cancel</a>
             </div>
           </td>
+        </c:when>
+        <c:when test="${task.status == 'Claimed - Work in Progress'}">
+          <td><a href="/tasks/${task.id}/complete">Mark as Completed</a></td>
+        </c:when>
+        <c:when test="${task.status == 'Completed'}">
+          <td></td>
         </c:when>
         <c:otherwise>
           <td><a href="/tasks/${task.id}/request">Claim task</a></td>
@@ -107,6 +113,10 @@
     <tr>
       <td><h5>Value</h5></td>
       <td>${task.taskReward.points}</td>
+    </tr>
+    <tr>
+      <td><h5>Due Date</h5></td>
+      <td>${task.dueDate}</td>
     </tr>
   </tbody>
 </table>

@@ -31,6 +31,7 @@ public class UserService {
     public void saveWithUserRole(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(roleRepository.findByName("ROLE_USER"));
+        user.setLevel(3);
         userRepository.save(user);
     }
      
@@ -38,12 +39,32 @@ public class UserService {
     public void saveUserWithAdminRole(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(roleRepository.findByName("ROLE_ADMIN"));
+        user.setLevel(1);
         userRepository.save(user);
     }
     
     public void makeAdmin(User user) {
         user.setRoles(roleRepository.findByName("ROLE_ADMIN"));
+        user.setLevel(1);
         userRepository.save(user);
+    }
+    
+    public void makeSuperUser(User user) {
+    	user.setRoles(roleRepository.findByName("ROLE_SUPERUSER"));
+    	user.setLevel(2);
+    	userRepository.save(user);
+    }
+    
+    public void makeSupervisor(User user) {
+    	user.setRoles(roleRepository.findByName("ROLE_SUPERVISOR"));
+    	user.setLevel(4);
+    	userRepository.save(user);
+    }
+    
+    public void makeManager(User user) {
+    	user.setRoles(roleRepository.findByName("ROLE_MANAGER"));
+    	user.setLevel(5);
+    	userRepository.save(user);
     }
     
     public void updateUser(User user) {

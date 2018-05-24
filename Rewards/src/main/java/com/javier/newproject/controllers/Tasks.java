@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.javier.newproject.models.Reward;
 import com.javier.newproject.models.Task;
 import com.javier.newproject.models.User;
 import com.javier.newproject.services.RewardService;
@@ -98,7 +99,8 @@ public class Tasks {
 	
 	@RequestMapping ("/tasks/{id}/edit")
 	public String editTask (@ModelAttribute ("task") Task task, @PathVariable("id") Long id, Principal principal, Model model) {
-		if (userService.findByUsername(principal.getName()) == taskService.findById(id).getTaskCreator() || userService.findByUsername(principal.getName()).getLevel() < 3) {
+		User currentUser = userService.findByUsername(principal.getName());
+		if (currentUser == taskService.findById(id).getTaskCreator() || currentUser.getLevel() < 3) {
 			model.addAttribute("task", taskService.findById(id));
 			model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
 			return "edit_Task.jsp";
@@ -119,7 +121,8 @@ public class Tasks {
 	
 	@RequestMapping ("/tasks/{id}/cancel")
 	public String cancelTask (@PathVariable("id") Long id, Principal principal) {
-		if (userService.findByUsername(principal.getName()) == taskService.findById(id).getTaskCreator() || userService.findByUsername(principal.getName()).getLevel() < 3) {
+		User currentUser = userService.findByUsername(principal.getName());
+		if (currentUser == taskService.findById(id).getTaskCreator() || currentUser.getLevel() < 3) {
 			Task task = taskService.findById(id);
 			taskService.cancelTask(task);
 			return "redirect:/tasks";
@@ -140,11 +143,22 @@ public class Tasks {
 	
 	@RequestMapping ("/tasks/{id}/complete")
 	public String completeTask (@PathVariable ("id") Long id, Principal principal) {
-		if (userService.findByUsername(principal.getName()) == taskService.findById(id).getTaskResolver() || userService.findByUsername(principal.getName()).getLevel() < 3) {
-			Task task = taskService.findById(id);
+		User currentUser = userService.findByUsername(principal.getName());
+		if (currentUser == taskService.findById(id).getTaskResolver() || currentUser.getLevel() != 3) {
+			Task task = taskService.findById(id);		
 			task.setStatus("Completed");
 			taskService.updateTask(task);
-			
+			int points = currentUser.getPoints();
+			Reward reward = task.getTaskReward();
+			points += reward.getPoints();
+			currentUser.setPoints(points);
+			List <Reward> rewards = currentUser.getRewardsLog();
+			rewards.add(reward);
+			currentUser.setRewardsLog(rewards);
+			userService.updateUser(currentUser);
+			return "redirect:/tasks";
+		} else {
+			return "redirect:/tasks";
 		}
 		
 	}

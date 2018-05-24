@@ -50,7 +50,7 @@
 	        		Tasks
 	      			</a>
 	      			<div class="dropdown-menu">
-	        			<a class="dropdown-item" href="#">Create a new Task</a>
+	        			<a class="dropdown-item" href="/tasks/add">Create a new Task</a>
 	    				<a class="dropdown-item" href="#">Available Tasks</a>
 	      			</div>	
       			</li>
@@ -81,7 +81,7 @@
 			<img alt="Badge photo" src="https://internal-cdn.amazon.com/badgephotos.amazon.com/?uid=${ currentUser.login}" style="margin:auto auto;">
 		  <div class="card-body">
 		    <h5 class="card-title "> ${currentUser.login }</h5>
-		    <p class="card-text"></p>
+		    <p class="card-text">Ponts available ${currentUser.points}</p>
 		  </div>
 		</div>
 		  <ul class="nav flex-column">
@@ -97,8 +97,8 @@
 			      <thead>
 			        <tr>
 			          <th>Name</th>
-			          <th>Description</th>
-			          <th>Worth</th>
+			          <th>Due Date</th>
+			          <th>Value</th>
 			          <th>Status</th>
 			          <th>Show</th>
 			        </tr>
@@ -107,7 +107,7 @@
 					<c:forEach items="${ tasks }" var="task">
 						<tr>
 						<td>${ task.name }</td>
-						<td>${ task.description }</td>
+						<td>${ task.dueDate }</td>
 						<td>${ task.taskReward.points }</td>
 						<td>${ task.status }</td>
 						<td><a href="/tasks/${task.id}/show"><button>View Task</button></a></td>
@@ -124,14 +124,15 @@
 		
 		
 		<div class="card mb-3" style="max-width: 18rem;">
-		  <div class="card-header"><h2> Completed tasks </h2></div>
+		  <div class="card-header"><h2> Tasks </h2></div>
 		  <div class="card-body text-dark">
 		    <h5 class="card-title"></h5>
 		    <p class="card-text">
     		  <ul class="nav flex-column">
 			  	<c:forEach var="task" items="${currentUser.resolvedTasks }">
 				    <li class="nav-item">
-				      <a class="nav-link" href="#"> ${task.name} </a>
+							<a class="nav-link" href="/tasks/${task.id}/show"> ${task.name}</a>
+							${task.status}
 				    </li>
 			    </c:forEach>
 			  </ul>
