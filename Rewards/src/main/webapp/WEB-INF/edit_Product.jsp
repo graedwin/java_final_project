@@ -71,7 +71,7 @@
 <div class="container-fluid">
 	<div class="row justify-content-md-center">
   		<div class="col-3">
-  			<h3 style="padding-top: 30px;">Add a new product</h3>
+  			<h3 style="padding-top: 30px;">Edit your product</h3>
 			<form:form action="#" method="post" modelAttribute="new_Product">
 				<div class="form-group">
 				  	<form:label path="name" >Name</form:label>
