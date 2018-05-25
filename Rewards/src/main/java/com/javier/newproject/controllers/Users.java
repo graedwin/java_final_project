@@ -171,6 +171,7 @@ public class Users {
     		@RequestParam("confirmPassword") String confirmPassword) {
     	String email = principal.getName();
     	User user = userService.findByUsername(email);
+    	model.addAttribute("currentUser", userService.findByUsername(email));
     	boolean error= false;
     	if(!BCrypt.checkpw(oldPassword,user.getPassword())) {
     		model.addAttribute("error1", "The old password doesn't match");

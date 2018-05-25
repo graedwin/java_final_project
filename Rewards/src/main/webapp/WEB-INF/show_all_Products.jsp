@@ -85,6 +85,17 @@
 	      			</div>	
       			</li>
 			</c:when>
+			<c:when test = "${currentUser.level>3}">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
+	        		Rewards
+	      			</a>
+	      			<div class="dropdown-menu">
+	        			<a class="dropdown-item" href="/rewards/assign">Assign Reward</a>
+	        			<a class="dropdown-item" href="/rewards">Show Rewards</a>
+	      			</div>	
+      			</li>
+			</c:when>
 			<c:otherwise>
 				<li class="nav-item">
 		      		<a class="nav-link" href="/rewards">Rewards</a>
@@ -120,10 +131,17 @@
 		<div class="container float-left text-center">
 		<br>
 		<h2>Products Available</h2>
+		<nav aria-label="Page navigation example" style="float:right;">
+		  <ul class="pagination">
+			<c:forEach var="i" begin="1" end="${totalPages }">
+           		<li class="page-item"><a class="page-link" href="/products/pages/${ i }"> ${ i } </a></li>
+        		</c:forEach>
+		  </ul>
+		</nav>
 		<br>
 		<div class="container">
     		<div class="row">
-    		<c:forEach items = "${ all_Products }" var = "product">
+    		<c:forEach items = "${ products.content }" var = "product">
     			<c:if test = "${product.stock>0}">
 	    			<div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="col-md-6 col-lg-4 col-xl-3 border"style="vertical-align: middle;">
 	    				<div>

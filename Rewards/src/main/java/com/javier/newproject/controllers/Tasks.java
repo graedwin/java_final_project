@@ -98,6 +98,7 @@ public class Tasks {
 	public String viewTask (@PathVariable("id") Long id, Model model, Principal principal) {
 		model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
 		model.addAttribute("task", taskService.findById(id));
+		System.out.println(userService.findByUsername(principal.getName()).getLevel());
 		return "show_Task.jsp";
 	}
 	
@@ -129,11 +130,22 @@ public class Tasks {
 	}
 	
 	@PostMapping ("/tasks/{id}/edit")
-	public String updateTask (@Valid @ModelAttribute("edit_Task") Task task, BindingResult result, @PathVariable("id") Long id, Principal principal, Model model) {
+	public String updateTask (@Valid @ModelAttribute("edit_Task") Task task, BindingResult result, @PathVariable("id") Long id, Principal principal, Model model,@RequestParam("file") MultipartFile file, @RequestParam("description") String description) {
 		model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
 		if (result.hasErrors()) {
 			return "edit_Task.jsp";
 		} else {
+			if(file.getOriginalFilename().length()>0) {
+	        	try {
+	        		taskService.store(file);
+				} catch (Exception e) {
+					model.addAttribute("message", "FAIL to upload " + file.getOriginalFilename() + "!");
+				}
+				task.setImage(file.getOriginalFilename());
+        	}else {
+        		task.setImage(taskService.findTask(id).getImage());
+        	}
+			task.setDescription(description);
 			taskService.updateTask(task);
 			return "redirect:/tasks";
 		}
