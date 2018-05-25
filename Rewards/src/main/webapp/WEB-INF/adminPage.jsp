@@ -28,7 +28,7 @@
     	<thead>
     		<tr>
     			<th>Name </th>
-    			<th>Email </th>
+    			<th>Login </th>
     			<th>Current Role</th>
     			<th>Action </th>
     		</tr>

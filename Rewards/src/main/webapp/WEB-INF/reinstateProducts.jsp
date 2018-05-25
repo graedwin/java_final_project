@@ -12,17 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>    
-<script>
-	$.ajax({
-	    url: "./delete/car",
-	    type: "POST",
-	    success:function(response) {
-	        alert(response);
-	    }
-	});
-
-</script>  
-<title>Level 2 Dashboard</title>
+<title>Reinstate Products</title>
 </head>
 <body>
 <!-- NAV -->
@@ -71,7 +61,7 @@
 	        		Products
 	      			</a>
 	      			<div class="dropdown-menu">
-	    				<a class="dropdown-item" href="/products">View Products</a>	      			
+	      				<a class="dropdown-item" href="/products">View Products</a>
 	        			<a class="dropdown-item" href="/products/add">Add Product</a>
 	    				<a class="dropdown-item" href="/products/reinstate">Reinstate Product</a>
 	      			</div>	
@@ -106,50 +96,52 @@
 </nav>
 <!-- END OF NAV -->
 <!-- BODY -->
-<br>
 <div class="row">
 	<div class="col-sm-3">
-		<div class="container">
-			<div class="card border-dark mb-3" style="max-width: 18rem;">
-		  		<div class="card-header"><h2> ${currentUser.firstName } ${currentUser.lastName } </h2></div>
-			  	<br>
-				<img alt="Badge photo" src="https://internal-cdn.amazon.com/badgephotos.amazon.com/?uid=${ currentUser.login}" style="margin:auto auto;">
-			  	<div class="card-body">
-		    		<h5 class="card-title "> ${currentUser.login }</h5>
-		    		<p class="card-text"></p>
-			  	</div>
-			</div>
-			<ul class="nav flex-column">
-			</ul>
+		<div class="container text-center">
+		<br>
+			<h2>Filters</h2>
+		  	<ul class="nav flex-column">
+		    	<li class="nav-item">
+		      		<a class="nav-link" href="#">Order A to Z</a>
+		    	</li>
+		    	<li class="nav-item">
+		      		<a class="nav-link" href="#">Order Z to A</a>
+		    	</li>
+		    	<li class="nav-item">
+		      		<a class="nav-link" href="#">Points Ascending Order</a>
+		    	</li>
+ 		    	<li class="nav-item">
+		      		<a class="nav-link" href="#">Points Descending Order</a>
+		    	</li>
+		  	</ul>
 		</div>
 	</div>
-	<div class="col-sm-9">
-  		<div class="container table-tasks">
-		<h2>Pending Purchases</h2>
+  	<div class="col-sm-9">
+		<div class="container float-left text-center">
 		<br>
-			<div class="table-responsive">
-				<table class="table">
-			    	<thead>
-			        	<tr>
-			          		<th>Login</th>
-			          		<th>Product</th>
-			          		<th>Contact</th>
-			          		<th>Action</th>
-			        	</tr>
-			      	</thead>
-			      	<tbody>
-					<c:forEach items="${ pendingPurchases }" var="purchase">
-						<tr>
-							<td>${ purchase.getUser().login }</td>
-							<td>${ purchase.getProduct().name }</td>
-							<td>${ purchase.getUser().login }@amazon.com</td>
-							<td><a href="/purchases/${purchase.id}/delivered"><button>Delivered</button></a></td>
-						</tr>
-					</c:forEach>
-			      	</tbody>
-				</table>
-			</div>
-	  	</div>	
+		<h2>Products Out of Stock</h2>
+		<br>
+		<div class="container">
+    		<div class="row">
+    		<c:forEach items = "${ all_Products }" var = "product">
+    			<c:if test = "${product.stock==0}">
+	    			<div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>/edit');" class="col-md-6 col-lg-4 col-xl-3 border"style="vertical-align: middle;">
+	    				<div>
+			            	<img class="card-img-top " src="/productImages/${product.image}" alt="product image" style="max-height:250px;">
+			            	<div class="card">
+			                	<div class="card-block">
+			                    	<h4 class="card-title"> ${ product.name } </h4>
+			                    	<h5>Price</h5>
+			                    	<p class="card-text">Price: ${product.price } </p>
+			                	</div>
+			            	</div>
+		            	</div>
+			        </div>
+		        </c:if>
+	        </c:forEach>
+    		</div>
+   		</div>
 	</div>
 </div>
 </body>
