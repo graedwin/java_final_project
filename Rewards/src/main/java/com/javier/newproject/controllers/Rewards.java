@@ -111,7 +111,7 @@ public class Rewards {
 	@RequestMapping ("/rewards/assign")
 	public String showRewardAssign(Principal principal, Model model) {
 		User currentUser = userService.findByUsername(principal.getName());
-		if (currentUser.getLevel() < 3) {
+		if (currentUser.getLevel() != 3) {
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("users", userService.findAll());
 			model.addAttribute("rewards", rewardService.findAll());
@@ -124,7 +124,7 @@ public class Rewards {
 	@PostMapping ("/rewards/assign")
 	public String assignReward (@RequestParam("associate") Long userId, @RequestParam("reward") Long rewardId, Principal principal, Model model) {
 		User currentUser = userService.findByUsername(principal.getName());
-		if (currentUser.getLevel() < 3) {
+		if (currentUser.getLevel() != 3) {
 			model.addAttribute("currentUser", currentUser);
 			User user = userService.findById(userId);
 			Reward reward = rewardService.findById(rewardId);
@@ -135,6 +135,10 @@ public class Rewards {
 			user.setPoints(points);
 			user.setRewardsLog(rewards);
 			userService.save(user);
+			model.addAttribute("currentUser", currentUser);
+			model.addAttribute("users", userService.findAll());
+			model.addAttribute("rewards", rewardService.findAll());
+			model.addAttribute("success","Points Assigned");
 			return "add_Points.jsp";
 		} else {
 			return "redirect:/rewards";

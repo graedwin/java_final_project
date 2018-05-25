@@ -84,6 +84,17 @@
 	      			</div>	
       			</li>
 			</c:when>
+			<c:when test = "${currentUser.level>3}">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
+	        		Rewards
+	      			</a>
+	      			<div class="dropdown-menu">
+	        			<a class="dropdown-item" href="/rewards/assign">Assign Reward</a>
+	        			<a class="dropdown-item" href="/rewards">Show Rewards</a>
+	      			</div>	
+      			</li>
+			</c:when>
 			<c:otherwise>
 				<li class="nav-item">
 		      		<a class="nav-link" href="/rewards">Rewards</a>
@@ -94,49 +105,45 @@
 </nav>
 <!-- END OF NAV -->
 <body>
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th colspan="2">Add Recognition Points</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><h6>Associate</h6></td>
-                    <td><h6>Recognition</h6></td>
-                </tr>
-                <tr>
-                    <form class="form-inline" action="/rewards/assign" method="post">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <td>
-                            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="associate">
-                                <option selected>Choose...</option>
-                                <c:forEach items="${ users }" var="user">
-                                    <c:if test="${(user.level == 3) or (user.level == 4)}">
-                                        <option value="${user.id}">${ user.login } - ${user.firstName} ${user.lastName}</option>
-                                    </c:if>
-                                </c:forEach>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="reward">
-                                <option selected>Choose...</option>
-                                <c:forEach items="${ rewards }" var="reward">
-                                    <option value="${reward.id}">${ reward.points } - ${reward.description}</option>
-                                </c:forEach>
-                            </select>
-                        </td>
-                    </form>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="submit" value="Award" class="btn btn-primary mb-2" style="float:right">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+	<div style="width: 50%; margin: 5% auto;">
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th colspan="2">Add Recognition Points</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><h6>Associate</h6></td>
+						<td><h6>Recognition</h6></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<form class="form-inline" action="/rewards/assign" method="post">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+								<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="associate">
+									<option selected>Choose...</option>
+									<c:forEach items="${ users }" var="user">
+										<c:if test="${(user.level == 3) or (user.level == 4)}">
+											<option value="${user.id}">${ user.login } - ${user.firstName} ${user.lastName}</option>
+										</c:if>
+									</c:forEach>
+								</select>
+								<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="reward">
+									<option selected>Choose...</option>
+									<c:forEach items="${ rewards }" var="reward">
+										<option value="${reward.id}">${ reward.points } - ${reward.description}</option>
+									</c:forEach>
+								</select>
+								<input type="submit" value="Award" class="btn btn-primary mb-2" style="float:right">
+							</form>
+							<p>${success}</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 </body>
 </html>

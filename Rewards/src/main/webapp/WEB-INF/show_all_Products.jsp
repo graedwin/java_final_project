@@ -85,6 +85,17 @@
 	      			</div>	
       			</li>
 			</c:when>
+			<c:when test = "${currentUser.level>3}">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
+	        		Rewards
+	      			</a>
+	      			<div class="dropdown-menu">
+	        			<a class="dropdown-item" href="/rewards/assign">Assign Reward</a>
+	        			<a class="dropdown-item" href="/rewards">Show Rewards</a>
+	      			</div>	
+      			</li>
+			</c:when>
 			<c:otherwise>
 				<li class="nav-item">
 		      		<a class="nav-link" href="/rewards">Rewards</a>

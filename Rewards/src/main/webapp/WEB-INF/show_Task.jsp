@@ -60,7 +60,7 @@
 	        		Products
 	      			</a>
 	      			<div class="dropdown-menu">
-	    				<a class="dropdown-item" href="/products">View Products</a>
+	    				<a class="dropdown-item" href="/products">View Products</a>	      			
 	        			<a class="dropdown-item" href="/products/add">Add Product</a>
 	    				<a class="dropdown-item" href="/products/reinstate">Reinstate Product</a>
 	      			</div>	
@@ -85,6 +85,17 @@
 	      			</div>	
       			</li>
 			</c:when>
+			<c:when test = "${currentUser.level>3}">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
+	        		Rewards
+	      			</a>
+	      			<div class="dropdown-menu">
+	        			<a class="dropdown-item" href="/rewards/assign">Assign Reward</a>
+	        			<a class="dropdown-item" href="/rewards">Show Rewards</a>
+	      			</div>	
+      			</li>
+			</c:when>
 			<c:otherwise>
 				<li class="nav-item">
 		      		<a class="nav-link" href="/rewards">Rewards</a>
@@ -102,7 +113,7 @@
 			    <tr class="">
 			      <td><h1 style="padding-top: 30px;">${ task.name }</h1></td>
 			      <c:choose>
-			        <c:when test="${(user.roles[0].id < 3) or (task.taskCreator == currentUser)}">
+			        <c:when test="${currentUser.level < 3 or task.taskCreator == currentUser}">
 			          <td>
 			            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
 			              Admin Options
@@ -113,14 +124,18 @@
 			            </div>
 			          </td>
 			        </c:when>
-			        <c:when test="${task.status == 'Claimed - Work in Progress'}">
-			          <td><a href="/tasks/${task.id}/complete">Mark as Completed</a></td>
-			        </c:when>
-			        <c:when test="${task.status == 'Completed'}">
-			          <td></td>
-			        </c:when>
 			        <c:otherwise>
-			          <td><a href="/tasks/${task.id}/request">Claim task</a></td>
+			        	<c:choose>
+					        <c:when test="${task.status == 'Claimed - Work in Progress'}">
+					          <td><a href="/tasks/${task.id}/complete">Mark as Completed</a></td>
+					        </c:when>
+					        <c:when test="${task.status == 'Completed'}">
+					          <td></td>
+					        </c:when>
+					        <c:otherwise>
+					          <td><a href="/tasks/${task.id}/request">Claim task</a></td>
+					        </c:otherwise>
+				        </c:choose>
 			        </c:otherwise>
 			      </c:choose>
 					</tr>

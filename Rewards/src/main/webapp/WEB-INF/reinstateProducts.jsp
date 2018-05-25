@@ -61,7 +61,7 @@
 	        		Products
 	      			</a>
 	      			<div class="dropdown-menu">
-	      				<a class="dropdown-item" href="/products">View Products</a>
+	    				<a class="dropdown-item" href="/products">View Products</a>	      			
 	        			<a class="dropdown-item" href="/products/add">Add Product</a>
 	    				<a class="dropdown-item" href="/products/reinstate">Reinstate Product</a>
 	      			</div>	
@@ -83,6 +83,17 @@
 	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/add">Add Reward</a>
 	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
+	      			</div>	
+      			</li>
+			</c:when>
+			<c:when test = "${currentUser.level>3}">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
+	        		Rewards
+	      			</a>
+	      			<div class="dropdown-menu">
+	        			<a class="dropdown-item" href="/rewards/assign">Assign Reward</a>
+	        			<a class="dropdown-item" href="/rewards">Show Rewards</a>
 	      			</div>	
       			</li>
 			</c:when>
