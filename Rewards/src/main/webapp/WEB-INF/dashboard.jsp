@@ -117,7 +117,7 @@
 							</tr>
 						</c:if>
 					</c:forEach>
-						</tbody>
+				</tbody>
 				</table>
 			</div>
 		  </div>	

@@ -11,6 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.javier.newproject.models.Reward;
 import com.javier.newproject.models.Task;
 import com.javier.newproject.models.User;
+import com.javier.newproject.services.NotificationService;
 import com.javier.newproject.services.PurchaseService;
 import com.javier.newproject.services.RewardService;
 import com.javier.newproject.services.TaskService;
@@ -32,6 +34,9 @@ import com.javier.newproject.services.UserService;
 
 @Controller
 public class Tasks {
+	
+	@Autowired
+	private NotificationService notificationService;
 	 
 	@Autowired
 	private TaskService taskService;
