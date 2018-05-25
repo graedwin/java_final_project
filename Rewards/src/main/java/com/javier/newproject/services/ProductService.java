@@ -9,14 +9,21 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javier.newproject.models.Product;
+import com.javier.newproject.models.Task;
+import com.javier.newproject.repositories.ProductPaginationRepository;
 import com.javier.newproject.repositories.ProductRepository;
+import com.javier.newproject.repositories.TaskPaginationRepository;
 
 @Service
 public class ProductService {
@@ -76,6 +83,16 @@ public class ProductService {
         } catch (IOException e) {
             throw new RuntimeException("Could not initialize storage!");
         }
+    }
+    
+    
+    @Autowired 
+    ProductPaginationRepository paginationRepo;
+    private static final int PAGE_SIZE = 8;
+    public Page<Product> productsPerPage(int pageNumber) {
+        @SuppressWarnings("deprecation")
+		PageRequest pageRequest = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "price");
+        return paginationRepo.findAll(pageRequest);
     }
 
 }
