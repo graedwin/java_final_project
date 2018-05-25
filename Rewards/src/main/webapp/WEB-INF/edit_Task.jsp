@@ -66,43 +66,46 @@
   	</ul>
 </nav>
 <!-- END OF NAV -->
-<div class="row">
-	<div class="container-fluid">
-	  <form:form action="/tasks/${task.id}/edit" method="post" modelAttribute="edit_Task" enctype="multipart/form-data"	>
-		  <div class="form-group">
-				<form:label path="name">Name</form:label>
-				<form:input type="text" path="name" class="form-control" id="email" value="${task.name}"/>
-				<form:errors path="name"/>
-		  </div>
-		  <div class="form-group">
-			  <form:label path="description">Description</form:label>
-			  <form:textarea rows="7" cols="70" type="text" path="description" class="form-control" id="description" value="${task.description}"/>
-			  <form:errors path="description"/>
-			  <br>
-		 </div>
-		<div class="form-group">
-			<form:label path="status">Status</form:label>
-			<form:input type="text" path="status" class="form-control" id="status" value="${task.status}"/>
-			<form:errors path="status"/>
-		</div>
-		  <input type="file" class="form-control" name="file"/>
-		  <div class="form-group">
-			   <form:label path="taskReward">Reward:</form:label>
-			  <form:select path="taskReward" class="form-control" id="taskReward">
-		<form:option value="1" label="10 - Easy Task"/>
-		<form:option value="2" label="20 - Medium Task"/>
-		<form:option value="3" label="30 - Hard Task"/>
-	  </form:select>
-			<form:errors path="taskReward"/>				
-		  </div>
-		  <div class="form-group">
-			   <form:label path="dueDate">Due Date:</form:label>
-			  <form:input path="dueDate" type="date" class="form-control" id="dueDate" value="${task.dueDate}"/>
-				<form:errors path="dueDate"/>				
-		  </div>
-		  <button type="submit" class="btn btn-primary">Update task</button>
-	  </form:form>
-  </div>
+<div style="width: 50%; margin: 5% auto;">
+	<div class="row">
+		<div class="container-fluid">
+		<form:form action="/tasks/${task.id}/edit" method="post" modelAttribute="edit_Task" enctype="multipart/form-data"	>
+			<div class="form-group">
+					<form:label path="name">Name</form:label>
+					<form:input type="text" path="name" class="form-control" id="email" value="${task.name}"/>
+					<form:errors path="name"/>
+			</div>
+			<div class="form-group">
+				<form:label path="description">Description</form:label>
+				<form:textarea rows="7" cols="70" type="text" path="description" class="form-control" id="description" value="${task.description}"/>
+				<form:errors path="description"/>
+				<br>
+			</div>
+			<div class="form-group">
+				<form:label path="status">Status</form:label>
+				<form:input type="text" path="status" class="form-control" id="status" value="${task.status}"/>
+				<form:errors path="status"/>
+			</div><label>File Upload</label>
+			<input type="file" class="form-control" name="file"/>
+			<br>
+			<div class="form-group">
+				<form:label path="taskReward">Reward:</form:label>
+				<form:select path="taskReward" class="form-control" id="taskReward">
+			<form:option value="1" label="10 - Easy Task"/>
+			<form:option value="2" label="20 - Medium Task"/>
+			<form:option value="3" label="30 - Hard Task"/>
+		</form:select>
+				<form:errors path="taskReward"/>				
+			</div>
+			<div class="form-group">
+				<form:label path="dueDate">Due Date:</form:label>
+				<form:input path="dueDate" type="date" class="form-control" id="dueDate" value="${task.dueDate}"/>
+					<form:errors path="dueDate"/>				
+			</div>
+			<button type="submit" class="btn btn-primary">Update task</button>
+		</form:form>
+	</div>
+	</div>
 </div>
 </body>
 </html>
