@@ -2,6 +2,8 @@ package com.javier.newproject.services;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 
 import com.javier.newproject.models.Reward;
@@ -22,6 +24,20 @@ public class RewardService {
 
 	public List<Reward> findAll() {
 		return rewardRepository.findAll();
+	}
+
+	public void newReward(Reward reward) {
+		rewardRepository.save(reward);
+	}
+
+	public void updateReward(@Valid Reward reward) {
+		rewardRepository.save(reward);
+		
+	}
+
+	public void deleteReward(Reward reward) {
+		rewardRepository.delete(reward);
+		
 	}
 	
 	

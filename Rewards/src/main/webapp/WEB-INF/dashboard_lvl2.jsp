@@ -143,7 +143,7 @@
 							<td>${ purchase.getUser().login }</td>
 							<td>${ purchase.getProduct().name }</td>
 							<td>${ purchase.getUser().login }@amazon.com</td>
-							<td><a href="/purchases/${purchase.id}/delivered"><button>Delivered</button></a></td>
+							<td><a href="/purchases/${purchase.id}/delivered"><button class="btn btn-secondary">Delivered</button></a></td>
 						</tr>
 					</c:forEach>
 			      	</tbody>
