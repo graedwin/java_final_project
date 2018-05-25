@@ -97,9 +97,6 @@
 <div class="container-fluid">
 	<div class="row justify-content-md-center">
   		<div class="col-3">
-			<c:if test="${fn:contains(task.image,'jpg') or fn:contains(task.image,'jpeg') or fn:contains(task.image,'png') or fn:contains(task.image,'gif')}">
-				<p> <a href="/tasks/${task.id}/showImage"> <img alt="${task.image}" src="/taskImages/${task.image}" width="300"></a></p>
-			</c:if>
 			<table class=""> 
 				<tbody>
 			    <tr class="">
@@ -126,7 +123,14 @@
 			          <td><a href="/tasks/${task.id}/request">Claim task</a></td>
 			        </c:otherwise>
 			      </c:choose>
-			    </tr>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<c:if test="${fn:contains(task.image,'jpg') or fn:contains(task.image,'jpeg') or fn:contains(task.image,'png') or fn:contains(task.image,'gif')}">
+								<p> <a href="/tasks/${task.id}/showImage"> <img alt="${task.image}" src="/taskImages/${task.image}" width="300"></a></p>
+							</c:if>
+						</td>
+					</tr>
 			    <tr>
 			      <td colspan="2"><h3>Description</h3></td>
 			    </tr>
