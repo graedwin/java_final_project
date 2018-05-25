@@ -98,7 +98,6 @@ public class Tasks {
 	public String viewTask (@PathVariable("id") Long id, Model model, Principal principal) {
 		model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
 		model.addAttribute("task", taskService.findById(id));
-		System.out.println(taskService.findById(id).getTaskCreator());
 		return "show_Task.jsp";
 	}
 	

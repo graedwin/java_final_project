@@ -141,7 +141,7 @@
 								<td>${ task.dueDate }</td>
 								<td>${ task.taskReward.points }</td>
 								<td>${ task.status }</td>
-								<td><a href="/tasks/${task.id}/show"><button>View Task</button></a></td>
+								<td><a href="/tasks/${task.id}/show"><button class="btn btn-secondary">View Task</button></a></td>
 							</tr>
 						</c:if>
 					</c:forEach>
