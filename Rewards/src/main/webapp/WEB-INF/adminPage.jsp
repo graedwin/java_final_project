@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
-       <%@include file="css/style.css" %>
+       <%@include file="css/Style.css" %>
        <%@include file="css/skeleton.css" %>
        <%@include file="css/normalize.css" %>
 </style>
@@ -51,7 +51,7 @@
 								    </button>
 								    <div class="dropdown-content">
 								    	<c:forEach var="role" items="${ roles }">
-									    	<c:if test = "${user.roles[0].name > role.name}">
+									    	<c:if test = "${user.roles[0].name != role.name}">
 										    	<a href="/user/${role.name}/${user.id}">Make ${role.name}</a>
 									      	</c:if>
 								      	</c:forEach>

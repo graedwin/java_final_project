@@ -77,7 +77,7 @@
 			<img alt="Badge photo" src="https://internal-cdn.amazon.com/badgephotos.amazon.com/?uid=${ currentUser.login}" style="margin:auto auto;">
 		  <div class="card-body">
 		    <h5 class="card-title "> ${currentUser.login }</h5>
-		    <p class="card-text">Ponts available ${currentUser.points}</p>
+		    <p class="card-text">PoInts available ${currentUser.points}</p>
 		  </div>
 		</div>
 		  <ul class="nav flex-column">

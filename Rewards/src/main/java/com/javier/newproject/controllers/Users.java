@@ -75,15 +75,17 @@ public class Users {
     
     @RequestMapping("/user/{role}/{id}")
     public String makeAdmin(@PathVariable("id") Long id, @PathVariable("role") String role,Principal principal, Model model){
-    	if(role=="ROLE_ADMIN") {
+    	System.out.println("got here");
+    	if(role.equals("ROLE_ADMIN")) {
     		userService.makeAdmin(userService.findById(id));
-    	}else if(role=="ROLE_USER"){
+    	}else if(role.equals("ROLE_USER")){
     		userService.makeUser(userService.findById(id));
-    	}else if(role=="ROLE_SUPERUSER"){
+    	}else if(role.equals("ROLE_SUPERUSER")){
     		userService.makeSuperUser(userService.findById(id));
-    	}else if(role=="ROLE_SUPERVISOR"){
+    	}else if(role.equals("ROLE_SUPERVISOR")){
     		userService.makeSupervisor(userService.findById(id));
-    	}else if(role=="ROLE_MANAGER"){
+    	}else if(role.equals("ROLE_MANAGER")){
+    		System.out.println("manager");
     		userService.makeManager(userService.findById(id));
     	}
     	String email = principal.getName();
