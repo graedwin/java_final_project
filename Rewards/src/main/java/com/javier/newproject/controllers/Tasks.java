@@ -118,7 +118,7 @@ public class Tasks {
 	}
 	
 	@RequestMapping ("/tasks/{id}/edit")
-	public String editTask (@ModelAttribute ("task") Task task, @PathVariable("id") Long id, Principal principal, Model model) {
+	public String editTask (@ModelAttribute ("edit_Task") Task task, @PathVariable("id") Long id, Principal principal, Model model) {
 		User currentUser = userService.findByUsername(principal.getName());
 		if (currentUser == taskService.findById(id).getTaskCreator() || currentUser.getLevel() < 3) {
 			model.addAttribute("task", taskService.findById(id));
@@ -130,12 +130,13 @@ public class Tasks {
 	}
 	
 	@PostMapping ("/tasks/{id}/edit")
-	public String updateTask (@Valid @ModelAttribute("task") Task task, BindingResult result, @PathVariable("id") Long id, Principal principal, Model model) {
+	public String updateTask (@Valid @ModelAttribute("edit_Task") Task task, BindingResult result, @PathVariable("id") Long id, Principal principal, Model model) {
+		model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
 		if (result.hasErrors()) {
 			return "edit_Task.jsp";
 		} else {
 			taskService.updateTask(task);
-			return "redirect/tasks";
+			return "redirect:/tasks";
 		}
 	}
 	
