@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javier.newproject.models.Product;
 import com.javier.newproject.models.Purchase;
+import com.javier.newproject.models.Task;
 import com.javier.newproject.models.User;
 import com.javier.newproject.services.NotificationService;
 import com.javier.newproject.services.ProductService;
@@ -50,8 +52,18 @@ public class Products {
     	String email = principal.getName();
         model.addAttribute("currentUser", userService.findByUsername(email));
     	model.addAttribute("all_Products", productService.allProducts());
-    	return "show_all_Products.jsp";
+    	return "redirect:/products/pages/1";
     }
+    
+	@RequestMapping("/products/pages/{id}")
+	public String tasksPages(Principal principal, Model model, @PathVariable(name="id") int pageNumber) {
+		model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
+        Page<Product> products = productService.productsPerPage(pageNumber-1);
+        model.addAttribute("totalPages", products.getTotalPages());
+        model.addAttribute("products", products);
+		return "show_all_Products.jsp";
+	}
+    
     @RequestMapping("/products/{id}")
     public String showProduct(@PathVariable("id") Long id,Principal principal,Model model) {
     	String email = principal.getName();
@@ -83,7 +95,7 @@ public class Products {
 			}
 			product.setImage(file.getOriginalFilename());
         	productService.saveProduct(product);
-        	return "redirect:/";
+        	return "redirect:/products";
         }
     }
     @RequestMapping("/products/{id}/edit")

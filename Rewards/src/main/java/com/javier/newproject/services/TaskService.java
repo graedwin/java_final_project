@@ -60,16 +60,13 @@ public class TaskService {
     public Page<Task> tasksPerPage(int pageNumber) {
         @SuppressWarnings("deprecation")
 		PageRequest pageRequest = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.ASC, "dueDate");
-        Page<Task> tasks = paginationRepo.findAll(pageRequest);
         return paginationRepo.findAll(pageRequest);
     }
     
     public Page<Task> findByStatus(int pageNumber){
     	@SuppressWarnings("deprecation")
 		PageRequest pageRequest = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.ASC, "dueDate");
-        Page<Task> tasks = paginationRepo.findAll(pageRequest);
         return paginationRepo.findByStatus(pageRequest, "Available");
-    	
     }
 	
 	//Helps to storage images
