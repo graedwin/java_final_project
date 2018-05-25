@@ -45,7 +45,6 @@
 	        		Tasks
 	      			</a>
 	      			<div class="dropdown-menu">
-	      			
 	        			<a class="dropdown-item" href="/tasks/add">Create a new Task</a>
 	    				<a class="dropdown-item" href="/tasks">Available Tasks</a>
 	      			</div>	
@@ -82,6 +81,17 @@
 	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/add">Add Reward</a>
 	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
+	      			</div>	
+      			</li>
+			</c:when>
+			<c:when test = "${currentUser.level>3}">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
+	        		Rewards
+	      			</a>
+	      			<div class="dropdown-menu">
+	        			<a class="dropdown-item" href="/rewards/assign">Assign Reward</a>
+	        			<a class="dropdown-item" href="/rewards">Show Rewards</a>
 	      			</div>	
       			</li>
 			</c:when>

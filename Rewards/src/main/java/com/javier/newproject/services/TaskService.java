@@ -109,5 +109,8 @@ public class TaskService {
         } catch (IOException e) {
             throw new RuntimeException("Could not initialize storage!");
         }
-    }	
+    }
+    public Task findTask(Long id) {
+    	return taskRepository.findById(id).get();
+    }
 }
