@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.javier.newproject.models.Product;
 import com.javier.newproject.models.Purchase;
 import com.javier.newproject.models.User;
+import com.javier.newproject.services.NotificationService;
 import com.javier.newproject.services.ProductService;
 import com.javier.newproject.services.PurchaseService;
 import com.javier.newproject.services.UserService;
@@ -31,12 +34,15 @@ public class Products {
     private UserValidator userValidator;
     private ProductService productService;
     private PurchaseService purchaseService;
+    @Autowired
+    private NotificationService notificationService;
 
-    public Products(UserService userService, UserValidator userValidator, ProductService productService,PurchaseService purchaseService) {
+    public Products(UserService userService, UserValidator userValidator, NotificationService notificationService,ProductService productService,PurchaseService purchaseService) {
         this.userService = userService;
         this.userValidator = userValidator;
         this.productService = productService;
         this.purchaseService = purchaseService;
+        this.notificationService=notificationService;
     }
     
     @RequestMapping("/products")
@@ -130,6 +136,12 @@ public class Products {
     		}
     		return "show_Product.jsp";
     	}
+    	try {
+			notificationService.sendNotification(email+"@amazon.com", "Thank you for your purchase",
+					"Thank you for buying the "+product.getName()+". You will receive your product within 2-3 business days.");
+		}catch (MailException e) {
+			System.out.println(e);
+		}
     	List<Product> productsPurchased = currentUser.getProducts();
     	productsPurchased.add(product);
     	currentUser.setProducts(productsPurchased);

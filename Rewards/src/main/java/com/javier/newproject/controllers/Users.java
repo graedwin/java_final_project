@@ -2,9 +2,11 @@ package com.javier.newproject.controllers;
 
 import java.security.Principal;
 import java.util.Optional;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -16,10 +18,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javier.newproject.models.Task;
 import com.javier.newproject.models.User;
+import com.javier.newproject.services.NotificationService;
 import com.javier.newproject.services.PurchaseService;
 import com.javier.newproject.services.TaskService;
 import com.javier.newproject.services.UserService;
@@ -32,12 +37,14 @@ public class Users {
     private TaskService taskService;
     private UserValidator userValidator;
     private PurchaseService purchaseService;
+    private NotificationService notificationService;
 
-    public Users(UserService userService, UserValidator userValidator, TaskService taskService,PurchaseService purchaseService) {
+    public Users(UserService userService, NotificationService notificationService,UserValidator userValidator, TaskService taskService,PurchaseService purchaseService) {
         this.userService = userService;
         this.userValidator = userValidator;
         this.taskService=taskService;
         this.purchaseService = purchaseService;
+        this.notificationService=notificationService;
     }
     
     @PostMapping("/registration")
@@ -68,15 +75,17 @@ public class Users {
     
     @RequestMapping("/user/{role}/{id}")
     public String makeAdmin(@PathVariable("id") Long id, @PathVariable("role") String role,Principal principal, Model model){
-    	if(role=="ROLE_ADMIN") {
+    	System.out.println("got here");
+    	if(role.equals("ROLE_ADMIN")) {
     		userService.makeAdmin(userService.findById(id));
-    	}else if(role=="ROLE_USER"){
+    	}else if(role.equals("ROLE_USER")){
     		userService.makeUser(userService.findById(id));
-    	}else if(role=="ROLE_SUPERUSER"){
+    	}else if(role.equals("ROLE_SUPERUSER")){
     		userService.makeSuperUser(userService.findById(id));
-    	}else if(role=="ROLE_SUPERVISOR"){
+    	}else if(role.equals("ROLE_SUPERVISOR")){
     		userService.makeSupervisor(userService.findById(id));
-    	}else if(role=="ROLE_MANAGER"){
+    	}else if(role.equals("ROLE_MANAGER")){
+    		System.out.println("manager");
     		userService.makeManager(userService.findById(id));
     	}
     	String email = principal.getName();
@@ -119,6 +128,30 @@ public class Users {
         model.addAttribute("userTasks", userService.findByUsername(email).getResolvedTasks());
         model.addAttribute("userProducts", userService.findByUsername(email).getPurchases());
         return "Profile.jsp";
+    }
+    @RequestMapping(value="/forgotPassword/{login}", method = RequestMethod.GET)
+    @ResponseBody
+    public  String  recoverPassword(@PathVariable("login") String login) {
+    	if(userService.findByUsername(login)==null) {
+    		return "We couldn't find any account with that login";
+    	}
+    	User user = userService.findByUsername(login);
+    	String alphabet= "abcdefghijklmnopqrstuvwxyz1234567890";
+        String s = "";
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            s+= alphabet.charAt(random.nextInt(36));
+        }
+        user.setPassword(s);
+        if(user.getLevel()>=3) {
+        	userService.saveWithUserRole(user);
+        }
+        else {
+        	userService.saveUserWithAdminRole(user);
+        }
+    	notificationService.sendNotification(login+"@amazon.com", "Password recovery email",
+    			"This is your new temporary password: "+ s );
+    	return "We have successfully sent an email to reset your password" ;
     }
     
 }
