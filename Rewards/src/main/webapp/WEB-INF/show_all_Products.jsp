@@ -96,15 +96,17 @@
 		<div class="container">
     		<div class="row">
     		<c:forEach items = "${ all_Products }" var = "product">
-    			<div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="col-md-6 col-lg-4 col-xl-3 border">
-		                <img class="card-img-top img-thumbnail" src="/productImages/${product.image}" alt="product image">
-		            <div class="card">
-		                <div class="card-block">
-		                    <h4 class="card-title"> ${ product.name } </h4>
-		                    <h5>Price</h5>
-		                    <p class="card-text">Price: ${product.price } </p>
-		                </div>
-		            </div>
+    			<div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="col-md-6 col-lg-4 col-xl-3 border"style="vertical-align: middle;">
+    				<div>
+		            	<img class="card-img-top " src="/productImages/${product.image}" alt="product image" style="max-height:250px;">
+		            	<div class="card">
+		                	<div class="card-block">
+		                    	<h4 class="card-title"> ${ product.name } </h4>
+		                    	<h5>Price</h5>
+		                    	<p class="card-text">Price: ${product.price } </p>
+		                	</div>
+		            	</div>
+	            	</div>
 		        </div>
 	        </c:forEach>
     		</div>
