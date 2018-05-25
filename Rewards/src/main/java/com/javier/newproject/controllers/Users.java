@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,13 +40,15 @@ public class Users {
     private UserValidator userValidator;
     private PurchaseService purchaseService;
     private NotificationService notificationService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public Users(UserService userService, NotificationService notificationService,UserValidator userValidator, TaskService taskService,PurchaseService purchaseService) {
+    public Users(UserService userService, NotificationService notificationService,UserValidator userValidator, TaskService taskService,BCryptPasswordEncoder bCryptPasswordEncoder,PurchaseService purchaseService) {
         this.userService = userService;
         this.userValidator = userValidator;
         this.taskService=taskService;
         this.purchaseService = purchaseService;
         this.notificationService=notificationService;
+        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
     }
     
     @PostMapping("/registration")
@@ -152,6 +156,41 @@ public class Users {
     	notificationService.sendNotification(login+"@amazon.com", "Password recovery email",
     			"This is your new temporary password: "+ s );
     	return "We have successfully sent an email to reset your password" ;
+    }
+    
+    @RequestMapping("/editPassword")
+    public String editPassword(Model model, Principal principal, @ModelAttribute("new_user") User user) {
+    	String email = principal.getName();
+    	model.addAttribute("currentUser", userService.findByUsername(email));
+        return "edit_password.jsp";
+        
+    }
+    
+    @PostMapping(value="/editPassword")
+    public String updatePassword(Model model, Principal principal,@RequestParam("oldPassword") String oldPassword,@RequestParam("newPassword") String newPassword,
+    		@RequestParam("confirmPassword") String confirmPassword) {
+    	String email = principal.getName();
+    	User user = userService.findByUsername(email);
+    	boolean error= false;
+    	if(!BCrypt.checkpw(oldPassword,user.getPassword())) {
+    		model.addAttribute("error1", "The old password doesn't match");
+    		error=true;
+    	}
+    	if(!newPassword.equals(confirmPassword)) {
+    		model.addAttribute("error2", "Password and Password confirmation are different");
+    		error=true;
+    	}
+    	if(newPassword.length()<8) {
+    		model.addAttribute("error3", "Password must be at least 8 characters");
+    		error=true;
+    	}
+    	if(error) {
+    		return "edit_password.jsp" ;
+    		
+    	}
+    	user.setPassword(bCryptPasswordEncoder.encode(newPassword));
+    	userService.save(user);
+    	return "redirect:/" ;
     }
     
 }

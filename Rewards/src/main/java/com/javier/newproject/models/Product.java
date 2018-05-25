@@ -39,7 +39,7 @@ public class Product {
 	@Min(0)
 	private int price;
 	
-	@Min(1)
+	@Min(0)
 	private int stock;
 	
 	@Lob
