@@ -98,25 +98,48 @@ public class Products {
         }
     }
     @PostMapping("/products/{id}/edit")
-    public String processEditProduct(@Valid @ModelAttribute("new_Product") Product product, BindingResult result, Model model, HttpSession session, HttpServletRequest request) {
+    public String processEditProduct(@Valid @ModelAttribute("new_Product") Product product, BindingResult result, @PathVariable("id") Long id, Model model, HttpSession session, HttpServletRequest request,  @RequestParam("file") MultipartFile file, @RequestParam("description") String description) {
         if (result.hasErrors()) {
             return "edit_Product.jsp";
         }else {
+        	if(file.getOriginalFilename().length()>0) {
+	        	try {
+					productService.store(file);
+				} catch (Exception e) {
+					model.addAttribute("message", "FAIL to upload " + file.getOriginalFilename() + "!");
+				}
+				product.setImage(file.getOriginalFilename());
+        	}else {
+        		product.setImage(productService.findProduct(id).getImage());
+        	}
+        	product.setDescription(description);
         	productService.saveProduct(product);
-        	return "redirect:/";
+        	return "redirect:/products";
         }
     }
-    @RequestMapping("/products/{id}/delete")
+    @RequestMapping("/products/{id}/remove")
     public String deleteProduct(@PathVariable("id") Long id, Principal principal, Model model) {
     	String email = principal.getName();
         model.addAttribute("currentUser", userService.findByUsername(email));
     	if (userService.findByUsername(principal.getName()).getLevel() < 3) {
-    		productService.deleteProduct(id);
+    		Product product =productService.findProduct(id); 
+    		product.setStock(0);
+    		productService.saveProduct(product);
     		return "redirect:/products";
     	}else {
             return "redirect:/products";
         }
     }
+    
+    @RequestMapping("/products/reinstate")
+    public String reinstateProducts(Principal principal, Model model) {
+    	String email = principal.getName();
+        model.addAttribute("currentUser", userService.findByUsername(email));
+    	model.addAttribute("all_Products", productService.allProducts());
+    	return "reinstateProducts.jsp";
+    }
+    
+    
     @RequestMapping("/products/{id}/purchase")
     public String purchaseProduct(@PathVariable("id") Long id, Principal principal, Model model) {
     	String email = principal.getName();
@@ -129,7 +152,7 @@ public class Products {
     		try {
         		
     			//sleep 5 seconds
-    			Thread.sleep(5000);
+    			Thread.sleep(1000);
     			return "show_Product.jsp";
     		} catch (InterruptedException e) {
     			e.printStackTrace();
@@ -156,7 +179,7 @@ public class Products {
     	try {
     		
 			//sleep 5 seconds
-			Thread.sleep(5000);
+			Thread.sleep(100);
 			return "redirect:/";
 		} catch (InterruptedException e) {
 			e.printStackTrace();
