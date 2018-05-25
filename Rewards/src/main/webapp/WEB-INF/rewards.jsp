@@ -15,85 +15,85 @@
 <body>
 <!-- NAV -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <!-- Brand -->
-        <a class="navbar-brand" href="/">Trading Hub</a>
-        <ul class="navbar-nav">
-          <!-- PROFILE -->
-          <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                  <c:out value = '${ currentUser.firstName }'/>
-                </a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="/editPassword">Edit Password</a>
-                  <a class="dropdown-item" href="/users/${ currentUser.id }/profile">Profile</a>
-                  <form id="logoutForm" method="POST" action="/logout">
-                      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                      <input class="dropdown-item" type="submit" value="Logout!" />
-                  </form>
-              </div>
-          </li>
-          <!-- TASKS -->
-          <c:choose>
-                 <c:when test = "${currentUser.level == 3}">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/tasks">Tasks</a>
-                    </li>
-              </c:when>
-              <c:otherwise>
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
-                      Tasks
-                        </a>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="/tasks/add">Create a new Task</a>
-                          <a class="dropdown-item" href="/tasks">Available Tasks</a>
-                        </div>	
-                    </li>
-              </c:otherwise>
-             </c:choose>
-             <!-- PRODUCTS -->
-            <c:choose>
-                <c:when test = "${currentUser.level<3}">
-                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
-                      Products
-                        </a>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="/products">View Products</a>	      			
-                          <a class="dropdown-item" href="/products/add">Add Product</a>
-                          <a class="dropdown-item" href="/products/reinstate">Reinstate Product</a>
-                        </div>	
-                    </li>
-              </c:when>
-              <c:otherwise>
-                  <li class="nav-item">
-                        <a class="nav-link" href="/products">Products</a>
-                  </li>
-              </c:otherwise>
-            </c:choose>
-            <!-- REWARDS -->
-            <c:choose>
-                <c:when test = "${currentUser.level<3}">
-                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
-                      Rewards
-                        </a>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="/rewards/add">Add Reward</a>
-                          <a class="dropdown-item" href="/rewards">Show Rewards</a>
-                        </div>	
-                    </li>
-              </c:when>
-              <c:otherwise>
-                  <li class="nav-item">
-                        <a class="nav-link" href="/rewards">Rewards</a>
-                  </li>
-              </c:otherwise>
-            </c:choose>
-        </ul>
-  </nav>
-  <!-- END OF NAV -->
-  <!-- BODY -->
+  	<!-- Brand -->
+  	<a class="navbar-brand" href="/">Trading Hub</a>
+  	<ul class="navbar-nav">
+    	<!-- PROFILE -->
+    	<li class="nav-item dropdown">
+      		<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        		<c:out value = '${ currentUser.firstName }'/>
+      		</a>
+      		<div class="dropdown-menu">
+        		<a class="dropdown-item" href="/editPassword">Edit Password</a>
+        		<a class="dropdown-item" href="/users/${ currentUser.id }/profile">Profile</a>
+        		<form id="logoutForm" method="POST" action="/logout">
+	        		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	        		<input class="dropdown-item" type="submit" value="Logout!" />
+	    		</form>
+			</div>
+		</li>
+		<!-- TASKS -->
+		<c:choose>
+   			<c:when test = "${currentUser.level == 3}">
+				<li class="nav-item">
+	      		<a class="nav-link" href="/tasks">Tasks</a>
+	      		</li>
+			</c:when>
+			<c:otherwise>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
+	        		Tasks
+	      			</a>
+	      			<div class="dropdown-menu">
+	        			<a class="dropdown-item" href="/tasks/add">Create a new Task</a>
+	    				<a class="dropdown-item" href="/tasks">Available Tasks</a>
+	      			</div>	
+      			</li>
+			</c:otherwise>
+   		</c:choose>
+   		<!-- PRODUCTS -->
+  		<c:choose>
+  			<c:when test = "${currentUser.level<3}">
+   				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
+	        		Products
+	      			</a>
+	      			<div class="dropdown-menu">
+	    				<a class="dropdown-item" href="/products">View Products</a>	      			
+	        			<a class="dropdown-item" href="/products/add">Add Product</a>
+	    				<a class="dropdown-item" href="/products/reinstate">Reinstate Product</a>
+	      			</div>	
+      			</li>
+			</c:when>
+			<c:otherwise>
+				<li class="nav-item">
+		      		<a class="nav-link" href="/products">Products</a>
+		    	</li>
+			</c:otherwise>
+  		</c:choose>
+  		<!-- REWARDS -->
+  		<c:choose>
+  			<c:when test = "${currentUser.level<3}">
+   				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
+	        		Rewards
+	      			</a>
+	      			<div class="dropdown-menu">
+	        			<a class="dropdown-item" href="/rewards/add">Add Reward</a>
+	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
+	      			</div>	
+      			</li>
+			</c:when>
+			<c:otherwise>
+				<li class="nav-item">
+		      		<a class="nav-link" href="/rewards">Rewards</a>
+		    	</li>
+			</c:otherwise>
+  		</c:choose>
+  	</ul>
+</nav>
+<!-- END OF NAV -->
+<!-- BODY -->
   <div style="width: 50%; margin: 5% auto; text-align:center;">
   <h2>Rewards</h2>
     <br>
@@ -115,8 +115,8 @@
                             <td>${ reward.description }</td>
                             <c:if test="${currentUser.level <3}">
                                 <td>
-                                    <a href="/rewards/${reward.id}/edit">Edit Reward</a>  |  
-                                    <a href="/rewards/${reward.id}/delete">Delete Reward</a>
+                                    <a href="/rewards/${reward.id}/edit"><button class="btn btn-secondary">Edit Reward</button></a>  |  
+                                    <a href="/rewards/${reward.id}/delete"><button class="btn btn-secondary">Delete Reward</button></a>
                                 </td>
                             </c:if>
                         </tr>
