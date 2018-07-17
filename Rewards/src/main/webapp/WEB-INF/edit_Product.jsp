@@ -18,7 +18,7 @@
 <!-- NAV -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   	<!-- Brand -->
-  	<a class="navbar-brand" href="/">Trading Hub</a>
+  	<a class="navbar-brand" href="/">Rewards and Recognitions</a>
   	<ul class="navbar-nav">
     	<!-- PROFILE -->
     	<li class="nav-item dropdown">
@@ -140,6 +140,7 @@
 				  	<br>
 				</div>
 				<button type="submit" class="btn btn-primary">Submit</button>
+				<a href="/products/${product.id}">Go back</a>
 			</form:form>
 		</div>
 	</div>

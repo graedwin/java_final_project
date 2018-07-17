@@ -17,7 +17,7 @@
 <!-- NAV -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   	<!-- Brand -->
-  	<a class="navbar-brand" href="/">Trading Hub</a>
+  	<a class="navbar-brand" href="/">Rewards and Recognitions</a>
   	<ul class="navbar-nav">
     	<!-- PROFILE -->
     	<li class="nav-item dropdown">
@@ -141,6 +141,7 @@
 					<form:errors path="dueDate"/>				
 			</div>
 			<button type="submit" class="btn btn-primary">Update task</button>
+			<a href="/tasks/${task.id}/show">Go back</a>
 		</form:form>
 	</div>
 	</div>

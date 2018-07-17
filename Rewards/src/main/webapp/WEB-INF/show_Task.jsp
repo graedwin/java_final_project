@@ -17,7 +17,7 @@
 <!-- NAV -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   	<!-- Brand -->
-  	<a class="navbar-brand" href="/">Trading Hub</a>
+  	<a class="navbar-brand" href="/">Rewards and Recognitions</a>
   	<ul class="navbar-nav">
     	<!-- PROFILE -->
     	<li class="nav-item dropdown">
@@ -169,7 +169,7 @@
 			      <td>${task.dueDate}</td>
 			    </tr>
 			    <tr>
-			    	<c:if test="${!fn:contains(task.image,'.jpg') and !fn:contains(task.image,'.png') and !fn:contains(task.image,'.jpeg') and !fn:contains(task.image,'.gif')}">
+			    	<c:if test="${!fn:contains(task.image,'.jpg') and !fn:contains(task.image,'.png') and !fn:contains(task.image,'.jpeg') and !fn:contains(task.image,'.gif') and !(task.image)==null}">
 						<td><a href="/file/download/${task.image }">Download ${task.image }</a></td>
 					</c:if>
 				</tr>
