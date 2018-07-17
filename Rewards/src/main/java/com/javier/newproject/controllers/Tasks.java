@@ -170,7 +170,7 @@ public class Tasks {
         Page<Task> tasks = taskService.tasksPerPage(pageNumber-1);
         model.addAttribute("totalPages", tasks.getTotalPages());
 		model.addAttribute("tasks", tasks);
-		if(userService.findByUsername(email).getLevel()==2) {
+		if(userService.findByUsername(email).getLevel()<3) {
         	model.addAttribute("pendingPurchases", purchaseService.pendingPurchases());
         	return "dashboard_lvl2.jsp";
         }

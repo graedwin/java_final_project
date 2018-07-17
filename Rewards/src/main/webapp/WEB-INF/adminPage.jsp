@@ -30,7 +30,7 @@
     			<th>Name </th>
     			<th>Login </th>
     			<th>Current Role</th>
-    			<th>Action </th>
+    			<th colspan=3 style="text-align:center;">Action </th>
     		</tr>
     	</thead>
     	<tbody>
@@ -41,12 +41,12 @@
     				<td> ${user.roles[0].name }
     				<c:choose>
 					    <c:when test="${ user.roles[0].name == 'ROLE_ADMIN' }">
-					        <td>  Admin</td>
+					        <td colspan=3 style="text-align:center;">Admin</td>
 					    </c:when>    
 					    <c:otherwise>
 							<td>
 								<div class="dropdown">
-									<button >Actions 
+									<button >Change Role 
 								    	<i class="fa fa-caret-down"></i>
 								    </button>
 								    <div class="dropdown-content">
@@ -58,6 +58,8 @@
 								    </div>
 						  		</div> 
 							</td>
+							<td><a href="/user/${user.id}/passUpdate">Reset Password</a></td>
+							<td><a href="/user/delete/${user.id}">Delete</a></td>
 					    </c:otherwise>
 					</c:choose>
     			</tr>

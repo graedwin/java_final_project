@@ -92,18 +92,8 @@
 	      			</a>
 	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/add">Add Reward</a>
-	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
-	      			</div>	
-      			</li>
-			</c:when>
-			<c:when test = "${currentUser.level>3}">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
-	        		Rewards
-	      			</a>
-	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/assign">Assign Reward</a>
-	        			<a class="dropdown-item" href="/rewards">Show Rewards</a>
+	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
 	      			</div>	
       			</li>
 			</c:when>
@@ -122,12 +112,14 @@
 	<div class="col-sm-3">
 		<div class="container">
 			<div class="card border-dark mb-3" style="max-width: 18rem;">
-		  		<div class="card-header"><h2> ${currentUser.firstName } ${currentUser.lastName } </h2></div>
+		  		<div class="card-header" style="text-align:center;"><h2> ${currentUser.firstName } ${currentUser.lastName } </h2></div>
 			  	<br>
 				<img alt="Badge photo" src="https://internal-cdn.amazon.com/badgephotos.amazon.com/?uid=${ currentUser.login}" style="margin:auto auto;">
 			  	<div class="card-body">
-		    		<h5 class="card-title "> ${currentUser.login }</h5>
-		    		<p class="card-text"></p>
+		    		<h5 class="card-title" style="text-align:center;"> ${currentUser.login}</h5>
+		    		<c:if test="${currentUser.level == 1}">
+			    		<p class="card-text" style="text-align:center;"><a href="/admin">Admin Users</a></p>		    		
+		    		</c:if>
 			  	</div>
 			</div>
 			<ul class="nav flex-column">

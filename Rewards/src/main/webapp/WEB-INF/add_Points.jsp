@@ -80,18 +80,8 @@
 	      			</a>
 	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/add">Add Reward</a>
-	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
-	      			</div>	
-      			</li>
-			</c:when>
-			<c:when test = "${currentUser.level>3}">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
-	        		Rewards
-	      			</a>
-	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/assign">Assign Reward</a>
-	        			<a class="dropdown-item" href="/rewards">Show Rewards</a>
+	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
 	      			</div>	
       			</li>
 			</c:when>
@@ -103,7 +93,6 @@
   		</c:choose>
   	</ul>
 </nav>
-<!-- END OF NAV -->
 <body>
 	<div style="width: 50%; margin: 5% auto;">
 		<div class="table-responsive">

@@ -104,6 +104,7 @@
   	</ul>
 </nav>
 <!-- END OF NAV -->
+<!--  BODY -->
 <br>
 <div class="row">
 	<div class="col-sm-3">

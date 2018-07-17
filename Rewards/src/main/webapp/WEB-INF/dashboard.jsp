@@ -81,18 +81,8 @@
 	      			</a>
 	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/add">Add Reward</a>
-	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
-	      			</div>	
-      			</li>
-			</c:when>
-			<c:when test = "${currentUser.level>3}">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
-	        		Rewards
-	      			</a>
-	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/assign">Assign Reward</a>
-	        			<a class="dropdown-item" href="/rewards">Show Rewards</a>
+	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
 	      			</div>	
       			</li>
 			</c:when>
@@ -115,7 +105,7 @@
 			<img alt="Badge photo" src="https://internal-cdn.amazon.com/badgephotos.amazon.com/?uid=${ currentUser.login}" style="margin:auto auto;">
 		  <div class="card-body">
 		    <h5 class="card-title "> ${currentUser.login }</h5>
-		    <p class="card-text">Points available ${currentUser.points}</p>
+    		<p class="card-text">Points available ${currentUser.points}</p>
 		  </div>
 		</div>
 		  <ul class="nav flex-column">

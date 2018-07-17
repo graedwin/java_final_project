@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+<!-- Forget password not yet working: email notification pending 
 <script>
 	$(document).ready(function(){
 		
@@ -34,6 +35,7 @@
 	})
 
 </script>
+-->
 <title>Welcome</title>
 </head>
 <body>
@@ -60,7 +62,9 @@
 	    <c:if test="${errorMessage != null}">
 	        <span style="color:red"><c:out value="${errorMessage}"></c:out></span>
 	    </c:if>
+	    <!-- Forget password not yet working: email notification pending
 		<a	href="" id='forgotPassword'>Forgot password?</a>
+		 -->
 		<div id="passwordForm"></div>
 		<p id="message" style="color:green"></p>
 		</div>

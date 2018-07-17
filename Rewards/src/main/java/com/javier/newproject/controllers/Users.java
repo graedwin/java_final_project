@@ -194,5 +194,13 @@ public class Users {
     	return "redirect:/" ;
     }
     
+    @RequestMapping(value="/user/{id}/passUpdate")
+    public String resetPassword(Principal principal, @PathVariable("id") Long id) {
+    	User user = userService.findById(id);
+		user.setPassword(bCryptPasswordEncoder.encode("Amazon1995"));
+		userService.save(user);
+		return "redirect:/admin";
+    }
+    
 }
 
