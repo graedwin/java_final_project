@@ -41,7 +41,9 @@
     				<td> ${user.roles[0].name }
     				<c:choose>
 					    <c:when test="${ user.roles[0].name == 'ROLE_ADMIN' }">
-					        <td colspan=3 style="text-align:center;">Admin</td>
+					        <td>Admin</td>
+					        <td><a href="/user/${user.id}/passUpdate">Reset Password</a></td>
+							<td><a href="/user/delete/${user.id}">Delete</a></td>
 					    </c:when>    
 					    <c:otherwise>
 							<td>
