@@ -1,27 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %> 
+        
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 <link rel="stylesheet" href="css/Modify.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<title>Display of the Products</title>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>    
+<script>
+	$.ajax({
+	    url: "./delete/car",
+	    type: "POST",
+	    success:function(response) {
+	        alert(response);
+	    }
+	});
+
+</script>  
+<title>Level 2 Dashboard</title>
 </head>
 <body>
 <!-- NAV -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   	<!-- Brand -->
-<<<<<<< HEAD
-  	<a class="navbar-brand" href="/">Rewards and Recognition</a>
-=======
   	<a class="navbar-brand" href="/">Rewards and Recognitions</a>
->>>>>>> 48752341c2b074858cd4eb679f57f2faec78d4b6
   	<ul class="navbar-nav">
     	<!-- PROFILE -->
     	<li class="nav-item dropdown">
@@ -129,75 +136,43 @@
 		</div>
 	</div>
 <!-- END OF SIDEBAR -->
-  	<div class="col-sm-9">
-  		<div class="container table-tasks">
-		<nav aria-label="Page navigation example" style="float:right;">
-		  <ul class="pagination">
-			<c:forEach var="i" begin="1" end="${totalPages }">
-           		<li class="page-item"><a class="page-link" href="/dashboard/pages/${ i }"> ${ i } </a></li>
-        		</c:forEach>
-		  </ul>
-		</nav>
-		<h2>Urgent Tasks</h2>
-		<br>
-			<div class="table-responsive">
-			    <table class="table">
-			      <thead>
-			        <tr>
-			          <th>Name</th>
-			          <th>Due Date</th>
-			          <th>Value</th>
-			          <th>Status</th>
-			          <th>Show</th>
-			        </tr>
-			      </thead>
-			      <tbody>
-					<c:forEach items="${ tasks.content }" var="task">
-						<c:if test="${task.status == 'Available'}">
-							<tr>
-								<td>${ task.name }</td>
-								<td>${ task.dueDate }</td>
-								<td>${ task.taskReward.points }</td>
-								<td>${ task.status }</td>
-								<td><a href="/tasks/${task.id}/show"><button class="btn btn-secondary">View Task</button></a></td>
-							</tr>
-						</c:if>
-					</c:forEach>
-				</tbody>
-				</table>
-			</div>
-		  </div>	
+<!-- BODY -->
+<div class="container">
+	<div class="row justify-content-md-center">
+  		<div class="col-3">
+			<table class=""> 
+				<tbody>
+			    <tr class="">
+			      <td colspan="2"><h1 style="padding-top: 30px;">${ reward.description }</h1></td>
+				</tr>
+			    <tr>
+			      <td><h3>Value</h3></td>
+			      <td>${ reward.points }</td>
+			    </tr>
+			    <tr>
+			      <td><h5>Created on</h5></td>
+			      <td>${reward.createdAt}</td>
+			    </tr>
+			    <c:choose>
+			        <c:when test="${currentUser.level < 3}">
+			         <tr>
+			          <td></td>
+			          <td>
+			            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+			              Admin Options
+			            </a>
+			            <div class="dropdown-menu">
+			              <a class="dropdown-item" href="/rewards/${reward.id}/edit">Edit</a>
+			              <a class="dropdown-item" href="/rewards/${reward.id}/delete">Delete</a>
+			            </div>
+			          </td>
+			         </tr>
+			        </c:when>
+			      </c:choose>
+  			  </tbody>
+			</table>
+		</div>
 	</div>
 </div>
-<div class="col-sm-3">
-		<div class="container">
-		
-		
-		<div class="card mb-3" style="max-width: 18rem;">
-		  <div class="card-header"><h2> Tasks </h2></div>
-		  <div class="card-body text-dark">
-		    <h5 class="card-title"></h5>
-		    <p class="card-text">
-    		  <ul class="nav flex-column">
-			  	<c:forEach var="task" items="${currentUser.resolvedTasks }">
-				    <li class="nav-item">
-							<a class="nav-link" href="/tasks/${task.id}/show"> ${task.name}</a>
-							${task.status}
-				    </li>
-			    </c:forEach>
-			  </ul>
-		    </p>
-		  </div>
-		</div>
-		
-		
-		
-		
-		
-		
-		  
-
-		</div>
-	</div>
 </body>
 </html>

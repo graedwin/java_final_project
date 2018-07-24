@@ -19,7 +19,11 @@
 <!-- NAV -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   	<!-- Brand -->
+<<<<<<< HEAD
   	<a class="navbar-brand" href="/">Rewards and Recognition</a>
+=======
+  	<a class="navbar-brand" href="/">Rewards and Recognitions</a>
+>>>>>>> 48752341c2b074858cd4eb679f57f2faec78d4b6
   	<ul class="navbar-nav">
     	<!-- PROFILE -->
     	<li class="nav-item dropdown">
@@ -83,18 +87,8 @@
 	      			</a>
 	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/add">Add Reward</a>
-	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
-	      			</div>	
-      			</li>
-			</c:when>
-			<c:when test = "${currentUser.level>3}">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
-	        		Rewards
-	      			</a>
-	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/assign">Assign Reward</a>
-	        			<a class="dropdown-item" href="/rewards">Show Rewards</a>
+	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
 	      			</div>	
       			</li>
 			</c:when>
@@ -107,13 +101,43 @@
   	</ul>
 </nav>
 <!-- END OF NAV -->
+<!-- SIDEBAR -->
+<br>
+<div class="row">
+	<div class="col-sm-3">
+		<div class="container">
+			<div class="card border-dark mb-3" style="max-width: 18rem;">
+		  		<div class="card-header" style="text-align:center;"><h2> ${currentUser.firstName } ${currentUser.lastName } </h2></div>
+			  	<br>
+				<img alt="Badge photo" src="https://internal-cdn.amazon.com/badgephotos.amazon.com/?uid=${ currentUser.login}" style="margin:auto auto;">
+			  	<div class="card-body">
+		    		<h5 class="card-title" style="text-align:center;"> ${currentUser.login}</h5>
+		    		<c:choose>
+			    		<c:when test="${currentUser.level == 1}">
+				    		<p class="card-text" style="text-align:center;"><a href="/admin">Admin Users</a></p>
+				    		<p class="card-text" style="text-align:center;"><a href="/recognitions/history">Show Reward History</a></p>		    		
+			    		</c:when>
+			    		<c:when test="${currentUser.level == 2}">
+			    			<p class="card-text" style="text-align:center;"><a href="/recognitions/history">Show Reward History</a></p>
+			    		</c:when>
+			    		<c:otherwise>
+			    			<p class="card-text" style="text-align:center;">Points Available: ${currentUser.points}</p>
+			    		</c:otherwise>
+		    		</c:choose>
+			  	</div>
+			</div>
+			<ul class="nav flex-column">
+			</ul>
+		</div>
+	</div>
+<!-- END OF SIDEBAR -->
 <!-- BODY -->
-<div class="container-fluid" style="text-align:center">
+<div class="col-sm-3" style="text-align:center">
 	<div class="row justify-content-md-center">
-  		<div class="col-3">
   			<h3 style="padding-top: 30px;">Edit your password</h3>
   			
   			
+  			<br>
   			<br>
 			<form action="/editPassword" method="post" class="form-group">
 				<input type="password" name="oldPassword" class="form-control" placeholder="Old Password">

@@ -1,16 +1,13 @@
 package com.javier.newproject.controllers;
 
 import java.security.Principal;
-import java.util.Optional;
 import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -24,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.javier.newproject.models.Task;
 import com.javier.newproject.models.User;
 import com.javier.newproject.services.NotificationService;
 import com.javier.newproject.services.PurchaseService;
@@ -36,17 +32,13 @@ import com.javier.newproject.validators.UserValidator;
 @Controller
 public class Users {
     private UserService userService;
-    private TaskService taskService;
     private UserValidator userValidator;
-    private PurchaseService purchaseService;
     private NotificationService notificationService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Users(UserService userService, NotificationService notificationService,UserValidator userValidator, TaskService taskService,BCryptPasswordEncoder bCryptPasswordEncoder,PurchaseService purchaseService) {
         this.userService = userService;
         this.userValidator = userValidator;
-        this.taskService=taskService;
-        this.purchaseService = purchaseService;
         this.notificationService=notificationService;
         this.bCryptPasswordEncoder=bCryptPasswordEncoder;
     }
@@ -128,9 +120,12 @@ public class Users {
     @RequestMapping("/users/{id}/profile")
     public String profile(@PathVariable("id") Long id,Principal principal, Model model){
     	String email = principal.getName();
-        model.addAttribute("currentUser", userService.findByUsername(email));
-        model.addAttribute("userTasks", userService.findByUsername(email).getResolvedTasks());
-        model.addAttribute("userProducts", userService.findByUsername(email).getPurchases());
+    	User currentUser = userService.findByUsername(email);
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("userTasks", currentUser.getResolvedTasks());
+        model.addAttribute("createdTasks", currentUser.getCreatedTasks());
+        model.addAttribute("userProducts", currentUser.getPurchases());
+        model.addAttribute("assignedRecognitions", currentUser.getCreatedRecognitions());
         return "Profile.jsp";
     }
     @RequestMapping(value="/forgotPassword/{login}", method = RequestMethod.GET)
@@ -192,6 +187,14 @@ public class Users {
     	user.setPassword(bCryptPasswordEncoder.encode(newPassword));
     	userService.save(user);
     	return "redirect:/" ;
+    }
+    
+    @RequestMapping(value="/user/{id}/passUpdate")
+    public String resetPassword(Principal principal, @PathVariable("id") Long id) {
+    	User user = userService.findById(id);
+		user.setPassword(bCryptPasswordEncoder.encode("Amazon1995"));
+		userService.save(user);
+		return "redirect:/admin";
     }
     
 }

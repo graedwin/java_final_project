@@ -60,13 +60,6 @@ public class User {
     private List<Role> roles;
     
 //    Relations
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-    		name="users_products",
-    		joinColumns = @JoinColumn(name="user_id"),
-    		inverseJoinColumns = @JoinColumn(name="product_id"))
-    private List<Product> products;
-    
     @OneToMany(mappedBy="productCreator", fetch=FetchType.LAZY)
     private List<Product> createdProducts;
     
@@ -78,12 +71,11 @@ public class User {
     private List<Task> createdTasks;
     
     
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "users_rewards", 
-            joinColumns = @JoinColumn(name = "user_id"), 
-            inverseJoinColumns = @JoinColumn(name = "reward_id"))
-        private List<Reward> rewardsLog;
+    @OneToMany(mappedBy="recognitionCreator", fetch=FetchType.LAZY)
+    private List<Recognition> createdRecognitions;
+    
+    @OneToMany(mappedBy="recognitionReceiver", fetch=FetchType.LAZY)
+    private List<Recognition> receivedRecognitions;
     
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -207,14 +199,6 @@ public class User {
 		this.roles = roles;
 	}
 
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
 	public List<Product> getCreatedProducts() {
 		return createdProducts;
 	}
@@ -239,14 +223,6 @@ public class User {
 		this.createdTasks = createdTasks;
 	}
 
-	public List<Reward> getRewardsLog() {
-		return rewardsLog;
-	}
-
-	public void setRewardsLog(List<Reward> rewardsLog) {
-		this.rewardsLog = rewardsLog;
-	}
-
 	public List<Purchase> getPurchases() {
 		return purchases;
 	}
@@ -254,6 +230,20 @@ public class User {
 	public void setPurchases(List<Purchase> purchases) {
 		this.purchases = purchases;
 	}
-	
-    
+
+	public List<Recognition> getCreatedRecognitions() {
+		return createdRecognitions;
+	}
+
+	public void setCreatedRecognitions(List<Recognition> createdRecognitions) {
+		this.createdRecognitions = createdRecognitions;
+	}
+
+	public List<Recognition> getReceivedRecognitions() {
+		return receivedRecognitions;
+	}
+
+	public void setReceivedRecognitions(List<Recognition> receivedRecognitions) {
+		this.receivedRecognitions = receivedRecognitions;
+	}
 }

@@ -18,7 +18,11 @@
 <!-- NAV -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   	<!-- Brand -->
+<<<<<<< HEAD
   	<a class="navbar-brand" href="/">Rewards and Recognition</a>
+=======
+  	<a class="navbar-brand" href="/">Rewards and Recognitions</a>
+>>>>>>> 48752341c2b074858cd4eb679f57f2faec78d4b6
   	<ul class="navbar-nav">
     	<!-- PROFILE -->
     	<li class="nav-item dropdown">
@@ -82,18 +86,8 @@
 	      			</a>
 	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/add">Add Reward</a>
-	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
-	      			</div>	
-      			</li>
-			</c:when>
-			<c:when test = "${currentUser.level>3}">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
-	        		Rewards
-	      			</a>
-	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/assign">Assign Reward</a>
-	        			<a class="dropdown-item" href="/rewards">Show Rewards</a>
+	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
 	      			</div>	
       			</li>
 			</c:when>
@@ -106,23 +100,37 @@
   	</ul>
 </nav>
 <!-- END OF NAV -->
+<!-- SIDEBAR -->
 <br>
 <div class="row">
 	<div class="col-sm-3">
 		<div class="container">
-		<div class="card border-dark mb-3" style="max-width: 18rem;">
-		  <div class="card-header"><h2> ${currentUser.firstName } ${currentUser.lastName } </h2></div>
-		  <br>
-			<img alt="Badge photo" src="https://internal-cdn.amazon.com/badgephotos.amazon.com/?uid=${ currentUser.login}" style="margin:auto auto;">
-		  <div class="card-body">
-		    <h5 class="card-title "> ${currentUser.login }</h5>
-		    <p class="card-text">PoInts available ${currentUser.points}</p>
-		  </div>
-		</div>
-		  <ul class="nav flex-column">
-		  </ul>
+			<div class="card border-dark mb-3" style="max-width: 18rem;">
+		  		<div class="card-header" style="text-align:center;"><h2> ${currentUser.firstName } ${currentUser.lastName } </h2></div>
+			  	<br>
+				<img alt="Badge photo" src="https://internal-cdn.amazon.com/badgephotos.amazon.com/?uid=${ currentUser.login}" style="margin:auto auto;">
+			  	<div class="card-body">
+		    		<h5 class="card-title" style="text-align:center;"> ${currentUser.login}</h5>
+		    		<c:choose>
+			    		<c:when test="${currentUser.level == 1}">
+				    		<p class="card-text" style="text-align:center;"><a href="/admin">Admin Users</a></p>
+				    		<p class="card-text" style="text-align:center;"><a href="/recognitions/history">Show Reward History</a></p>		    		
+			    		</c:when>
+			    		<c:when test="${currentUser.level == 2}">
+			    			<p class="card-text" style="text-align:center;"><a href="/recognitions/history">Show Reward History</a></p>
+			    		</c:when>
+			    		<c:otherwise>
+			    			<p class="card-text" style="text-align:center;">Points Available: ${currentUser.points}</p>
+			    		</c:otherwise>
+		    		</c:choose>
+			  	</div>
+			</div>
+			<ul class="nav flex-column">
+			</ul>
 		</div>
 	</div>
+<!-- END OF SIDEBAR -->
+<!-- BODY -->
   	<div class="col-sm-9">
   		<div class="container table-tasks">
 			<nav aria-label="Page navigation example" style="float:right;">
@@ -132,7 +140,8 @@
 	        		</c:forEach>
 			  </ul>
 			</nav>
-			<!-- TASKS -->
+		<c:choose>
+			<c:when test="${currentUser.level == 3}">
 			<h2>Tasks</h2>
 			<br>
 			<div class="table-responsive">
@@ -155,8 +164,6 @@
 			      </tbody>
 				</table>
 			</div>
-			<!-- END OF TASKS -->
-			<!-- PURCHASES -->
 			<h2>Purchases</h2>
 			<br>
 			<div class="table-responsive">
@@ -177,7 +184,63 @@
 			      </tbody>
 				</table>
 			</div>
-			<!-- END OF PURCHASES -->
+			</c:when>
+			<c:otherwise>
+			<h2>Tasks Created</h2>
+			<br>
+			<div class="table-responsive">
+			    <table class="table">
+			      <thead>
+			        <tr>
+			          <th>Name</th>
+			          <th>Status</th>
+			          <th>Resolver</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+					<c:forEach items="${ createdTasks }" var="createdTask">
+						<tr>
+						<td><a href="/tasks/${createdTask.id}/show">${ createdTask.name }</a></td>
+						<td>${ createdTask.status }</td>
+						<td>
+							<c:choose>
+								<c:when test="${createdTask.getTaskResolver() == NULL}">
+									<p>Unassigned</p>
+								</c:when>
+								<c:otherwise>
+									<p>${createdTask.getTaskResolver().login}</p>
+								</c:otherwise>
+							</c:choose>
+						</td>
+						</tr>
+					</c:forEach>
+			      </tbody>
+				</table>
+			</div>
+			<h2>Assigned Rewards</h2>
+			<br>
+			<div class="table-responsive">
+			    <table class="table">
+			      <thead>
+			        <tr>
+			          <th>Reward</th>
+			          <th>Assigned To</th>
+			          <th>Value</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+					<c:forEach items="${ assignedRecognitions }" var="recognition">
+						<tr>
+						<td>${ recognition.getReward().description }</td>
+						<td>${ recognition.getRecognitionReceiver().login }</td>
+						<td>${ recognition.getReward().points }</td>
+						</tr>
+					</c:forEach>
+			      </tbody>
+				</table>
+			</div>
+			</c:otherwise>
+		</c:choose>
 	  </div>	
 	</div>
 </div>

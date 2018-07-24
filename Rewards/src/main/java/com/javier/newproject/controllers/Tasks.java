@@ -11,7 +11,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,11 +22,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.javier.newproject.models.Recognition;
 import com.javier.newproject.models.Reward;
 import com.javier.newproject.models.Task;
 import com.javier.newproject.models.User;
 import com.javier.newproject.services.NotificationService;
 import com.javier.newproject.services.PurchaseService;
+import com.javier.newproject.services.RecognitionService;
 import com.javier.newproject.services.RewardService;
 import com.javier.newproject.services.TaskService;
 import com.javier.newproject.services.UserService;
@@ -42,15 +43,17 @@ public class Tasks {
 	private TaskService taskService;
 	private UserService userService;
 	private PurchaseService purchaseService;
+	private RecognitionService recognitionService;
 	
 	List<String> files = new ArrayList<String>();
 	private RewardService rewardService;
 	
-	public Tasks (TaskService taskService, UserService userService, RewardService rewardService, PurchaseService purchaseService) {
+	public Tasks (TaskService taskService, UserService userService, RewardService rewardService, PurchaseService purchaseService, RecognitionService recognitionService) {
 		this.purchaseService = purchaseService;
 		this.taskService = taskService;
 		this.userService = userService;
 		this.rewardService = rewardService;
+		this.recognitionService = recognitionService;
 		
 	}
 	
@@ -170,7 +173,7 @@ public class Tasks {
         Page<Task> tasks = taskService.tasksPerPage(pageNumber-1);
         model.addAttribute("totalPages", tasks.getTotalPages());
 		model.addAttribute("tasks", tasks);
-		if(userService.findByUsername(email).getLevel()==2) {
+		if(userService.findByUsername(email).getLevel()<3) {
         	model.addAttribute("pendingPurchases", purchaseService.pendingPurchases());
         	return "dashboard_lvl2.jsp";
         }
@@ -199,9 +202,11 @@ public class Tasks {
 			Reward reward = task.getTaskReward();
 			points += reward.getPoints();
 			currentUser.setPoints(points);
-			List <Reward> rewards = currentUser.getRewardsLog();
-			rewards.add(reward);
-			currentUser.setRewardsLog(rewards);
+			Recognition currentRecognition = new Recognition();
+			currentRecognition.setReward(reward);
+			currentRecognition.setRecognitionCreator(task.getTaskCreator());
+			currentRecognition.setRecognitionReceiver(task.getTaskResolver());
+			recognitionService.saveRecognition(currentRecognition);
 			userService.updateUser(currentUser);
 			return "redirect:/tasks";
 		} else {

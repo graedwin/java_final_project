@@ -1,27 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-<link rel="stylesheet" href="css/Modify.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<title>Display of the Products</title>
+<title>Rewards</title>
 </head>
 <body>
 <!-- NAV -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   	<!-- Brand -->
-<<<<<<< HEAD
-  	<a class="navbar-brand" href="/">Rewards and Recognition</a>
-=======
   	<a class="navbar-brand" href="/">Rewards and Recognitions</a>
->>>>>>> 48752341c2b074858cd4eb679f57f2faec78d4b6
   	<ul class="navbar-nav">
     	<!-- PROFILE -->
     	<li class="nav-item dropdown">
@@ -118,9 +113,6 @@
 			    		<c:when test="${currentUser.level == 2}">
 			    			<p class="card-text" style="text-align:center;"><a href="/recognitions/history">Show Reward History</a></p>
 			    		</c:when>
-			    		<c:otherwise>
-			    			<p class="card-text" style="text-align:center;">Points Available: ${currentUser.points}</p>
-			    		</c:otherwise>
 		    		</c:choose>
 			  	</div>
 			</div>
@@ -129,75 +121,38 @@
 		</div>
 	</div>
 <!-- END OF SIDEBAR -->
-  	<div class="col-sm-9">
-  		<div class="container table-tasks">
-		<nav aria-label="Page navigation example" style="float:right;">
-		  <ul class="pagination">
-			<c:forEach var="i" begin="1" end="${totalPages }">
-           		<li class="page-item"><a class="page-link" href="/dashboard/pages/${ i }"> ${ i } </a></li>
-        		</c:forEach>
-		  </ul>
-		</nav>
-		<h2>Urgent Tasks</h2>
+<!-- BODY -->
+	<div style="width: 50%; margin: 5% auto; text-align:center;">
+		<h2>Assigned Rewards</h2>
 		<br>
-			<div class="table-responsive">
-			    <table class="table">
-			      <thead>
-			        <tr>
-			          <th>Name</th>
-			          <th>Due Date</th>
-			          <th>Value</th>
-			          <th>Status</th>
-			          <th>Show</th>
-			        </tr>
-			      </thead>
-			      <tbody>
-					<c:forEach items="${ tasks.content }" var="task">
-						<c:if test="${task.status == 'Available'}">
-							<tr>
-								<td>${ task.name }</td>
-								<td>${ task.dueDate }</td>
-								<td>${ task.taskReward.points }</td>
-								<td>${ task.status }</td>
-								<td><a href="/tasks/${task.id}/show"><button class="btn btn-secondary">View Task</button></a></td>
-							</tr>
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Reward</th>
+						<th>Given By</th>
+						<th>Given To</th>
+						<c:if test="${currentUser.level <3}">
+							<th>Actions</th>
 						</c:if>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${ recognitions }" var="recognition">
+						<tr>
+							<td><a href="/rewards/${recognition.reward.id}/show">${ recognition.getReward().description}</a></td>
+							<td>${ recognition.getRecognitionCreator().login }</td>
+							<td>${ recognition.getRecognitionReceiver().login }</td>
+							<c:if test="${currentUser.level <3}">
+								<td>
+									<a href="/recognitions/${recognition.id}/delete"><button class="btn btn-secondary">Delete Reward</button></a>
+								</td>
+							</c:if>
+						</tr>
 					</c:forEach>
 				</tbody>
-				</table>
-			</div>
-		  </div>	
-	</div>
-</div>
-<div class="col-sm-3">
-		<div class="container">
-		
-		
-		<div class="card mb-3" style="max-width: 18rem;">
-		  <div class="card-header"><h2> Tasks </h2></div>
-		  <div class="card-body text-dark">
-		    <h5 class="card-title"></h5>
-		    <p class="card-text">
-    		  <ul class="nav flex-column">
-			  	<c:forEach var="task" items="${currentUser.resolvedTasks }">
-				    <li class="nav-item">
-							<a class="nav-link" href="/tasks/${task.id}/show"> ${task.name}</a>
-							${task.status}
-				    </li>
-			    </c:forEach>
-			  </ul>
-		    </p>
-		  </div>
+			</table>
 		</div>
-		
-		
-		
-		
-		
-		
-		  
-
-		</div>
-	</div>
+	</div>	
 </body>
 </html>

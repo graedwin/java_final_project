@@ -28,7 +28,11 @@
 <!-- NAV -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   	<!-- Brand -->
+<<<<<<< HEAD
   	<a class="navbar-brand" href="/">Rewards and Recognition</a>
+=======
+  	<a class="navbar-brand" href="/">Rewards and Recognitions</a>
+>>>>>>> 48752341c2b074858cd4eb679f57f2faec78d4b6
   	<ul class="navbar-nav">
     	<!-- PROFILE -->
     	<li class="nav-item dropdown">
@@ -92,18 +96,8 @@
 	      			</a>
 	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/add">Add Reward</a>
-	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
-	      			</div>	
-      			</li>
-			</c:when>
-			<c:when test = "${currentUser.level>3}">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="/tasks" id="navbardrop" data-toggle="dropdown">
-	        		Rewards
-	      			</a>
-	      			<div class="dropdown-menu">
 	        			<a class="dropdown-item" href="/rewards/assign">Assign Reward</a>
-	        			<a class="dropdown-item" href="/rewards">Show Rewards</a>
+	    				<a class="dropdown-item" href="/rewards">Show Rewards</a>
 	      			</div>	
       			</li>
 			</c:when>
@@ -116,24 +110,34 @@
   	</ul>
 </nav>
 <!-- END OF NAV -->
-<!-- BODY -->
+<!-- SIDEBAR -->
 <br>
 <div class="row">
 	<div class="col-sm-3">
 		<div class="container">
 			<div class="card border-dark mb-3" style="max-width: 18rem;">
-		  		<div class="card-header"><h2> ${currentUser.firstName } ${currentUser.lastName } </h2></div>
+		  		<div class="card-header" style="text-align:center;"><h2> ${currentUser.firstName } ${currentUser.lastName } </h2></div>
 			  	<br>
 				<img alt="Badge photo" src="https://internal-cdn.amazon.com/badgephotos.amazon.com/?uid=${ currentUser.login}" style="margin:auto auto;">
 			  	<div class="card-body">
-		    		<h5 class="card-title "> ${currentUser.login }</h5>
-		    		<p class="card-text"></p>
+		    		<h5 class="card-title" style="text-align:center;"> ${currentUser.login}</h5>
+		    		<c:choose>
+			    		<c:when test="${currentUser.level == 1}">
+				    		<p class="card-text" style="text-align:center;"><a href="/admin">Admin Users</a></p>
+				    		<p class="card-text" style="text-align:center;"><a href="/recognitions/history">Show Reward History</a></p>		    		
+			    		</c:when>
+			    		<c:when test="${currentUser.level == 2}">
+			    			<p class="card-text" style="text-align:center;"><a href="/recognitions/history">Show Reward History</a></p>
+			    		</c:when>
+		    		</c:choose>
 			  	</div>
 			</div>
 			<ul class="nav flex-column">
 			</ul>
 		</div>
 	</div>
+<!-- SIDEBAR -->
+<!-- BODY -->
 	<div class="col-sm-9">
   		<div class="container table-tasks">
 		<h2>Pending Purchases</h2>
@@ -154,7 +158,7 @@
 							<td>${ purchase.getUser().login }</td>
 							<td>${ purchase.getProduct().name }</td>
 							<td>${ purchase.getUser().login }@amazon.com</td>
-							<td><a href="/purchases/${purchase.id}/delivered"><button class="btn btn-secondary">Delivered</button></a></td>
+							<td><a href="/purchases/${purchase.id}/delivered"><button class="btn btn-secondary">Mark as Delivered</button></a></td>
 						</tr>
 					</c:forEach>
 			      	</tbody>

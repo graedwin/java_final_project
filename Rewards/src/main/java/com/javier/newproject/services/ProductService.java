@@ -20,10 +20,8 @@ import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javier.newproject.models.Product;
-import com.javier.newproject.models.Task;
 import com.javier.newproject.repositories.ProductPaginationRepository;
 import com.javier.newproject.repositories.ProductRepository;
-import com.javier.newproject.repositories.TaskPaginationRepository;
 
 @Service
 public class ProductService {

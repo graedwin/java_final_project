@@ -10,9 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -20,8 +18,6 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -64,13 +60,6 @@ public class Product {
 	}
     
 //    Relations
-	@ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-    		name="users_products",
-    		joinColumns = @JoinColumn(name="product_id"),
-    		inverseJoinColumns = @JoinColumn(name="user_id"))
-    private List<User> orderedBy;
-	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User productCreator;
@@ -154,14 +143,6 @@ public class Product {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
-	}
-
-	public List<User> getOrderedBy() {
-		return orderedBy;
-	}
-
-	public void setOrderedBy(List<User> orderedBy) {
-		this.orderedBy = orderedBy;
 	}
 
 	public User getProductCreator() {

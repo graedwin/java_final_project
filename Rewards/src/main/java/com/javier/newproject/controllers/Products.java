@@ -1,8 +1,6 @@
 package com.javier.newproject.controllers;
 
 import java.security.Principal;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -22,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javier.newproject.models.Product;
 import com.javier.newproject.models.Purchase;
-import com.javier.newproject.models.Task;
 import com.javier.newproject.models.User;
 import com.javier.newproject.services.NotificationService;
 import com.javier.newproject.services.ProductService;
@@ -33,7 +30,6 @@ import com.javier.newproject.validators.UserValidator;
 @Controller
 public class Products {
 	private UserService userService;
-    private UserValidator userValidator;
     private ProductService productService;
     private PurchaseService purchaseService;
     @Autowired
@@ -41,7 +37,6 @@ public class Products {
 
     public Products(UserService userService, UserValidator userValidator, NotificationService notificationService,ProductService productService,PurchaseService purchaseService) {
         this.userService = userService;
-        this.userValidator = userValidator;
         this.productService = productService;
         this.purchaseService = purchaseService;
         this.notificationService=notificationService;
@@ -171,6 +166,7 @@ public class Products {
     		}
     		return "show_Product.jsp";
     	}
+<<<<<<< HEAD
     	else {
 //	    	try {
 //				notificationService.sendNotification(email+"@amazon.com", "Thank you for your purchase",
@@ -198,6 +194,31 @@ public class Products {
 			}
 	    	return "redirect:/";
     	}
+=======
+    	try {
+			notificationService.sendNotification(email+"@amazon.com", "Thank you for your purchase",
+					"Thank you for buying the "+product.getName()+". You will receive your product within 2-3 business days.");
+		}catch (MailException e) {
+			System.out.println(e);
+		}
+    	currentUser.setPoints(currentUser.getPoints()-product.getPrice());
+    	userService.save(currentUser);
+    	product.setStock(product.getStock()-1);
+    	Purchase currentPurchase = new Purchase();
+    	currentPurchase.setProduct(product);
+    	currentPurchase.setUser(currentUser);
+    	purchaseService.savePurchase(currentPurchase);
+    	productService.saveProduct(product);
+    	try {
+    		
+			//sleep 5 seconds
+			Thread.sleep(100);
+			return "redirect:/";
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+    	return "redirect:/";
+>>>>>>> 48752341c2b074858cd4eb679f57f2faec78d4b6
     } 
 
 }

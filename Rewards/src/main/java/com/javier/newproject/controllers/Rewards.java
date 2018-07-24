@@ -1,7 +1,6 @@
 package com.javier.newproject.controllers;
 
 import java.security.Principal;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -14,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.javier.newproject.models.Recognition;
 import com.javier.newproject.models.Reward;
 import com.javier.newproject.models.User;
+import com.javier.newproject.services.RecognitionService;
 import com.javier.newproject.services.RewardService;
 import com.javier.newproject.services.UserService;
 
@@ -24,10 +25,12 @@ public class Rewards {
 	
 	private RewardService rewardService;
 	private UserService userService;
+	private RecognitionService recognitionService;
 	
-	public Rewards (RewardService rewardService, UserService userService) {
+	public Rewards (RewardService rewardService, UserService userService, RecognitionService recognitionService) {
 		this.rewardService = rewardService;
 		this.userService = userService;
+		this.recognitionService = recognitionService;
 	}
 	
 	@RequestMapping ("/rewards")
@@ -128,13 +131,15 @@ public class Rewards {
 			model.addAttribute("currentUser", currentUser);
 			User user = userService.findById(userId);
 			Reward reward = rewardService.findById(rewardId);
-			List <Reward> rewards = user.getRewardsLog();
+			Recognition currentRecognition = new Recognition();
 			int points = user.getPoints();
 			points += reward.getPoints();
-			rewards.add(reward);
 			user.setPoints(points);
-			user.setRewardsLog(rewards);
 			userService.save(user);
+			currentRecognition.setReward(reward);
+			currentRecognition.setRecognitionCreator(currentUser);
+			currentRecognition.setRecognitionReceiver(user);
+			recognitionService.saveRecognition(currentRecognition);
 			model.addAttribute("currentUser", currentUser);
 			model.addAttribute("users", userService.findAll());
 			model.addAttribute("rewards", rewardService.findAll());
@@ -143,5 +148,12 @@ public class Rewards {
 		} else {
 			return "redirect:/rewards";
 		}
+	}
+	
+	@RequestMapping("/rewards/{id}/show")
+	public String showReward (@PathVariable("id") Long id, Principal principal, Model model) {
+		model.addAttribute("reward", rewardService.findById(id));
+		model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
+		return "showReward.jsp";
 	}
 }
