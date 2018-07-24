@@ -9,9 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -51,12 +48,8 @@ public class Reward {
 	@OneToMany(mappedBy="taskReward", fetch = FetchType.LAZY)
 	private List<Task> tasks;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "users_rewards", 
-            joinColumns = @JoinColumn(name = "reward_id"), 
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-        private List<User> usersRewarded;
+	@OneToMany(mappedBy="reward", fetch = FetchType.LAZY)
+	private List<Recognition> recognitionsHistory;
 	
 	
 //	Auto created/updated at
@@ -119,12 +112,12 @@ public class Reward {
 		this.tasks = tasks;
 	}
 
-	public List<User> getUsersRewarded() {
-		return usersRewarded;
+	public List<Recognition> getRecognitionsHistory() {
+		return recognitionsHistory;
 	}
 
-	public void setUsersRewarded(List<User> usersRewarded) {
-		this.usersRewarded = usersRewarded;
+	public void setRecognitionsHistory(List<Recognition> recognitionsHistory) {
+		this.recognitionsHistory = recognitionsHistory;
 	}
     
 }

@@ -11,8 +11,18 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>            
-<title>Edit your product</title>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>    
+<script>
+	$.ajax({
+	    url: "./delete/car",
+	    type: "POST",
+	    success:function(response) {
+	        alert(response);
+	    }
+	});
+
+</script>  
+<title>Level 2 Dashboard</title>
 </head>
 <body>
 <!-- NAV -->
@@ -127,40 +137,40 @@
 	</div>
 <!-- END OF SIDEBAR -->
 <!-- BODY -->
-<div class="col-sm-5">
+<div class="container">
 	<div class="row justify-content-md-center">
-  			<h3 style="padding-top: 30px;">Edit your product</h3>
-			<form:form action="#" method="post" modelAttribute="new_Product"  enctype="multipart/form-data">
-				<div class="form-group">
-				  	<form:label path="name" >Name</form:label>
-				  	<form:input type="text" path="name" value="${ product.name }" class="form-control" id="name"/>
-				  	<form:errors path="name"/>
-				</div>
-				<div class="form-group">
-				  	<form:label path="price">Price</form:label>
-				  	<form:input type="number" path="price" value="${ product.price }" class="form-control" id="price"/>
-				  	<form:errors path="price"/>
-				  	<br>
-				</div>
-				<div class="form-group">
-				  	<form:label path="stock">Stock</form:label>
-				  	<form:input type="number" path="stock" value="${ product.stock }" class="form-control" id="stock"/>
-				  	<form:errors path="stock"/>
-				  	<br>
-				</div>
-				<div class="form-group">
-				  	<label >Description</label>
-				  	<textarea rows="7" cols="70" type="text" class="form-control" name="description" > ${ product.description } </textarea>
-				  	<br>
-				</div>
-				<div class="form-group">
-				  	<label>Image</label>
-				  	<input type="file" name="file" class="form-control"/>
-				  	<br>
-				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
-				<a href="/products/${product.id}">Go back</a>
-			</form:form>
+  		<div class="col-3">
+			<table class=""> 
+				<tbody>
+			    <tr class="">
+			      <td colspan="2"><h1 style="padding-top: 30px;">${ reward.description }</h1></td>
+				</tr>
+			    <tr>
+			      <td><h3>Value</h3></td>
+			      <td>${ reward.points }</td>
+			    </tr>
+			    <tr>
+			      <td><h5>Created on</h5></td>
+			      <td>${reward.createdAt}</td>
+			    </tr>
+			    <c:choose>
+			        <c:when test="${currentUser.level < 3}">
+			         <tr>
+			          <td></td>
+			          <td>
+			            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+			              Admin Options
+			            </a>
+			            <div class="dropdown-menu">
+			              <a class="dropdown-item" href="/rewards/${reward.id}/edit">Edit</a>
+			              <a class="dropdown-item" href="/rewards/${reward.id}/delete">Delete</a>
+			            </div>
+			          </td>
+			         </tr>
+			        </c:when>
+			      </c:choose>
+  			  </tbody>
+			</table>
 		</div>
 	</div>
 </div>

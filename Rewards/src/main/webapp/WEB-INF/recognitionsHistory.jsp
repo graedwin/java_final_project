@@ -94,6 +94,33 @@
   	</ul>
 </nav>
 <!-- END OF NAV -->
+<!-- SIDEBAR -->
+<br>
+<div class="row">
+	<div class="col-sm-3">
+		<div class="container">
+			<div class="card border-dark mb-3" style="max-width: 18rem;">
+		  		<div class="card-header" style="text-align:center;"><h2> ${currentUser.firstName } ${currentUser.lastName } </h2></div>
+			  	<br>
+				<img alt="Badge photo" src="https://internal-cdn.amazon.com/badgephotos.amazon.com/?uid=${ currentUser.login}" style="margin:auto auto;">
+			  	<div class="card-body">
+		    		<h5 class="card-title" style="text-align:center;"> ${currentUser.login}</h5>
+		    		<c:choose>
+			    		<c:when test="${currentUser.level == 1}">
+				    		<p class="card-text" style="text-align:center;"><a href="/admin">Admin Users</a></p>
+				    		<p class="card-text" style="text-align:center;"><a href="/recognitions/history">Show Reward History</a></p>		    		
+			    		</c:when>
+			    		<c:when test="${currentUser.level == 2}">
+			    			<p class="card-text" style="text-align:center;"><a href="/recognitions/history">Show Reward History</a></p>
+			    		</c:when>
+		    		</c:choose>
+			  	</div>
+			</div>
+			<ul class="nav flex-column">
+			</ul>
+		</div>
+	</div>
+<!-- END OF SIDEBAR -->
 <!-- BODY -->
 	<div style="width: 50%; margin: 5% auto; text-align:center;">
 		<h2>Assigned Rewards</h2>
@@ -102,22 +129,23 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Value</th>
-						<th>Description</th>
+						<th>Reward</th>
+						<th>Given By</th>
+						<th>Given To</th>
 						<c:if test="${currentUser.level <3}">
 							<th>Actions</th>
 						</c:if>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${ rewards }" var="reward">
+					<c:forEach items="${ recognitions }" var="recognition">
 						<tr>
-							<td>${ reward.points }</td>
-							<td>${ reward.description }</td>
+							<td><a href="/rewards/${recognition.reward.id}/show">${ recognition.getReward().description}</a></td>
+							<td>${ recognition.getRecognitionCreator().login }</td>
+							<td>${ recognition.getRecognitionReceiver().login }</td>
 							<c:if test="${currentUser.level <3}">
 								<td>
-									<a href="/rewards/${reward.id}/edit"><button class="btn btn-secondary">Edit Reward</button></a>  |  
-									<a href="/rewards/${reward.id}/delete"><button class="btn btn-secondary">Delete Reward</button></a>
+									<a href="/recognitions/${recognition.id}/delete"><button class="btn btn-secondary">Delete Reward</button></a>
 								</td>
 							</c:if>
 						</tr>

@@ -1,8 +1,6 @@
 package com.javier.newproject.controllers;
 
 import java.security.Principal;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -22,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javier.newproject.models.Product;
 import com.javier.newproject.models.Purchase;
-import com.javier.newproject.models.Task;
 import com.javier.newproject.models.User;
 import com.javier.newproject.services.NotificationService;
 import com.javier.newproject.services.ProductService;
@@ -33,7 +30,6 @@ import com.javier.newproject.validators.UserValidator;
 @Controller
 public class Products {
 	private UserService userService;
-    private UserValidator userValidator;
     private ProductService productService;
     private PurchaseService purchaseService;
     @Autowired
@@ -41,7 +37,6 @@ public class Products {
 
     public Products(UserService userService, UserValidator userValidator, NotificationService notificationService,ProductService productService,PurchaseService purchaseService) {
         this.userService = userService;
-        this.userValidator = userValidator;
         this.productService = productService;
         this.purchaseService = purchaseService;
         this.notificationService=notificationService;
@@ -177,9 +172,6 @@ public class Products {
 		}catch (MailException e) {
 			System.out.println(e);
 		}
-    	List<Product> productsPurchased = currentUser.getProducts();
-    	productsPurchased.add(product);
-    	currentUser.setProducts(productsPurchased);
     	currentUser.setPoints(currentUser.getPoints()-product.getPrice());
     	userService.save(currentUser);
     	product.setStock(product.getStock()-1);

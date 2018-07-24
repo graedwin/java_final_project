@@ -106,7 +106,7 @@
   	</ul>
 </nav>
 <!-- END OF NAV -->
-<!-- BODY -->
+<!-- SIDEBAR -->
 <br>
 <div class="row">
 	<div class="col-sm-3">
@@ -120,10 +120,10 @@
 		    		<c:choose>
 			    		<c:when test="${currentUser.level == 1}">
 				    		<p class="card-text" style="text-align:center;"><a href="/admin">Admin Users</a></p>
-				    		<p class="card-text" style="text-align:center;"><a href="/rewards/history">Show Reward History</a></p>		    		
+				    		<p class="card-text" style="text-align:center;"><a href="/recognitions/history">Show Reward History</a></p>		    		
 			    		</c:when>
 			    		<c:when test="${currentUser.level == 2}">
-			    			<p class="card-text" style="text-align:center;"><a href="/rewards/history">Show Reward History</a></p>
+			    			<p class="card-text" style="text-align:center;"><a href="/recognitions/history">Show Reward History</a></p>
 			    		</c:when>
 		    		</c:choose>
 			  	</div>
@@ -132,6 +132,8 @@
 			</ul>
 		</div>
 	</div>
+<!-- SIDEBAR -->
+<!-- BODY -->
 	<div class="col-sm-9">
   		<div class="container table-tasks">
 		<h2>Pending Purchases</h2>

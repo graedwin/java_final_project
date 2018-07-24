@@ -14,6 +14,7 @@
 <title>Admin Page</title>
 </head>
 <body>
+
 <div id="wrapper">
 	<header>
 	    <h4>Welcome <c:out value="${currentUser.firstName}"></c:out></h4>
