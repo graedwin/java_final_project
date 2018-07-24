@@ -171,32 +171,33 @@ public class Products {
     		}
     		return "show_Product.jsp";
     	}
-    	try {
-			notificationService.sendNotification(email+"@amazon.com", "Thank you for your purchase",
-					"Thank you for buying the "+product.getName()+". You will receive your product within 2-3 business days.");
-		}catch (MailException e) {
-			System.out.println(e);
-		}
-    	List<Product> productsPurchased = currentUser.getProducts();
-    	productsPurchased.add(product);
-    	currentUser.setProducts(productsPurchased);
-    	currentUser.setPoints(currentUser.getPoints()-product.getPrice());
-    	userService.save(currentUser);
-    	product.setStock(product.getStock()-1);
-    	Purchase currentPurchase = new Purchase();
-    	currentPurchase.setProduct(product);
-    	currentPurchase.setUser(currentUser);
-    	purchaseService.savePurchase(currentPurchase);
-    	productService.saveProduct(product);
-    	try {
-    		
-			//sleep 5 seconds
-			Thread.sleep(100);
-			return "redirect:/";
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-    	return "redirect:/";
+    	else {
+//	    	try {
+//				notificationService.sendNotification(email+"@amazon.com", "Thank you for your purchase",
+//						"Thank you for buying the "+product.getName()+". You will receive your product within 2-3 business days.");
+//			}catch (MailException e) {
+//				System.out.println(e);
+//			}
+	    	List<Product> productsPurchased = currentUser.getProducts();
+	    	productsPurchased.add(product);
+	    	currentUser.setProducts(productsPurchased);
+	    	currentUser.setPoints(currentUser.getPoints()-product.getPrice());
+	    	userService.save(currentUser);
+	    	product.setStock(product.getStock()-1);
+	    	Purchase currentPurchase = new Purchase();
+	    	currentPurchase.setProduct(product);
+	    	currentPurchase.setUser(currentUser);
+	    	purchaseService.savePurchase(currentPurchase);
+	    	productService.saveProduct(product);
+	    	try {
+				//sleep 5 seconds
+				Thread.sleep(1500);
+				return "redirect:/";
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+	    	return "redirect:/";
+    	}
     } 
 
 }

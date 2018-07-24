@@ -19,7 +19,7 @@
 <!-- NAV -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   	<!-- Brand -->
-  	<a class="navbar-brand" href="/">Trading Hub</a>
+  	<a class="navbar-brand" href="/">Rewards and Recognition</a>
   	<ul class="navbar-nav">
     	<!-- PROFILE -->
     	<li class="nav-item dropdown">

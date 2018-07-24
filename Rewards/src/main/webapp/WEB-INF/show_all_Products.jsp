@@ -17,7 +17,7 @@
 <!-- NAV -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   	<!-- Brand -->
-  	<a class="navbar-brand" href="/">Trading Hub</a>
+  	<a class="navbar-brand" href="/">Rewards and Recognition</a>
   	<ul class="navbar-nav">
     	<!-- PROFILE -->
     	<li class="nav-item dropdown">
@@ -143,11 +143,11 @@
     		<div class="row">
     		<c:forEach items = "${ products.content }" var = "product">
     			<c:if test = "${product.stock>0}">
-	    			<div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="col-md-6 col-lg-4 col-xl-3 border"style="vertical-align: middle;">
+	    			<div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="col-md-6 col-lg-4 col-xl-3 border" style="height:400px;" >
 	    				<div>
-			            	<img class="card-img-top " src="/productImages/${product.image}" alt="product image" style="max-height:250px;">
-			            	<div class="card">
-			                	<div class="card-block">
+			            	<img class="card-img-top " src="/productImages/${product.image}" alt="product image" style="max-height:250px; align:bottom;">
+			            	<div class="card" style="height:150px; width:234px; position: absolute; bottom: 0;">
+			                	<div class="card-block" style="height:200px;">
 			                    	<h4 class="card-title"> ${ product.name } </h4>
 			                    	<h5>Price</h5>
 			                    	<p class="card-text">Price: ${product.price } </p>
