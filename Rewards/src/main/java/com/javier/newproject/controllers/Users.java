@@ -49,7 +49,7 @@ public class Users {
         if (result.hasErrors()) {
             return "login.jsp";
         }
-        if (userService.findRoleByName("ROLE_ADMIN").getUsers().size() == 0) {
+        if (userService.findRoleByName("ROLE_ADMIN").getUsers().size() <1) {
 	    	userService.saveUserWithAdminRole(user);
     	}
         else {
