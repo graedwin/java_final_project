@@ -125,7 +125,7 @@
 	</div>
 <!-- END OF SIDEBAR -->
 <!-- BODY -->
-<div class="col-sm-5">
+<div class="col-sm-3">
     <div class="row justify-content-md-center">
         <h3 style="padding-top: 30px;">Add a new recognition</h3>
             <form:form action="/rewards/add" method="post" modelAttribute="newReward" enctype="multipart/form-data">
