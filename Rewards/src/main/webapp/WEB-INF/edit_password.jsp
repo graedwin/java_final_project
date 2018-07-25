@@ -19,11 +19,7 @@
 <!-- NAV -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   	<!-- Brand -->
-<<<<<<< HEAD
-  	<a class="navbar-brand" href="/">Rewards and Recognition</a>
-=======
   	<a class="navbar-brand" href="/">Rewards and Recognitions</a>
->>>>>>> 48752341c2b074858cd4eb679f57f2faec78d4b6
   	<ul class="navbar-nav">
     	<!-- PROFILE -->
     	<li class="nav-item dropdown">
