@@ -16,24 +16,10 @@
 </head>
 <body>
 <!-- NAV -->
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
   	<!-- Brand -->
   	<a class="navbar-brand" href="/">Rewards and Recognitions</a>
-  	<ul class="navbar-nav">
-    	<!-- PROFILE -->
-    	<li class="nav-item dropdown">
-      		<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        		<c:out value = '${ currentUser.firstName }'/>
-      		</a>
-      		<div class="dropdown-menu">
-        		<a class="dropdown-item" href="/editPassword">Edit Password</a>
-        		<a class="dropdown-item" href="/users/${ currentUser.id }/profile">Profile</a>
-        		<form id="logoutForm" method="POST" action="/logout">
-	        		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-	        		<input class="dropdown-item" type="submit" value="Logout!" />
-	    		</form>
-			</div>
-		</li>
+  	<ul class="navbar-nav mr-auto">
 		<!-- TASKS -->
 		<c:choose>
    			<c:when test = "${currentUser.level == 3}">
@@ -94,6 +80,22 @@
 			</c:otherwise>
   		</c:choose>
   	</ul>
+  	<ul class="nav navbar-nav navbar-right">
+		<!-- PROFILE -->
+    	<li class="nav-item dropdown">
+      		<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        		<c:out value = '${ currentUser.firstName }'/>
+      		</a>
+      		<div class="dropdown-menu dropdown-menu-right">
+        		<a class="dropdown-item" href="/editPassword">Edit Password</a>
+        		<a class="dropdown-item" href="/users/${ currentUser.id }/profile">Profile</a>
+        		<form id="logoutForm" method="POST" action="/logout">
+	        		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	        		<input class="dropdown-item" type="submit" value="Logout!" />
+	    		</form>
+			</div>
+		</li>
+    </ul>
 </nav>
 <!-- END OF NAV -->
 <!-- SIDEBAR -->
