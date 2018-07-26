@@ -165,8 +165,16 @@
     		<div class="row">
     		<c:forEach items = "${ products.content }" var = "product">
     			<c:if test = "${product.stock>0}">
-	    			<div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="col-md-6 col-lg-4 col-xl-3 border" style="height:400px;" >
-	    				<div>
+	    			<div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="col-md-6 col-lg-4 col-xl-3 border" style="height:400px; width:250px" >
+	    				<div style="height:230px; width:200px; display:table-cell; vertical-align:middle; text-align:center;" >
+	    					<img class="card-img-centered img-fluid " src="/taskImages/${product.image}" alt="product image" style="max-height:200px; max-width:200px;">
+	    				</div>
+	    				<div class="card-body" style="height:150px; width:200px;">
+					        <h4 class="card-title">${ product.name } </h4>
+				        	<h6 class="card-text">Price: ${product.price }</h6>
+				        	<p class="card-text">Click for details</p>
+				      	</div>
+	    				<%-- <div>
 			            	<img class="card-img-top " src="/taskImages/${product.image}" alt="product image" style="max-height:250px; align:bottom;">
 			            	<div class="card" style="height:150px; width:234px; position: absolute; bottom: 0;">
 			                	<div class="card-block" style="height:200px;">
@@ -175,7 +183,7 @@
 			                    	<p class="card-text">Price: ${product.price } </p>
 			                	</div>
 			            	</div>
-		            	</div>
+		            	</div> --%>
 			        </div>
 		        </c:if>
 	        </c:forEach>

@@ -129,8 +129,8 @@
 <!-- END OF SIDEBAR -->
 <!-- BODY -->
 <div class="col-sm-5">
+  	<h3 style="padding-top: 30px;">Add a new product</h3>
 	<div class="row justify-content-md-center">
-  			<h3 style="padding-top: 30px;">Add a new product</h3>
 			<form:form action="/products/add" method="post" modelAttribute="new_Product" enctype="multipart/form-data">
 				<div class="form-group">
 				  	<form:label path="name" >Name</form:label>

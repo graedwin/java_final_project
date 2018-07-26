@@ -149,7 +149,7 @@
 <!-- BODY -->
 	<div class="container">
 		<div class="row justify-content-md-center">
-	  		<div class="col-3 text-center">
+	  		<div class="text-center">
 	  			<h1 style="padding-top: 30px;"><c:out value = '${ product.name }'/></h1>
 	  			<c:choose>
 		   			<c:when test = "${currentUser.level<3}">
@@ -167,7 +167,7 @@
 		   		</c:choose>
 		   		<img alt="product image" src="/taskImages/${product.image}" width="350px">
 				<h5>Description:</h5>
-				<p><c:out value = '${ product.description }'/></p>
+				<p class="text-center" style="width:600px;"><c:out value = '${ product.description }'/></p>
 				<h5>Price:</h5>
 				<p><c:out value = '${ product.price }'/></p>
 				<h5>Stock:</h5>
