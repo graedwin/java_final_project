@@ -163,7 +163,7 @@
 						<br>
 					</c:when>
 		   		</c:choose>
-		   		<img alt="product image" src="/productImages/${product.image}" width="350px">
+		   		<img alt="product image" src="/taskImages/${product.image}" width="350px">
 				<h5>Description:</h5>
 				<p><c:out value = '${ product.description }'/></p>
 				<h5>Price:</h5>

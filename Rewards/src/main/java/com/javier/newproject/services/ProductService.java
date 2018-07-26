@@ -47,7 +47,7 @@ public class ProductService {
 	//Helps to storage images
 
 	Logger log = LoggerFactory.getLogger(this.getClass().getName());
-	private final Path rootLocation = Paths.get(System.getProperty("user.dir")+"/src/main/resources/static/productImages");
+	private final Path rootLocation = Paths.get(System.getProperty("user.dir")+"/src/main/resources/static/taskImages");
 
 	public void store(MultipartFile file){
 		try {

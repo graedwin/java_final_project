@@ -165,7 +165,7 @@
     			<c:if test = "${product.stock>0}">
 	    			<div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="col-md-6 col-lg-4 col-xl-3 border" style="height:400px;" >
 	    				<div>
-			            	<img class="card-img-top " src="/productImages/${product.image}" alt="product image" style="max-height:250px; align:bottom;">
+			            	<img class="card-img-top " src="/taskImages/${product.image}" alt="product image" style="max-height:250px; align:bottom;">
 			            	<div class="card" style="height:150px; width:234px; position: absolute; bottom: 0;">
 			                	<div class="card-block" style="height:200px;">
 			                    	<h4 class="card-title"> ${ product.name } </h4>
