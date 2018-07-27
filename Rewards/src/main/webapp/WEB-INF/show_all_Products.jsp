@@ -122,19 +122,9 @@
 		    		</c:choose>
 			  	</div>
 			</div>
-			<ul class="nav flex-column">
-			</ul>
-		</div>
-	</div>
-<!-- END OF SIDEBAR -->
-<!-- BODY -->
-<div class="row">
-	<div class="col-sm-3">
-		<div class="container text-center">
-		<br>
-			<h2>Filters</h2>
-		  	<ul class="nav flex-column">
-		    	<li class="nav-item">
+			<ul class="nav flex-column" style="text-align:center; max-width: 18rem;">
+				<h2>Filters</h2>
+				<li class="nav-item">
 		      		<a class="nav-link" href="#">Order A to Z</a>
 		    	</li>
 		    	<li class="nav-item">
@@ -146,49 +136,42 @@
  		    	<li class="nav-item">
 		      		<a class="nav-link" href="#">Points Descending Order</a>
 		    	</li>
-		  	</ul>
+			</ul>
 		</div>
 	</div>
+<!-- END OF SIDEBAR -->
+<!-- BODY -->
+<div class="row">
   	<div class="col-sm-9">
 		<div class="container float-left text-center">
-		<br>
-		<h2>Products Available</h2>
-		<nav aria-label="Page navigation example" style="float:right;">
-		  <ul class="pagination">
-			<c:forEach var="i" begin="1" end="${totalPages }">
-           		<li class="page-item"><a class="page-link" href="/products/pages/${ i }"> ${ i } </a></li>
-        		</c:forEach>
-		  </ul>
-		</nav>
-		<br>
-		<div class="container">
-    		<div class="row">
-    		<c:forEach items = "${ products.content }" var = "product">
-    			<c:if test = "${product.stock>0}">
-	    			<div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="col-md-6 col-lg-4 col-xl-3 border" style="height:400px; width:250px" >
-	    				<div style="height:230px; width:200px; display:table-cell; vertical-align:middle; text-align:center;" >
-	    					<img class="card-img-centered img-fluid " src="/taskImages/${product.image}" alt="product image" style="max-height:200px; max-width:200px;">
-	    				</div>
-	    				<div class="card-body" style="height:150px; width:200px;">
-					        <h4 class="card-title">${ product.name } </h4>
-				        	<h6 class="card-text">Price: ${product.price }</h6>
-				        	<p class="card-text">Click for details</p>
-				      	</div>
-	    				<%-- <div>
-			            	<img class="card-img-top " src="/taskImages/${product.image}" alt="product image" style="max-height:250px; align:bottom;">
-			            	<div class="card" style="height:150px; width:234px; position: absolute; bottom: 0;">
-			                	<div class="card-block" style="height:200px;">
-			                    	<h4 class="card-title"> ${ product.name } </h4>
-			                    	<h5>Price</h5>
-			                    	<p class="card-text">Price: ${product.price } </p>
-			                	</div>
-			            	</div>
-		            	</div> --%>
-			        </div>
-		        </c:if>
-	        </c:forEach>
-    		</div>
-   		</div>
+			<br>
+			<h2>Products Available</h2>
+			<nav aria-label="Page navigation example" style="float:right;">
+			  <ul class="pagination">
+				<c:forEach var="i" begin="1" end="${totalPages }">
+	           		<li class="page-item"><a class="page-link" href="/products/pages/${ i }"> ${ i } </a></li>
+	        		</c:forEach>
+			  </ul>
+			</nav>
+			<br>
+		</div>
+	</div>
+<div class="container">
+    <div class="row">
+    	<c:forEach items = "${ products.content }" var = "product">
+			<c:if test = "${product.stock>0}">
+	        <div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="card mb-4"  style="height:400px; width:250px; margin:10px;">
+	        	<div class="card-img-top" style="height:250px; width:250px; vertical-align:middle; text-align:center;" >
+	            	<img class=" img-fluid" src="/taskImages/${product.image}" alt="product image" style="max-height:250px; max-width:250px;">
+	            </div>
+	            <div class="card-body-bottom"  style="height:150px; width:250px; text-align:center;">
+	                <h4 class="card-title">${ product.name } </h4>
+	                <p class="card-text">Price: ${product.price }</p>
+	                <p class="card-text"><small class="text-muted">Click for details</small></p>
+	            </div>
+	        </div>
+	        </c:if>
+        </c:forEach>
 	</div>
 </div>
 </body>
