@@ -156,23 +156,24 @@
 			<br>
 		</div>
 	</div>
-<div class="container">
-    <div class="row">
-    	<c:forEach items = "${ products.content }" var = "product">
-			<c:if test = "${product.stock>0}">
-	        <div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="card mb-4"  style="height:400px; width:250px; margin:10px;">
-	        	<div class="card-img-top" style="height:250px; width:250px; vertical-align:middle; text-align:center;" >
-	            	<img class=" img-fluid" src="/taskImages/${product.image}" alt="product image" style="max-height:250px; max-width:250px;">
-	            </div>
-	            <div class="card-body-bottom"  style="height:150px; width:250px; text-align:center;">
-	                <h4 class="card-title">${ product.name } </h4>
-	                <p class="card-text">Price: ${product.price }</p>
-	                <p class="card-text"><small class="text-muted">Click for details</small></p>
-	            </div>
-	        </div>
-	        </c:if>
-        </c:forEach>
+	<div class="container">
+	    <div class="row">
+	    	<c:forEach items = "${ products.content }" var = "product">
+				<c:if test = "${product.stock>0}">
+		        <div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="card mb-4"  style="height:400px; width:250px; margin:10px;">
+		        	<div class="card-img-top" style="height:250px; width:250px; vertical-align:middle; text-align:center;" >
+		            	<img class=" img-fluid" src="/taskImages/${product.image}" alt="product image" style="max-height:250px; max-width:250px;">
+		            </div>
+		            <div class="card-body-bottom"  style="height:150px; width:250px; text-align:center;">
+		                <h4 class="card-title">${ product.name } </h4>
+		                <p class="card-text">Price: ${product.price }</p>
+		                <p class="card-text"><small class="text-muted">Click for details</small></p>
+		            </div>
+		        </div>
+		        </c:if>
+	        </c:forEach>
+		</div>
 	</div>
-</div>
+	</div>
 </body>
 </html>
