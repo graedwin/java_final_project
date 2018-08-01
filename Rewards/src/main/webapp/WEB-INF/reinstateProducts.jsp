@@ -1,8 +1,7 @@
-	<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %> 
-        
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -117,22 +116,15 @@
 			    		<c:when test="${currentUser.level == 2}">
 			    			<p class="card-text" style="text-align:center;"><a href="/recognitions/history">Show Reward History</a></p>
 			    		</c:when>
+			    		<c:otherwise>
+			    			<p class="card-text" style="text-align:center;">Points Available: ${currentUser.points}</p>
+			    		</c:otherwise>
 		    		</c:choose>
 			  	</div>
 			</div>
-			<ul class="nav flex-column">
-			</ul>
-		</div>
-	</div>
-<!-- END OF SIDEBAR -->
-<!-- BODY -->
-<div class="row">
-	<div class="col-sm-3">
-		<div class="container text-center">
-		<br>
-			<h2>Filters</h2>
-		  	<ul class="nav flex-column">
-		    	<li class="nav-item">
+			<ul class="nav flex-column" style="text-align:center; max-width: 18rem;">
+				<h2>Filters</h2>
+				<li class="nav-item">
 		      		<a class="nav-link" href="#">Order A to Z</a>
 		    	</li>
 		    	<li class="nav-item">
@@ -144,34 +136,44 @@
  		    	<li class="nav-item">
 		      		<a class="nav-link" href="#">Points Descending Order</a>
 		    	</li>
-		  	</ul>
+			</ul>
 		</div>
 	</div>
+<!-- END OF SIDEBAR -->
+<!-- BODY -->
+
+<div class="row">
   	<div class="col-sm-9">
 		<div class="container float-left text-center">
-		<br>
-		<h2>Products Out of Stock</h2>
-		<br>
-		<div class="container">
-    		<div class="row">
-    		<c:forEach items = "${ all_Products }" var = "product">
-    			<c:if test = "${product.stock==0}">
-	    			<div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>/edit');" class="col-md-6 col-lg-4 col-xl-3 border"style="vertical-align: middle;">
-	    				<div>
-			            	<img class="card-img-top " src="/productImages/${product.image}" alt="product image" style="max-height:250px;">
-			            	<div class="card">
-			                	<div class="card-block">
-			                    	<h4 class="card-title"> ${ product.name } </h4>
-			                    	<h5>Price</h5>
-			                    	<p class="card-text">Price: ${product.price } </p>
-			                	</div>
-			            	</div>
-		            	</div>
-			        </div>
+			<br>
+			<h2>Products Out of Stock</h2>
+			<nav aria-label="Page navigation example" style="float:right;">
+			  <ul class="pagination">
+				<c:forEach var="i" begin="1" end="${totalPages }">
+	           		<li class="page-item"><a class="page-link" href="/products/reinstate/${ i }"> ${ i } </a></li>
+	        		</c:forEach>
+			  </ul>
+			</nav>
+			<br>
+		</div>
+	</div>
+	<div class="container">
+	    <div class="row">
+	    	<c:forEach items = "${ all_Products }" var = "product">
+				<c:if test = "${product.stock==0}">
+		        <div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="card mb-4"  style="height:400px; width:250px; margin:10px;">
+		        	<div class="card-img-top" style="height:250px; width:250px; vertical-align:middle; text-align:center;" >
+		            	<img class=" img-fluid" src="/taskImages/${product.image}" alt="product image" style="max-height:250px; max-width:250px;">
+		            </div>
+		            <div class="card-body-bottom"  style="height:150px; width:250px; text-align:center;">
+		                <h4 class="card-title">${ product.name } </h4>
+		                <p class="card-text">Price: ${product.price }</p>
+		                <p class="card-text"><small class="text-muted">Click to Reinstate</small></p>
+		            </div>
+		        </div>
 		        </c:if>
 	        </c:forEach>
-    		</div>
-   		</div>
+		</div>
 	</div>
 </div>
 </body>

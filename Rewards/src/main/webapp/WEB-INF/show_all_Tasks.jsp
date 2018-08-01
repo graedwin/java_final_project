@@ -121,7 +121,20 @@
 		    		</c:choose>
 			  	</div>
 			</div>
-			<ul class="nav flex-column">
+			<ul class="nav flex-column" style="text-align:center; max-width: 18rem;">
+				<h2>Filters</h2>
+				<li class="nav-item">
+		      		<a class="nav-link" href="#">Order A to Z</a>
+		    	</li>
+		    	<li class="nav-item">
+		      		<a class="nav-link" href="#">Order Z to A</a>
+		    	</li>
+		    	<li class="nav-item">
+		      		<a class="nav-link" href="#">Points Ascending Order</a>
+		    	</li>
+ 		    	<li class="nav-item">
+		      		<a class="nav-link" href="#">Points Descending Order</a>
+		    	</li>
 			</ul>
 		</div>
 	</div>
@@ -129,23 +142,6 @@
 <!--  BODY -->
 <br>
 <div class="row">
-	<div class="col-sm-3">
-		<div class="container">
-		  <h2>Filters</h2>
-		  <ul class="nav flex-column">
-		    <li class="nav-item">
-		      <a class="nav-link" href="#">All</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link" href="#">Level 3</a>
-		    </li>
-		    <li class="nav-item">
-		      <a class="nav-link" href="#">Level 4</a>
-		    </li>
-		  </ul>
-		</div>
-	</div>
-	
   	<div class="col-sm-9">
   		<div class="container table-tasks">
 		<h2 style="display:inline-block">Tasks Available</h2>

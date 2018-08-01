@@ -86,7 +86,7 @@ public class ProductService {
     
     @Autowired 
     ProductPaginationRepository paginationRepo;
-    private static final int PAGE_SIZE = 8;
+    private static final int PAGE_SIZE = 9;
     public Page<Product> productsPerPage(int pageNumber) {
         @SuppressWarnings("deprecation")
 		PageRequest pageRequest = new PageRequest(pageNumber, PAGE_SIZE, Sort.Direction.DESC, "price");
