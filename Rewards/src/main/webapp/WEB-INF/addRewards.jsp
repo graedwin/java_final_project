@@ -125,27 +125,29 @@
 			</ul>
 		</div>
 	</div>
+</div> 
 <!-- END OF SIDEBAR -->
 <!-- BODY -->
-<div class="col-sm-3">
+<div class="col-sm-5">
     <div class="row justify-content-md-center">
         <h3 style="padding-top: 30px;">Add a new recognition</h3>
-            <form:form action="/rewards/add" method="post" modelAttribute="newReward" enctype="multipart/form-data">
-                <div class="form-group">
-                        <form:label path="points" >Points</form:label>
-                        <form:input type="number" path="points" class="form-control" id="points"/>
-                        <form:errors path="points"/>
-                </div>
-                <div class="form-group">
-                        <form:label path="description">Description</form:label>
-                        <form:input type="text" path="description" class="form-control" id="description"/>
-                        <form:errors path="description"/>
-                        <br>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form:form>
-        </div>
-    </div>
-</div> 
+		<form:form action="/rewards/add" method="post" modelAttribute="newReward" enctype="multipart/form-data">
+			<div class="form-row">
+				<div class="col">
+						<form:label path="points" >Points</form:label>
+						<form:input type="number" path="points" class="form-control" id="points"/>
+						<form:errors path="points"/>
+				</div>
+				<div class="col-7">
+						<form:label path="description">Description</form:label>
+						<form:input type="text" path="description" class="form-control" id="description"/>
+						<form:errors path="description"/>
+						<br>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary" style="float:right">Submit</button>
+           </form:form>
+       </div>
+   </div>
 </body>
 </html>
