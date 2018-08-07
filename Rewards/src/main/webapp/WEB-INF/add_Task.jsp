@@ -127,38 +127,38 @@
 	</div>
 <!-- END OF SIDEBAR -->
 <!-- BODY -->
-<div class="col-sm-5">
-	<div class="row justify-content-md-center">
-  			<h3 style="padding-top: 30px;">Add a new Task</h3>
+	<div class="col-sm-5">
+		<div class="row justify-content-md-center">
 			<form:form action="/tasks/add" method="post" modelAttribute="new_Task" enctype="multipart/form-data"	>
+			<h3 style="padding-top: 30px;">Add a new Task</h3>
 				<div class="form-group">
-				  	<form:label path="name">Name</form:label>
-				  	<form:input type="text" path="name" class="form-control" id="email"/>
-				  	<form:errors path="name"/>
-				  	<br>
+					<form:label path="name">Name</form:label>
+					<form:input type="text" path="name" class="form-control" id="email"/>
+					<form:errors path="name"/>
+					<br>
 				</div>
 				<div class="form-group">
-				  	<form:label path="description">Description</form:label>
+					<form:label path="description">Description</form:label>
 					<form:textarea rows="7" cols="70" type="text" path="description" class="form-control" id="description"/>
-				  	<form:errors path="description"/>
-				  	<br>
+					<form:errors path="description"/>
+					<br>
 				</div>
 				<input type="file" class="form-control" name="file"/>
 				<div class="form-group">
-				 	<form:label path="taskReward">Reward:</form:label>
+					<form:label path="taskReward">Reward:</form:label>
 					<form:select path="taskReward" class="form-control" id="taskReward">
-				        <form:option value="1" label="10 - Easy Task"/>
-				        <form:option value="2" label="20 - Medium Task"/>
-				        <form:option value="3" label="30 - Hard Task"/>
-			        </form:select>
-				  	<form:errors path="taskReward"/>	
-				  	<br>				
+						<form:option value="1" label="10 - Easy Task"/>
+						<form:option value="2" label="20 - Medium Task"/>
+						<form:option value="3" label="30 - Hard Task"/>
+					</form:select>
+					<form:errors path="taskReward"/>	
+					<br>				
 				</div>
 				<div class="form-group">
-				 	<form:label path="dueDate">Due Date:</form:label>
+					<form:label path="dueDate">Due Date:</form:label>
 					<form:input path="dueDate" type="date" class="form-control" id="dueDate"/>
-				  	<form:errors path="dueDate"/>	
-			  		<br>			
+					<form:errors path="dueDate"/>	
+					<br>			
 				</div>
 				<button type="submit" class="btn btn-secondary">Create task</button>
 			</form:form>
