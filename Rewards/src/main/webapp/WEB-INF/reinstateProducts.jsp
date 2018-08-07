@@ -159,7 +159,7 @@
 	</div>
 	<div class="container">
 	    <div class="row">
-	    	<c:forEach items = "${ all_Products }" var = "product">
+	    	<c:forEach items = "${ products.content }" var = "product">
 				<c:if test = "${product.stock==0}">
 		        <div onclick="window.location.assign('/products/<c:out value = '${ product.id }'/>');" class="card mb-4"  style="height:400px; width:250px; margin:10px;">
 		        	<div class="card-img-top" style="height:250px; width:250px; vertical-align:middle; text-align:center;" >

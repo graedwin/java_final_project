@@ -143,9 +143,18 @@ public class Products {
     	String email = principal.getName();
         model.addAttribute("currentUser", userService.findByUsername(email));
     	model.addAttribute("all_Products", productService.allProducts());
-    	return "reinstateProducts.jsp";
+    	return "redirect:/products/reinstate/pages/1";
+    	/*return "reinstateProducts.jsp";*/
     }
     
+    @RequestMapping("/products/reinstate/pages/{id}")
+	public String reinstateProductsPages(Principal principal, Model model, @PathVariable(name="id") int pageNumber) {
+		model.addAttribute("currentUser", userService.findByUsername(principal.getName()));
+        Page<Product> products = productService.productsPerPage(pageNumber-1);
+        model.addAttribute("totalPages", products.getTotalPages());
+        model.addAttribute("products", products);
+        return "reinstateProducts.jsp";
+	}    
     
     @RequestMapping("/products/{id}/purchase")
     public String purchaseProduct(@PathVariable("id") Long id, Principal principal, Model model) {
